@@ -1,6 +1,6 @@
 # Undangan Pernikahan Digital
 
-Undangan pernikahan (baralek) berbasis website, satu file (`index.html`), gaya luxury elegant khas Minangkabau: warna marawa (hitam–merah–kuning emas), motif batik kaluak paku, songket pucuak rabuang, dan ilustrasi rumah gadang beranimasi.
+Undangan pernikahan berbasis website, satu file (`index.html`), gaya luxury elegant khas Minangkabau: warna marawa (hitam–merah–kuning emas), motif batik kaluak paku, songket pucuak rabuang, dan ilustrasi rumah gadang beranimasi.
 
 ## Fitur
 - Sampul rumah gadang: pintu ukir berayun terbuka, cahaya dari dalam, lalu kamera masuk melewati pintu; nama tamu lewat `index.html#Nama-Tamu`

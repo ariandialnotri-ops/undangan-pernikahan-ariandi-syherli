@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Undangan Baralek Rian &amp; Syherli</title>
+<title>Undangan Pernikahan Rian &amp; Syherli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Federo&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 /* ============ DATA YANG MUDAH DIGANTI ada di <script> paling bawah (const WEDDING) ============ */
 :root{
@@ -20,9 +20,9 @@
   --ivory:#f6efe0;
   --muted:#b9b09b;
   --line:rgba(201,167,92,.35);
-  --serif:'Cormorant Garamond', Georgia, serif;
-  --script:'Pinyon Script', cursive;
-  --sans:'Jost', system-ui, sans-serif;
+  --serif:'Philosopher', Georgia, serif;
+  --script:'Federo', 'Philosopher', serif;
+  --sans:'Philosopher', system-ui, sans-serif;
   --gold-grad:linear-gradient(115deg,var(--gold-lo) 0%,var(--gold) 22%,var(--gold-hi) 45%,var(--gold) 62%,var(--gold-lo) 100%);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -52,7 +52,7 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 .rg{width:100%;height:auto;overflow:visible}
 .rg .draw{stroke-dasharray:1400;stroke-dashoffset:1400}
 .started .hero .rg .draw,.cover .rg .draw,.rv.in .rg .draw{animation:draw 3.4s cubic-bezier(.6,.1,.2,1) forwards;animation-delay:calc(var(--k,0) * 45ms + .2s)}
-.hero .rg{width:100%;margin:0 auto 14px;display:block;filter:drop-shadow(0 14px 24px rgba(0,0,0,.5))}
+.hero .rg{width:100%;margin:0 auto 14px;display:block}
 .rg .fillin{fill-opacity:0}
 .started .hero .rg .fillin,.rv.in .rg .fillin{animation:fillIn 1.6s ease forwards;animation-delay:1.9s}
 @keyframes fillIn{to{fill-opacity:1}}
@@ -62,14 +62,15 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 .pepatah{margin-top:34px;font-family:var(--sans);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi)}
 .pepatah small{display:block;margin-top:8px;font-family:var(--serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:1.02rem;color:var(--muted)}
 .closing .rg{width:min(480px,96%);margin:0 auto 10px;display:block}
-.person .portrait .ini{background:var(--batik) center/120px;background-blend-mode:overlay}
+.person .portrait::before{content:"";position:absolute;inset:0;background:var(--batik) center/90px;opacity:.22}
+.hero .eyebrow{font-size:1.25rem;letter-spacing:.04em;text-transform:none;color:var(--gold-hi);margin-bottom:2px}
 #sparkle{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
 .gold-text{background:var(--gold-grad);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite}
 @keyframes shimmer{to{background-position:-220% 0}}
 
 .eyebrow{font-family:var(--sans);font-weight:400;font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
-.script{font-family:var(--script);font-weight:400;line-height:1.1}
+.script{font-family:var(--script);font-weight:400;line-height:1.08;letter-spacing:.01em}
 .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto;color:var(--gold)}
 .divider::before,.divider::after{content:"";height:1px;width:70px;background:linear-gradient(90deg,transparent,var(--gold))}
 .divider::after{transform:scaleX(-1)}
@@ -80,14 +81,14 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
   background:radial-gradient(70% 45% at 50% 78%,rgba(201,120,40,.18),transparent 70%),linear-gradient(180deg,#0d0404 0%,#2a0709 55%,#14050a 100%)}
 .cover::before{content:"";position:absolute;inset:0;background-image:var(--batik);background-size:150px;opacity:.06}
 .stage{position:absolute;inset:0;will-change:transform;transition:transform 2.8s cubic-bezier(.66,0,.22,1)}
-.house{position:absolute;left:50%;bottom:3.5vh;transform:translateX(-50%);width:min(700px,104vw,calc(40vh * 1.83));aspect-ratio:560/306;
+.house{position:absolute;left:50%;bottom:3.5vh;transform:translateX(-50%);width:min(700px,104vw,calc(40vh * 1.83));aspect-ratio:560/310;
   animation:houseIn 2.4s cubic-bezier(.2,.7,.2,1) both}
 @keyframes houseIn{from{opacity:0;transform:translate(-50%,24px)}}
 #facade,#facade svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .win{animation:flicker 4s ease-in-out infinite}
 .win:nth-of-type(2n){animation-delay:-1.7s}
 @keyframes flicker{0%,100%{opacity:.55}45%{opacity:.85}60%{opacity:.7}}
-.doorway{position:absolute;left:46.43%;top:67.97%;width:7.143%;height:20.26%;perspective:300px}
+.doorway{position:absolute;left:46.43%;top:68.39%;width:7.143%;height:20%;perspective:300px}
 .doorway .inside{position:absolute;inset:0;background:radial-gradient(70% 55% at 50% 58%,#fff7e2 0%,#f6d48a 40%,#c47f27 100%);
   transition:box-shadow 2.4s ease}
 .doorway::after{content:"";position:absolute;left:50%;top:3%;bottom:3%;width:2px;margin-left:-1px;z-index:3;background:#ffeab6;
@@ -106,7 +107,7 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 .cover-inner{position:absolute;left:0;right:0;top:0;z-index:2;padding:calc(34px + env(safe-area-inset-top)) 24px 0;
   transition:opacity 1s ease,transform 1.2s cubic-bezier(.5,0,.2,1),filter 1s ease}
 .cover .seal{width:92px;height:92px}
-.cover .seal .mono{font-size:2.1rem}
+.cover .seal .mono{font-size:1.45rem}
 /* buka pintu */
 .cover.opening .cover-inner{opacity:0;transform:translateY(-30px);filter:blur(6px);pointer-events:none}
 .cover.opening .marawa{opacity:0;transition:opacity .8s}
@@ -118,8 +119,8 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 .cover.fade{opacity:0}
 .cover.gone{display:none}
 @media (max-height:740px){.cover .seal,.guest .note{display:none}.guest{margin:18px auto}}
-.cover .names{font-size:clamp(3rem,11.5vw,6.2rem);margin:14px 0 4px}
-.cover .amp{font-size:.55em;display:inline-block;margin:0 .1em;color:var(--gold-hi)}
+.cover .names{font-size:clamp(2.1rem,10vw,4.6rem);margin:12px 0 4px;white-space:nowrap}
+.cover .amp{font-size:.8em;display:inline-block;margin:0 .1em;color:var(--gold-hi)}
 .guest{margin:22px auto 22px;max-width:340px}
 .guest small{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;color:var(--muted)}
 .guest .to{font-size:1.65rem;font-weight:500;margin-top:6px;color:var(--ivory)}
@@ -127,7 +128,7 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 
 .seal{width:118px;height:118px;margin:0 auto 6px;position:relative}
 .seal .ring{position:absolute;inset:0;animation:spin 26s linear infinite}
-.seal .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:2.6rem;color:var(--gold-hi)}
+.seal .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:1.8rem;color:var(--gold-hi)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .btn{font-family:var(--sans);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
@@ -147,7 +148,7 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
 main{position:relative}
 section{position:relative;padding:110px 24px;text-align:center}
 .wrap{max-width:980px;margin:0 auto}
-h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.4rem);line-height:1.15;margin-top:10px}
+h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2rem,6.4vw,3.2rem);line-height:1.15;margin-top:10px}
 .lead{font-size:1.18rem;font-weight:300;color:#e7dfcc;max-width:620px;margin:0 auto}
 
 /* reveal on scroll */
@@ -164,9 +165,9 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 .started .arch .frame path{animation:draw 3.2s cubic-bezier(.6,.1,.2,1) forwards}
 .started .arch .frame path:nth-child(2){animation-delay:.35s}
 @keyframes draw{to{stroke-dashoffset:0}}
-.hero .names{font-size:clamp(3.6rem,15vw,6.6rem);line-height:.95}
+.hero .names{font-size:clamp(2.7rem,12vw,5rem);line-height:1}
 .hero .names span{display:block}
-.hero .amp{font-family:var(--serif);font-style:italic;font-size:2rem;color:var(--gold);margin:6px 0}
+.hero .amp{font-family:var(--script);font-size:1.7rem;color:var(--gold);margin:6px 0}
 .hero .date{font-family:var(--sans);letter-spacing:.38em;font-size:.82rem;margin-top:22px;color:var(--ivory)}
 .mandala{position:absolute;width:880px;height:880px;left:50%;top:50%;margin:-440px 0 0 -440px;opacity:.13;animation:spin 140s linear infinite;pointer-events:none}
 .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:var(--sans);font-size:.65rem;letter-spacing:.35em;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -183,20 +184,20 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 .person .portrait{width:min(240px,62vw);aspect-ratio:3/4;margin:0 auto 24px;position:relative;border-radius:200px 200px 14px 14px;overflow:hidden;
   background:radial-gradient(120% 80% at 50% 0%,#6b1419,#1a0507 70%);border:1px solid var(--line);box-shadow:0 30px 60px -30px #000, inset 0 0 0 8px rgba(11,15,13,.55), inset 0 0 0 9px var(--line)}
 .person .portrait img{width:100%;height:100%;object-fit:cover}
-.person .portrait .ini{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:6rem;color:var(--gold-hi);opacity:.9}
+.person .portrait .ini{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:4.4rem;color:var(--gold-hi);opacity:.9}
 .person .portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(243,223,166,.22) 48%,transparent 62%);transform:translateX(-120%);animation:sheen 6s ease-in-out infinite}
 @keyframes sheen{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
-.person h3{font-family:var(--script);font-weight:400;font-size:3rem;line-height:1.1}
+.person h3{font-family:var(--script);font-weight:400;font-size:2.3rem;line-height:1.1}
 .person .full{font-size:1.25rem;font-weight:500;letter-spacing:.04em;margin-top:6px}
 .person .parent{font-size:1rem;color:var(--muted);font-style:italic;margin-top:8px}
 .person .ig{display:inline-flex;gap:8px;align-items:center;margin-top:14px;font-family:var(--sans);font-size:.75rem;letter-spacing:.15em;color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
 .person .ig:hover{border-color:var(--gold)}
-.and{font-family:var(--script);font-size:5rem;color:var(--gold)}
+.and{font-family:var(--script);font-size:3.4rem;color:var(--gold)}
 
 /* ============ COUNTDOWN ============ */
 .count{display:flex;justify-content:center;gap:clamp(10px,3vw,26px);margin:44px 0 36px;flex-wrap:wrap}
 .cbox{width:clamp(74px,19vw,120px);padding:20px 6px 16px;border:1px solid var(--line);border-radius:999px 999px 18px 18px;background:linear-gradient(180deg,rgba(201,167,92,.10),rgba(201,167,92,.02));backdrop-filter:blur(4px)}
-.cbox b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(2rem,6vw,3rem);line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.cbox b{display:block;font-family:var(--script);font-weight:400;font-size:clamp(2rem,6vw,3rem);line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums}
 .cbox b.tick{animation:tick .6s ease}
 @keyframes tick{0%{transform:translateY(-8px);opacity:.2}100%{transform:none;opacity:1}}
 .cbox span{font-family:var(--sans);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
@@ -207,9 +208,9 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
   background:linear-gradient(180deg,rgba(84,14,18,.75),rgba(22,5,6,.85));
   border:1px solid var(--line);box-shadow:0 40px 80px -40px #000,inset 0 1px 0 rgba(243,223,166,.15);overflow:hidden}
 .card::before{content:"";position:absolute;inset:10px;border-radius:212px 212px 16px 16px;border:1px solid rgba(201,167,92,.18);pointer-events:none}
-.card h3{font-family:var(--script);font-weight:400;font-size:2.8rem}
+.card h3{font-family:var(--script);font-weight:400;font-size:2.1rem}
 .card .day{font-family:var(--sans);letter-spacing:.3em;font-size:.75rem;color:var(--gold);margin-top:8px}
-.card .bigdate{font-size:4rem;font-weight:300;line-height:1;margin:10px 0 2px;color:var(--ivory)}
+.card .bigdate{font-family:var(--script);font-size:3.6rem;font-weight:400;line-height:1;margin:10px 0 2px;color:var(--ivory)}
 .card .month{font-size:1.1rem;letter-spacing:.2em;text-transform:uppercase}
 .card .time{margin:18px 0;font-size:1.15rem}
 .card .place{font-weight:600;font-size:1.2rem}
@@ -284,7 +285,7 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 
 /* ============ PENUTUP ============ */
 .closing{padding-bottom:140px}
-.closing .names{font-size:clamp(3.2rem,11vw,5.4rem);margin-top:14px}
+.closing .names{font-size:clamp(2.1rem,9.5vw,4.2rem);margin-top:14px}
 footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-size:.65rem;letter-spacing:.25em;color:rgba(185,176,155,.6);border-top:1px solid rgba(201,167,92,.12)}
 
 /* ============ NAV MENGAMBANG ============ */
@@ -352,7 +353,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
           <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a2b"/><stop offset=".5" stop-color="#f3dfa6"/><stop offset="1" stop-color="#8a6a2b"/></linearGradient></defs>
         <circle cx="60" cy="60" r="57" fill="none" stroke="url(#g1)" stroke-width=".8"/>
         <circle cx="60" cy="60" r="36" fill="none" stroke="url(#g1)" stroke-width=".6"/>
-        <text font-family="Jost" font-size="7.4" letter-spacing="3.2" fill="#c9a75c"><textPath href="#circ" id="sealText">BARALEK GADANG · BARALEK GADANG · </textPath></text>
+        <text font-family="Philosopher" font-size="7.4" letter-spacing="3.2" fill="#c9a75c"><textPath href="#circ" id="sealText">THE WEDDING OF · THE WEDDING OF · </textPath></text>
       </svg>
       <div class="mono" id="sealMono">R&amp;S</div>
     </div>
@@ -383,7 +384,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
         </svg>
         <div>
           <div data-rg class="rv"></div>
-          <p class="eyebrow rv" style="--d:.15s">Baralek Gadang</p>
+          <p class="eyebrow rv" style="--d:.15s">The Wedding of</p>
           <h1 class="names script gold-text rv" style="--d:.25s"><span data-k="groomNick">Rian</span><span class="amp">&amp;</span><span data-k="brideNick">Syherli</span></h1>
           <div class="divider rv" style="--d:.5s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.6 2.4 7.6L12 17.2l-6.2 4.6 2.4-7.6L2 9.6h7.6z" opacity=".9"/></svg></div>
           <p class="date rv" style="--d:.7s" id="heroDate">12 · 12 · 2026</p>
@@ -577,51 +578,62 @@ const GONJONG = [ // [kiri, kanan, ujungX, ujungY, dasarY] — urutan gambar: lu
   [18,132,34,20,128],[428,542,526,20,128],[72,188,112,30,136],[372,488,448,30,136],
   [150,246,198,46,144],[314,410,362,46,144],[214,346,280,6,150]];
 const horn = (L,R,tx,ty,yb) => `M${L} ${yb} Q${(tx-.12*(tx-L)).toFixed(1)} ${(yb-.25*(yb-ty)).toFixed(1)} ${tx} ${ty} Q${(tx+.12*(R-tx)).toFixed(1)} ${(yb-.25*(yb-ty)).toFixed(1)} ${R} ${yb} Z`;
+let RG_ID = 0;
 function rumahGadang(mode='line'){
-  const F = mode==='fill'; let k=0;
-  const g = 'url(#rgGold)';
-  const P = (d, fill='none', o='') => F
-    ? `<path d="${d}" fill="${fill}" stroke="${g}" ${o}/>`
-    : `<path class="draw${fill!=='none'?' fillin':''}" style="--k:${k++}" d="${d}" fill="${fill}" stroke="${g}" ${o}/>`;
-  const C = (light, dark) => F ? light : dark;          // warna isian per mode
-  let out = '';
-  // badan atas (di belakang atap)
-  out += P('M30 126 H530 L522 206 H38 Z', C('url(#wallG)','#2a0709'), 'stroke-width="1.4"');
+  const F = mode==='fill', uid = ++RG_ID; let k=0;
+  const g = 'url(#rgGold)', items = [], occ = [];
+  // d = path, depth = lapisan (lebih besar = lebih depan), fill = isian mode warna
+  const P = (d, depth, fill='none', o='', blocks=false) => { items.push({d,depth,fill,o}); if (blocks) occ.push({d,depth}); };
+  P('M30 126 H530 L522 206 H38 Z', 0, 'url(#wallG)', 'stroke-width="1.4"');
   let win=''; for(let x=48;x<=500;x+=26){ if(x>226&&x<322) continue; win+=`M${x} 160 h14 v30 h-14 Z `; }
-  out += P(win, C('url(#winG)','#3a0c10'), `stroke-width="1" ${F?'class="win"':''}`);
+  P(win, 0, 'url(#winG)', `stroke-width="1" ${F?'class="win"':''}`);
   let rail=''; for(let x=42;x<=518;x+=6){ if(x>238&&x<322) continue; rail+=`M${x} 194 V206 `; }
-  out += P(rail+'M38 194 H522', 'none', 'stroke-width=".6" opacity=".7"');
-  // balok tengah berukir
-  out += P('M38 206 H522 L524 220 H36 Z', C('#6b1419','#3a0a0d'), 'stroke-width="1.2"');
-  if (F) out += `<rect x="40" y="208" width="480" height="10" fill="url(#ukir)" opacity=".8"/>`;
-  // kolong berlengkung
-  out += P('M36 220 H524 L534 284 H26 Z', C('#2a0609','#1c0507'), 'stroke-width="1.4"');
+  P(rail+'M38 194 H522', 0, 'none', 'stroke-width=".6" opacity=".7"');
+  P('M38 206 H522 L524 220 H36 Z', 0, '#6b1419', 'stroke-width="1.2"');
+  if (!F){ let z='M40 218'; for(let x=40;x<520;x+=10) z+=` L${x+5} 209 L${x+10} 218`; P(z, 0, 'none', 'stroke-width=".7" opacity=".7"'); }
+  P('M36 220 H524 L534 284 H26 Z', 0, '#2a0609', 'stroke-width="1.4"');
   let arch=''; for(let x=40;x<=488;x+=42){ if(x>214&&x<314) continue; arch+=`M${x} 284 V246 Q${x+16} 230 ${x+32} 246 V284 Z `; }
-  out += P(arch, C('#0d0303','#120304'), 'stroke-width="1"');
-  // atap: tujuh gonjong
+  P(arch, 0, '#0d0303', 'stroke-width="1"');
   GONJONG.forEach(([L,R,tx,ty,yb],i)=>{
-    const center = i===6;
-    out += P(horn(L,R,tx,ty,yb), C('url(#roofG)','#1c0608'), 'stroke-width="1.8" stroke-linejoin="round"');
-    const L2=L+.22*(tx-L), R2=R-.22*(R-tx), y2=yb-10;
-    out += P(horn(L2,R2,tx,ty+10,y2), C(center?'url(#roofRed)':'url(#roofHi)', center?'#5a1015':'#3a0a0d'), 'stroke-width=".8" opacity=".9"');
-    out += P(`M${tx} ${ty} v-7`, 'none', 'stroke-width="1.6" stroke-linecap="round"');
-    if (F) out += `<circle cx="${tx}" cy="${ty-8}" r="1.8" fill="#f3dfa6"/>`;
+    const center = i===6, d = 1+i;
+    P(horn(L,R,tx,ty,yb), d, 'url(#roofG)', 'stroke-width="1.8" stroke-linejoin="round"', true);
+    P(horn(L+.22*(tx-L), R-.22*(R-tx), tx, ty+10, yb-10), d, center?'url(#roofRed)':'url(#roofHi)', `stroke-width="${F?.8:.9}" opacity="${F?.9:.6}"`);
+    if (!F) P(horn(L+.4*(tx-L), R-.4*(R-tx), tx, ty+22, yb-20), d, 'none', 'stroke-width=".7" opacity=".35"');
+    P(`M${tx} ${ty} v-7`, d, 'none', 'stroke-width="1.6" stroke-linecap="round"');
   });
-  // serambi depan dengan gonjong kecil
-  out += P('M244 178 H316 V262 H244 Z', C('url(#wallG)','#2a0709'), 'stroke-width="1.4"');
-  out += P(horn(232,328,280,112,180), C('url(#roofRed)','#4a0d12'), 'stroke-width="1.6" stroke-linejoin="round"');
-  out += P(horn(248,312,280,126,172), 'none', 'stroke-width=".8" opacity=".8"');
-  out += P('M280 112 v-7', 'none', 'stroke-width="1.6" stroke-linecap="round"');
-  out += P('M256 262 V198 Q280 182 304 198 V262', C('#1a0405','#140405'), 'stroke-width="1.6"');
-  out += P('M264 262 L252 294 M296 262 L308 294 M260 272 H300 M257 280 H303 M254 288 H306', 'none', 'stroke-width="1.3" stroke-linecap="round"');
-  out += P('M0 295 H560', 'none', 'opacity=".35"');
-  const defs = '';
-  return `<svg class="${F?'facade':'rg'}" viewBox="0 -8 560 306" stroke-linejoin="round" aria-hidden="true">${defs}${out}</svg>`;
+  P('M244 178 H316 V262 H244 Z', 8, 'url(#wallG)', 'stroke-width="1.4"', true);
+  P(horn(232,328,280,112,180), 9, 'url(#roofRed)', 'stroke-width="1.6" stroke-linejoin="round"', true);
+  P(horn(248,312,280,126,172), 9, 'none', 'stroke-width=".8" opacity=".8"');
+  P('M280 112 v-7', 9, 'none', 'stroke-width="1.6" stroke-linecap="round"');
+  P('M256 262 V198 Q280 182 304 198 V262', 10, '#1a0405', 'stroke-width="1.6"');
+  if (!F) P('M268 262 V206 M292 262 V206 M280 196 V262', 10, 'none', 'stroke-width=".7" opacity=".6"');
+  P('M264 262 L252 294 M296 262 L308 294 M260 272 H300 M257 280 H303 M254 288 H306', 10, 'none', 'stroke-width="1.3" stroke-linecap="round"');
+  P('M0 295 H560', 0, 'none', 'opacity=".35"');
+  let defs = '', out = '';
+  if (F) {
+    out = items.map(e=>`<path d="${e.d}" fill="${e.fill}" stroke="${g}" ${e.o}/>`).join('');
+    GONJONG.forEach(([,,tx,ty])=> out += `<circle cx="${tx}" cy="${ty-8}" r="1.8" fill="#f3dfa6"/>`);
+  } else {
+    // mask per lapisan: sembunyikan garis di belakang bentuk yang lebih depan
+    const depths = [...new Set(items.map(e=>e.depth))];
+    defs = '<defs>' + depths.map(d=>{
+      const front = occ.filter(o=>o.depth>d); if(!front.length) return '';
+      return `<mask id="rgm${uid}_${d}" maskUnits="userSpaceOnUse" x="-20" y="-30" width="600" height="340"><rect x="-20" y="-30" width="600" height="340" fill="#fff"/>${front.map(o=>`<path d="${o.d}" fill="#000"/>`).join('')}</mask>`;
+    }).join('') + '</defs>';
+    out = items.map(e=>{
+      const m = occ.some(o=>o.depth>e.depth) ? `mask="url(#rgm${uid}_${e.depth})"` : '';
+      return `<g ${m}><path class="draw" style="--k:${k++}" d="${e.d}" fill="none" stroke="${g}" ${e.o}/></g>`;
+    }).join('');
+    GONJONG.forEach(([,,tx,ty])=> out += `<circle cx="${tx}" cy="${ty-8}" r="1.6" fill="#f3dfa6"/>`);
+    out += `<circle cx="280" cy="${112-8}" r="1.4" fill="#f3dfa6"/>`;
+  }
+  return `<svg class="${F?'facade':'rg'}" viewBox="0 -12 560 310" stroke-linejoin="round" aria-hidden="true">${defs}${out}</svg>`;
 }
 const ROOF = `<svg class="roof" viewBox="0 -10 560 165" aria-hidden="true">${GONJONG.map(([L,R,tx,ty,yb])=>
   `<path d="${horn(L,R,tx,ty,yb)}" fill="#2a0709" stroke="url(#rgGold)" stroke-width="5" stroke-linejoin="round"/>`).join('')}</svg>`;
 document.getElementById('facade').innerHTML = rumahGadang('fill');
-document.querySelectorAll('[data-rg]').forEach(el=>el.innerHTML = rumahGadang('fill').replace('class="facade"','class="rg"'));
+document.querySelectorAll('.hero [data-rg]').forEach(el=>el.innerHTML = rumahGadang('line'));
+document.querySelectorAll('.closing [data-rg]').forEach(el=>el.innerHTML = rumahGadang('fill').replace('class="facade"','class="rg"'));
 
 /* ===================== util ===================== */
 const $ = s => document.querySelector(s);
@@ -639,7 +651,7 @@ document.querySelectorAll('[data-k=brideNick]').forEach(e=>e.textContent=B.nick)
 $('#coverNames').innerHTML = `${esc(G.nick)} <span class="amp">&amp;</span> ${esc(B.nick)}`;
 $('#closeNames').textContent = `${G.nick} & ${B.nick}`;
 $('#sealMono').textContent = `${G.nick[0]}&${B.nick[0]}`;
-document.title = `Undangan Baralek ${G.nick} & ${B.nick}`;
+document.title = `Undangan Pernikahan ${G.nick} & ${B.nick}`;
 const D0 = wib(WEDDING.date);
 $('#heroDate').textContent = `${String(D0.d).padStart(2,'0')} · ${String(D0.m+1).padStart(2,'0')} · ${D0.y}`;
 $('#footYear').textContent = `${G.nick.toUpperCase()} & ${B.nick.toUpperCase()} · ${D0.y}`;
