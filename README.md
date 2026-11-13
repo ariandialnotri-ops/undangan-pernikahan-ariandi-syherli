@@ -10,6 +10,8 @@ Undangan pernikahan berbasis website, satu file (`index.html`), gaya luxury eleg
 - Kisah kami (timeline), galeri foto
 - RSVP & ucapan dikirim ke WhatsApp
 - Amplop digital dengan tombol salin nomor rekening
+- Tombol gulir bercerita: membawa tamu bab demi bab (dengan cincin progres & nama bab berikutnya); navbar muncul setelah cerita selesai
+- Konten memudar turun saat digulir ke atas (motion terbalik)
 - Menghormati `prefers-reduced-motion`
 
 ## Mengubah isi
