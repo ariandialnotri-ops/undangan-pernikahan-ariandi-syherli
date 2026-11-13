@@ -51,14 +51,17 @@ body.locked{overflow:hidden;height:100vh}
 section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(280px,72%);margin:0 auto 26px;background:var(--songket) repeat-x center/24px 16px;opacity:.85}
 .rg{width:100%;height:auto;overflow:visible}
 .rg .draw{stroke-dasharray:1400;stroke-dashoffset:1400}
-.started .hero .rg .draw,.cover .rg .draw,.rv.in .rg .draw{animation:draw 3.4s cubic-bezier(.6,.1,.2,1) forwards;animation-delay:calc(var(--k,0) * 60ms + .2s)}
-.hero .rg{width:86%;margin:0 auto 6px;display:block}
+.started .hero .rg .draw,.cover .rg .draw,.rv.in .rg .draw{animation:draw 3.4s cubic-bezier(.6,.1,.2,1) forwards;animation-delay:calc(var(--k,0) * 45ms + .2s)}
+.hero .rg{width:100%;margin:0 auto 14px;display:block;filter:drop-shadow(0 14px 24px rgba(0,0,0,.5))}
+.rg .fillin{fill-opacity:0}
+.started .hero .rg .fillin,.rv.in .rg .fillin{animation:fillIn 1.6s ease forwards;animation-delay:1.9s}
+@keyframes fillIn{to{fill-opacity:1}}
 .cover .marawa{position:absolute;left:0;right:0;z-index:3}
 .cover .marawa.t{top:0}.cover .marawa.b{bottom:0}
-.card .roof{width:120px;margin:0 auto 4px;display:block}
+.card .roof{width:150px;margin:0 auto 6px;display:block}
 .pepatah{margin-top:34px;font-family:var(--sans);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi)}
 .pepatah small{display:block;margin-top:8px;font-family:var(--serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:1.02rem;color:var(--muted)}
-.closing .rg{width:min(420px,90%);margin:0 auto 10px;display:block}
+.closing .rg{width:min(480px,96%);margin:0 auto 10px;display:block}
 .person .portrait .ini{background:var(--batik) center/120px;background-blend-mode:overlay}
 #sparkle{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
@@ -77,27 +80,27 @@ section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(
   background:radial-gradient(70% 45% at 50% 78%,rgba(201,120,40,.18),transparent 70%),linear-gradient(180deg,#0d0404 0%,#2a0709 55%,#14050a 100%)}
 .cover::before{content:"";position:absolute;inset:0;background-image:var(--batik);background-size:150px;opacity:.06}
 .stage{position:absolute;inset:0;will-change:transform;transition:transform 2.8s cubic-bezier(.66,0,.22,1)}
-.house{position:absolute;left:50%;bottom:3.5vh;transform:translateX(-50%);width:min(560px,100vw,calc(42vh * 1.333));aspect-ratio:4/3;
+.house{position:absolute;left:50%;bottom:3.5vh;transform:translateX(-50%);width:min(700px,104vw,calc(40vh * 1.83));aspect-ratio:560/306;
   animation:houseIn 2.4s cubic-bezier(.2,.7,.2,1) both}
 @keyframes houseIn{from{opacity:0;transform:translate(-50%,24px)}}
-.house .facade{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.facade .win{animation:flicker 4s ease-in-out infinite}
-.facade .win:nth-of-type(2n){animation-delay:-1.7s}
+#facade,#facade svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.win{animation:flicker 4s ease-in-out infinite}
+.win:nth-of-type(2n){animation-delay:-1.7s}
 @keyframes flicker{0%,100%{opacity:.55}45%{opacity:.85}60%{opacity:.7}}
-.doorway{position:absolute;left:43%;top:52%;width:14%;height:32%;perspective:420px}
+.doorway{position:absolute;left:46.43%;top:67.97%;width:7.143%;height:20.26%;perspective:300px}
 .doorway .inside{position:absolute;inset:0;background:radial-gradient(70% 55% at 50% 58%,#fff7e2 0%,#f6d48a 40%,#c47f27 100%);
   transition:box-shadow 2.4s ease}
 .doorway::after{content:"";position:absolute;left:50%;top:3%;bottom:3%;width:2px;margin-left:-1px;z-index:3;background:#ffeab6;
   box-shadow:0 0 10px 3px rgba(255,210,130,.75);animation:seam 3.2s ease-in-out infinite;transition:opacity .6s}
 @keyframes seam{0%,100%{opacity:.55}50%{opacity:1}}
 .leaf{position:absolute;top:0;bottom:0;width:50%;z-index:2;transform-style:preserve-3d;
-  background:var(--batik) center/46px,linear-gradient(180deg,#6b1419,#2a0507);
+  background:var(--batik) center/30px,linear-gradient(180deg,#6b1419,#2a0507);
   border:1px solid #c9a75c;box-shadow:inset 0 0 0 3px rgba(0,0,0,.35),inset 0 0 0 4px rgba(201,167,92,.55),inset 0 0 18px rgba(0,0,0,.55);
   transition:transform 2.3s cubic-bezier(.55,.05,.18,1) .35s,filter 2.3s ease .35s}
 .leaf.l{left:0;transform-origin:left center}
 .leaf.r{right:0;transform-origin:right center}
-.leaf i{position:absolute;top:52%;width:5px;height:5px;border-radius:50%;background:radial-gradient(#fff3cc,#b8913f);box-shadow:0 0 4px rgba(255,220,150,.8)}
-.leaf.l i{right:5px}.leaf.r i{left:5px}
+.leaf i{position:absolute;top:52%;width:4px;height:4px;border-radius:50%;background:radial-gradient(#fff3cc,#b8913f);box-shadow:0 0 4px rgba(255,220,150,.8)}
+.leaf.l i{right:3px}.leaf.r i{left:3px}
 .spill{position:absolute;left:-60%;top:100%;width:220%;height:45%;opacity:0;pointer-events:none;
   clip-path:polygon(36% 0,64% 0,100% 100%,0 100%);background:linear-gradient(rgba(255,214,140,.55),transparent);transition:opacity 2s ease .6s}
 .cover-inner{position:absolute;left:0;right:0;top:0;z-index:2;padding:calc(34px + env(safe-area-inset-top)) 24px 0;
@@ -319,6 +322,12 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
 <body class="locked">
 <div class="bg"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a1015"/><stop offset="1" stop-color="#2a060a"/></linearGradient>
+    <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0b0c"/><stop offset="1" stop-color="#0e0405"/></linearGradient>
+    <linearGradient id="roofHi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a1410"/><stop offset="1" stop-color="#7a2a12"/></linearGradient>
+    <linearGradient id="roofRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a0d14"/><stop offset="1" stop-color="#c0262c"/></linearGradient>
+    <radialGradient id="winG"><stop offset="0" stop-color="#ffe2a0"/><stop offset="1" stop-color="#a9621c"/></radialGradient>
+    <pattern id="ukir" width="12" height="10" patternUnits="userSpaceOnUse"><path d="M0 10 L6 1 L12 10 M3 10 L6 5 L9 10" fill="none" stroke="#c9a75c" stroke-width=".8"/></pattern>
   <linearGradient id="rgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a2b"/><stop offset=".45" stop-color="#f3dfa6"/><stop offset="1" stop-color="#b8913f"/></linearGradient>
 </defs></svg>
 <canvas id="sparkle"></canvas>
@@ -328,38 +337,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
   <div class="marawa t"></div><div class="marawa b"></div>
   <div class="stage" id="stage">
     <div class="house">
-      <svg class="facade" viewBox="0 0 400 300" aria-hidden="true">
-        <defs>
-          <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a1015"/><stop offset="1" stop-color="#26060a"/></linearGradient>
-          <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22090b"/><stop offset="1" stop-color="#0e0405"/></linearGradient>
-          <radialGradient id="winG"><stop offset="0" stop-color="#ffe2a0"/><stop offset="1" stop-color="#a9621c"/></radialGradient>
-          <pattern id="ukir" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 L6 1 L12 12 M3 12 L6 6 L9 12" fill="none" stroke="#c9a75c" stroke-width=".8"/></pattern>
-        </defs>
-        <path d="M10 6 Q40 110 108 32 Q200 140 292 32 Q360 110 390 6 Q378 92 362 132 H38 Q22 92 10 6Z" fill="url(#roofG)" stroke="url(#rgGold)" stroke-width="2.2" stroke-linejoin="round"/>
-        <g fill="none" stroke="url(#rgGold)" stroke-linecap="round">
-          <path d="M28 36 Q62 112 108 54 Q200 152 292 54 Q338 112 372 36" opacity=".5"/>
-          <path d="M36 70 Q72 120 108 78 Q200 160 292 78 Q328 120 364 70" opacity=".3"/>
-          <path d="M10 6 l-6 -5 M390 6 l6 -5 M108 32 l-3 -7 M292 32 l3 -7" stroke-width="2"/>
-        </g>
-        <path d="M38 132 L54 252 H346 L362 132Z" fill="url(#wallG)" stroke="url(#rgGold)" stroke-width="1.6" stroke-linejoin="round"/>
-        <rect x="44" y="138" width="312" height="12" fill="url(#ukir)" opacity=".85"/>
-        <rect x="54" y="234" width="292" height="12" fill="url(#ukir)" opacity=".6"/>
-        <path d="M42 138 H358 M44 150 H356 M53 234 H347 M54 246 H346" stroke="url(#rgGold)" stroke-width=".8" fill="none"/>
-        <g stroke="url(#rgGold)" stroke-width="1.2">
-          <path class="win" d="M70 214 V178 Q82 164 94 178 V214 Z" fill="url(#winG)"/>
-          <path class="win" d="M114 214 V178 Q126 164 138 178 V214 Z" fill="url(#winG)"/>
-          <path class="win" d="M262 214 V178 Q274 164 286 178 V214 Z" fill="url(#winG)"/>
-          <path class="win" d="M306 214 V178 Q318 164 330 178 V214 Z" fill="url(#winG)"/>
-          <path d="M82 170 V214 M70 194 H94 M126 170 V214 M114 194 H138 M274 170 V214 M262 194 H286 M318 170 V214 M306 194 H330" opacity=".7" fill="none"/>
-        </g>
-        <path d="M164 252 V154 Q200 128 236 154 V252" fill="#1a0405" stroke="url(#rgGold)" stroke-width="2"/>
-        <path d="M168 150 Q200 132 232 150" fill="none" stroke="url(#rgGold)" stroke-width=".8"/>
-        <g fill="none" stroke="url(#rgGold)" stroke-linecap="round">
-          <path d="M70 252 V284 M110 252 V284 M150 252 V284 M250 252 V284 M290 252 V284 M330 252 V284" opacity=".8" stroke-width="1.6"/>
-          <path d="M176 252 L166 290 M224 252 L234 290 M173 262 H227 M171 272 H229 M168 282 H232" stroke-width="1.4"/>
-          <path d="M0 291 H400" opacity=".35"/>
-        </g>
-      </svg>
+      <div id="facade"></div>
       <div class="doorway" id="doorway">
         <div class="inside"></div>
         <div class="leaf l"><i></i></div><div class="leaf r"><i></i></div>
@@ -593,29 +571,57 @@ const svgUrl = x => `url("data:image/svg+xml,${encodeURIComponent(x)}")`;
 document.documentElement.style.setProperty('--batik', svgUrl(BATIK));
 document.documentElement.style.setProperty('--songket', svgUrl(SONGKET));
 
-// rumah gadang bergonjong (line-art emas, digambar perlahan)
-function rumahGadang(){
-  let k=0; const p = (d, o='') => `<path class="draw" style="--k:${k++}" d="${d}" ${o}/>`;
-  let zig='M50 134'; for(let x=50;x<350;x+=10) zig+=` L${x+5} 142 L${x+10} 134`;
-  let win=''; for(let x=80;x<=320;x+=40){ if(x===200) continue; win+=p(`M${x-9} 176 V156 Q${x} 148 ${x+9} 156 V176 Z`); }
-  let tiang=''; for(let x=66;x<=334;x+=34){ if(x>176&&x<224) continue; tiang+=p(`M${x} 186 V212`); }
-  return `<svg class="rg" viewBox="0 0 400 222" fill="none" stroke="url(#rgGold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    ${p('M14 6 Q44 96 108 30 Q200 128 292 30 Q356 96 386 6','stroke-width="2.2"')}
-    ${p('M14 6 l-5 -5 M386 6 l5 -5 M108 30 l-3 -6 M292 30 l3 -6','stroke-width="2"')}
-    ${p('M14 6 Q28 80 44 122 M386 6 Q372 80 356 122')}
-    ${p('M30 34 Q62 104 108 50 Q200 140 292 50 Q338 104 370 34','opacity=".55"')}
-    ${p('M38 66 Q72 114 108 72 Q200 150 292 72 Q328 114 362 66','opacity=".35"')}
-    ${p('M44 122 H356')}
-    ${p('M44 122 L58 186 H342 L356 122')}
-    ${p('M49 134 H351 M51 142 H349','opacity=".7"')}${p(zig,'opacity=".7" stroke-width="1"')}
-    ${win}${p('M190 186 V154 Q200 146 210 154 V186')}
-    ${tiang}${p('M188 186 L182 214 M212 186 L218 214 M186 196 H214 M184 205 H216','opacity=".85"')}
-    ${p('M6 215 H394','opacity=".5"')}
-  </svg>`;
+// rumah gadang 7 gonjong (mengikuti referensi): gonjong tengah tertinggi, serambi + tangga di tengah,
+// deret jendela, kolong berlengkung. mode 'fill' = fasad berwarna (sampul), 'line' = garis emas (isi undangan)
+const GONJONG = [ // [kiri, kanan, ujungX, ujungY, dasarY] — urutan gambar: luar → tengah
+  [18,132,34,20,128],[428,542,526,20,128],[72,188,112,30,136],[372,488,448,30,136],
+  [150,246,198,46,144],[314,410,362,46,144],[214,346,280,6,150]];
+const horn = (L,R,tx,ty,yb) => `M${L} ${yb} Q${(tx-.12*(tx-L)).toFixed(1)} ${(yb-.25*(yb-ty)).toFixed(1)} ${tx} ${ty} Q${(tx+.12*(R-tx)).toFixed(1)} ${(yb-.25*(yb-ty)).toFixed(1)} ${R} ${yb} Z`;
+function rumahGadang(mode='line'){
+  const F = mode==='fill'; let k=0;
+  const g = 'url(#rgGold)';
+  const P = (d, fill='none', o='') => F
+    ? `<path d="${d}" fill="${fill}" stroke="${g}" ${o}/>`
+    : `<path class="draw${fill!=='none'?' fillin':''}" style="--k:${k++}" d="${d}" fill="${fill}" stroke="${g}" ${o}/>`;
+  const C = (light, dark) => F ? light : dark;          // warna isian per mode
+  let out = '';
+  // badan atas (di belakang atap)
+  out += P('M30 126 H530 L522 206 H38 Z', C('url(#wallG)','#2a0709'), 'stroke-width="1.4"');
+  let win=''; for(let x=48;x<=500;x+=26){ if(x>226&&x<322) continue; win+=`M${x} 160 h14 v30 h-14 Z `; }
+  out += P(win, C('url(#winG)','#3a0c10'), `stroke-width="1" ${F?'class="win"':''}`);
+  let rail=''; for(let x=42;x<=518;x+=6){ if(x>238&&x<322) continue; rail+=`M${x} 194 V206 `; }
+  out += P(rail+'M38 194 H522', 'none', 'stroke-width=".6" opacity=".7"');
+  // balok tengah berukir
+  out += P('M38 206 H522 L524 220 H36 Z', C('#6b1419','#3a0a0d'), 'stroke-width="1.2"');
+  if (F) out += `<rect x="40" y="208" width="480" height="10" fill="url(#ukir)" opacity=".8"/>`;
+  // kolong berlengkung
+  out += P('M36 220 H524 L534 284 H26 Z', C('#2a0609','#1c0507'), 'stroke-width="1.4"');
+  let arch=''; for(let x=40;x<=488;x+=42){ if(x>214&&x<314) continue; arch+=`M${x} 284 V246 Q${x+16} 230 ${x+32} 246 V284 Z `; }
+  out += P(arch, C('#0d0303','#120304'), 'stroke-width="1"');
+  // atap: tujuh gonjong
+  GONJONG.forEach(([L,R,tx,ty,yb],i)=>{
+    const center = i===6;
+    out += P(horn(L,R,tx,ty,yb), C('url(#roofG)','#1c0608'), 'stroke-width="1.8" stroke-linejoin="round"');
+    const L2=L+.22*(tx-L), R2=R-.22*(R-tx), y2=yb-10;
+    out += P(horn(L2,R2,tx,ty+10,y2), C(center?'url(#roofRed)':'url(#roofHi)', center?'#5a1015':'#3a0a0d'), 'stroke-width=".8" opacity=".9"');
+    out += P(`M${tx} ${ty} v-7`, 'none', 'stroke-width="1.6" stroke-linecap="round"');
+    if (F) out += `<circle cx="${tx}" cy="${ty-8}" r="1.8" fill="#f3dfa6"/>`;
+  });
+  // serambi depan dengan gonjong kecil
+  out += P('M244 178 H316 V262 H244 Z', C('url(#wallG)','#2a0709'), 'stroke-width="1.4"');
+  out += P(horn(232,328,280,112,180), C('url(#roofRed)','#4a0d12'), 'stroke-width="1.6" stroke-linejoin="round"');
+  out += P(horn(248,312,280,126,172), 'none', 'stroke-width=".8" opacity=".8"');
+  out += P('M280 112 v-7', 'none', 'stroke-width="1.6" stroke-linecap="round"');
+  out += P('M256 262 V198 Q280 182 304 198 V262', C('#1a0405','#140405'), 'stroke-width="1.6"');
+  out += P('M264 262 L252 294 M296 262 L308 294 M260 272 H300 M257 280 H303 M254 288 H306', 'none', 'stroke-width="1.3" stroke-linecap="round"');
+  out += P('M0 295 H560', 'none', 'opacity=".35"');
+  const defs = '';
+  return `<svg class="${F?'facade':'rg'}" viewBox="0 -8 560 306" stroke-linejoin="round" aria-hidden="true">${defs}${out}</svg>`;
 }
-const ROOF = `<svg class="roof" viewBox="0 0 400 130" fill="none" stroke="url(#rgGold)" stroke-width="5" stroke-linecap="round" aria-hidden="true">
-  <path d="M14 6 Q44 96 108 30 Q200 128 292 30 Q356 96 386 6"/><path d="M14 6 Q28 80 44 122 H356 Q372 80 386 6" stroke-width="3" opacity=".6"/></svg>`;
-document.querySelectorAll('[data-rg]').forEach(el=>el.innerHTML = rumahGadang());
+const ROOF = `<svg class="roof" viewBox="0 -10 560 165" aria-hidden="true">${GONJONG.map(([L,R,tx,ty,yb])=>
+  `<path d="${horn(L,R,tx,ty,yb)}" fill="#2a0709" stroke="url(#rgGold)" stroke-width="5" stroke-linejoin="round"/>`).join('')}</svg>`;
+document.getElementById('facade').innerHTML = rumahGadang('fill');
+document.querySelectorAll('[data-rg]').forEach(el=>el.innerHTML = rumahGadang('fill').replace('class="facade"','class="rg"'));
 
 /* ===================== util ===================== */
 const $ = s => document.querySelector(s);
