@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Undangan Pernikahan Raka &amp; Alya</title>
+<title>Undangan Pernikahan Rian &amp; Syherli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -74,7 +74,7 @@ body.locked{overflow:hidden;height:100vh}
 .cover-inner{position:relative;z-index:2;padding:32px 24px;transition:opacity .7s ease,transform .9s ease}
 .cover.open .cover-inner{opacity:0;transform:scale(.94)}
 .cover.gone{display:none}
-.cover .names{font-size:clamp(3.4rem,13vw,6.2rem);margin:14px 0 4px}
+.cover .names{font-size:clamp(3rem,11.5vw,6.2rem);margin:14px 0 4px}
 .cover .amp{font-size:.55em;display:inline-block;margin:0 .1em;color:var(--gold-hi)}
 .guest{margin:30px auto 26px;max-width:340px}
 .guest small{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;color:var(--muted)}
@@ -228,7 +228,9 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
   background:linear-gradient(135deg,#1a1408 0%,#3b2c10 40%,#8a6a2b 75%,#c9a75c 100%);
   color:#fff8e7;box-shadow:0 30px 60px -30px #000, inset 0 1px 0 rgba(255,255,255,.3)}
 .bank::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.25) 50%,transparent 65%);transform:translateX(-120%);animation:sheen 7s ease-in-out infinite}
-.bank .chip{width:42px;height:32px;border-radius:7px;background:linear-gradient(135deg,#f3dfa6,#a8873f);margin-bottom:24px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.bank .btop{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.bank .blogo{width:84px;height:28px;box-shadow:0 6px 14px -6px rgba(0,0,0,.6);border-radius:7px}
+.bank .chip{width:42px;height:32px;border-radius:7px;background:linear-gradient(135deg,#f3dfa6,#a8873f);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
 .bank .bn{font-family:var(--sans);font-size:.7rem;letter-spacing:.3em;opacity:.85}
 .bank .no{font-family:var(--sans);font-weight:500;font-size:1.35rem;letter-spacing:.14em;margin:8px 0 4px}
 .bank .an{font-size:1.1rem;font-style:italic}
@@ -290,10 +292,10 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
         <circle cx="60" cy="60" r="36" fill="none" stroke="url(#g1)" stroke-width=".6"/>
         <text font-family="Jost" font-size="7.4" letter-spacing="3.2" fill="#c9a75c"><textPath href="#circ" id="sealText">THE WEDDING OF · THE WEDDING OF · </textPath></text>
       </svg>
-      <div class="mono" id="sealMono">R&amp;A</div>
+      <div class="mono" id="sealMono">R&amp;S</div>
     </div>
     <p class="eyebrow">Undangan Pernikahan</p>
-    <h1 class="names script gold-text" id="coverNames">Raka <span class="amp">&amp;</span> Alya</h1>
+    <h1 class="names script gold-text" id="coverNames">Rian <span class="amp">&amp;</span> Syherli</h1>
     <div class="guest">
       <small>Kepada Yth. Bapak/Ibu/Saudara/i</small>
       <div class="to" id="guestName">Tamu Undangan</div>
@@ -319,9 +321,9 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
         </svg>
         <div>
           <p class="eyebrow rv">The Wedding Of</p>
-          <h1 class="names script gold-text rv" style="--d:.25s"><span data-k="groomNick">Raka</span><span class="amp">&amp;</span><span data-k="brideNick">Alya</span></h1>
+          <h1 class="names script gold-text rv" style="--d:.25s"><span data-k="groomNick">Rian</span><span class="amp">&amp;</span><span data-k="brideNick">Syherli</span></h1>
           <div class="divider rv" style="--d:.5s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.6 2.4 7.6L12 17.2l-6.2 4.6 2.4-7.6L2 9.6h7.6z" opacity=".9"/></svg></div>
-          <p class="date rv" style="--d:.7s" id="heroDate">07 · 02 · 2027</p>
+          <p class="date rv" style="--d:.7s" id="heroDate">12 · 12 · 2026</p>
         </div>
       </div>
     </div>
@@ -440,10 +442,10 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
       <p class="lead rv">Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
       <div class="divider rv"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8 3.3 4.5 6.8 4.5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3 3.5 0 5.8 3.5 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
       <p class="eyebrow rv">Kami yang berbahagia</p>
-      <h2 class="names script gold-text rv zoom" style="--d:.2s" id="closeNames">Raka &amp; Alya</h2>
+      <h2 class="names script gold-text rv zoom" style="--d:.2s" id="closeNames">Rian &amp; Syherli</h2>
     </div>
   </section>
-  <footer>WITH LOVE · <span id="footYear">2027</span></footer>
+  <footer>WITH LOVE · <span id="footYear">2026</span></footer>
 </main>
 
 <nav class="dock" id="dock" aria-label="Navigasi">
@@ -464,27 +466,29 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
    Nama tamu otomatis dari alamat: .../index.html#Budi-Santoso → "Budi Santoso"
    ===================================================================== */
 const WEDDING = {
-  groom: { nick:'Raka', full:'Raka Pradipta Wiratama, S.T.', parent:'Putra pertama dari Bapak Hendra Wiratama & Ibu Sri Lestari', ig:'raka.pradipta', photo:'' },
-  bride: { nick:'Alya', full:'Alya Kirana Putri, S.Ked.', parent:'Putri kedua dari Bapak Bambang Santoso & Ibu Ratna Dewi', ig:'alyakirana', photo:'' },
-  date: '2027-02-07T08:00:00+07:00',          // jam mulai acara pertama (WIB)
+  // [DUMMY] = data sementara, ganti dengan data asli
+  groom: { nick:'Rian', full:'Ariandi Alnotri', parent:'Putra dari Bapak [Nama Ayah] & Ibu [Nama Ibu]', ig:'', photo:'' },
+  bride: { nick:'Syherli', full:'Syherli Afmi Afika', parent:'Putri dari Bapak [Nama Ayah] & Ibu [Nama Ibu]', ig:'', photo:'' },
+  date: '2026-12-12T08:00:00+07:00',          // jam mulai acara pertama (WIB)
   events: [
-    { name:'Akad Nikah', start:'2027-02-07T08:00:00+07:00', end:'2027-02-07T10:00:00+07:00', time:'08.00 – 10.00 WIB',
-      place:'Masjid Agung Al-Ikhlas', addr:'Jl. Diponegoro No. 12, Kota Kediri, Jawa Timur', maps:'https://maps.google.com/?q=Masjid+Agung+Kediri' },
-    { name:'Resepsi', start:'2027-02-07T11:00:00+07:00', end:'2027-02-07T14:00:00+07:00', time:'11.00 – 14.00 WIB',
-      place:'The Grand Ballroom', addr:'Jl. Hayam Wuruk No. 88, Kota Kediri, Jawa Timur', maps:'https://maps.google.com/?q=Kediri+Jawa+Timur' }
+    { name:'Akad Nikah', start:'2026-12-12T08:00:00+07:00', end:'2026-12-12T10:00:00+07:00', time:'08.00 – 10.00 WIB', // [DUMMY] jam
+      place:'[Nama Tempat Akad]', addr:'[Alamat lengkap tempat akad]', maps:'https://maps.google.com/' },
+    { name:'Resepsi', start:'2026-12-12T11:00:00+07:00', end:'2026-12-12T14:00:00+07:00', time:'11.00 – 14.00 WIB',    // [DUMMY] jam
+      place:'[Nama Gedung Resepsi]', addr:'[Alamat lengkap tempat resepsi]', maps:'https://maps.google.com/' }
   ],
   story: [
-    { yr:'2019', title:'Pertemuan Pertama', text:'Kami pertama kali bertemu di sebuah acara kampus. Sebuah sapaan sederhana yang kelak menjadi awal dari segalanya.' },
-    { yr:'2022', title:'Menjalin Kasih', text:'Setelah bertahun-tahun bersahabat, kami memutuskan untuk melangkah bersama dan saling menguatkan.' },
-    { yr:'2026', title:'Lamaran', text:'Dengan restu kedua keluarga, kami mengikat janji dalam acara lamaran yang hangat dan penuh haru.' },
-    { yr:'2027', title:'Hari Bahagia', text:'Dan kini, kami siap memulai babak baru sebagai pasangan suami istri. Bismillah.' }
+    { yr:'SMP', title:'Pertama Bertemu', text:'Semuanya berawal di bangku SMP. Pertemuan sederhana antara dua anak yang belum tahu bahwa takdir sedang menulis kisahnya.' },
+    { yr:'SMA', title:'Dipertemukan Kembali', text:'Waktu sempat memisahkan, namun Allah mempertemukan kami kembali di masa SMA. Dari sana, kedekatan kami tumbuh perlahan.' },
+    { yr:'IPB', title:'Melangkah Bersama', text:'Kami melanjutkan perjalanan hingga jenjang kuliah di IPB. Saling menemani, saling menguatkan, dan saling mendoakan di setiap langkah.' },
+    { yr:'12 · 12 · 2026', title:'Menuju Halal', text:'Dengan restu kedua keluarga, kami memantapkan hati untuk memulai babak baru sebagai suami dan istri. Bismillah.' }
   ],
-  gallery: ['', '', '', '', '', ''],            // 6 foto (kosong = bingkai placeholder)
-  gifts: [
-    { bank:'BANK BCA', no:'1234567890', name:'Raka Pradipta Wiratama' },
-    { bank:'BANK MANDIRI', no:'1400098765432', name:'Alya Kirana Putri' }
+  gallery: ['', '', '', '', '', ''],            // [DUMMY] 6 foto (kosong = bingkai placeholder)
+  gifts: [                                      // [DUMMY] nomor rekening
+    { bank:'BCA', no:'0000000000', name:'Ariandi Alnotri' },
+    { bank:'BRI', no:'000000000000000', name:'Ariandi Alnotri' },
+    { bank:'BRI', no:'000000000000000', name:'Syherli Afmi Afika' }
   ],
-  whatsapp: '6281234567890'                   // nomor WA penerima RSVP (format 62…)
+  whatsapp: '6281265066837'                   // nomor WA penerima RSVP (format 62…)
 };
 
 /* ===================== util ===================== */
@@ -551,10 +555,15 @@ const camera = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 $('#galleryGrid').innerHTML = WEDDING.gallery.map((src,i)=>`
   <figure class="rv zoom" style="--d:${(i%3)*.12}s">${src ? `<img src="${esc(src)}" alt="Galeri ${i+1}" loading="lazy">` : `<div class="ph"><div>${camera}FOTO ${i+1}</div></div>`}</figure>`).join('');
 
+const BANK_NAME = { BCA:'BANK CENTRAL ASIA', BRI:'BANK RAKYAT INDONESIA' };
+const BANK_LOGO = {
+  BCA:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BCA"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-style="italic" font-size="25" fill="#0060AF" letter-spacing="1">BCA</text></svg>`,
+  BRI:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BRI"><rect width="120" height="40" rx="8" fill="#00529C"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="25" fill="#fff" letter-spacing="3">BRI</text></svg>`
+};
 $('#gifts').innerHTML = WEDDING.gifts.map((g,i)=>`
   <div class="bank rv zoom" style="--d:${.2+i*.2}s">
-    <div class="chip"></div>
-    <div class="bn">${esc(g.bank)}</div>
+    <div class="btop"><div class="chip"></div>${BANK_LOGO[g.bank]||''}</div>
+    <div class="bn">${esc(BANK_NAME[g.bank]||g.bank)}</div>
     <div class="no">${esc(g.no.replace(/(\d{4})(?=\d)/g,'$1 '))}</div>
     <div class="an">a.n. ${esc(g.name)}</div>
     <button class="copy" data-copy="${esc(g.no)}">Salin No. Rekening</button>
