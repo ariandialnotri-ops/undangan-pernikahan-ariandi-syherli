@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Undangan Pernikahan Rian &amp; Syherli</title>
+<title>Undangan Baralek Rian &amp; Syherli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ============ DATA YANG MUDAH DIGANTI ada di <script> paling bawah (const WEDDING) ============ */
 :root{
-  --ink:#0b0f0d;
-  --emerald:#0e2a22;
-  --emerald-2:#123a2f;
+  --ink:#0d0505;
+  --emerald:#3a0a0d;
+  --marawa:linear-gradient(90deg,#141010 0 33.33%,#b3121a 33.33% 66.66%,#e3b21e 66.66%);
+  --emerald-2:#5a1015;
   --gold:#c9a75c;
   --gold-hi:#f3dfa6;
   --gold-lo:#8a6a2b;
@@ -38,10 +39,29 @@ body.locked{overflow:hidden;height:100vh}
 .bg{position:fixed;inset:0;z-index:-2;
   background:
     radial-gradient(900px 600px at 50% 0%,rgba(201,167,92,.10),transparent 60%),
-    radial-gradient(1200px 900px at 50% 120%,rgba(18,58,47,.9),transparent 70%),
-    linear-gradient(180deg,#07100d 0%,var(--emerald) 45%,#081410 100%);}
+    radial-gradient(1200px 900px at 50% 120%,rgba(84,14,18,.9),transparent 70%),
+    linear-gradient(180deg,#0d0404 0%,var(--emerald) 45%,#120506 100%);}
 .bg::after{content:"";position:absolute;inset:0;opacity:.06;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.bg::before{content:"";position:absolute;inset:0;background-image:var(--batik);background-size:150px 150px;opacity:.09;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 40%,#000 30%,transparent 90%);mask-image:radial-gradient(120% 90% at 50% 40%,#000 30%,transparent 90%)}
+.marawa{height:5px;background:var(--marawa)}
+.songket{height:16px;width:min(280px,72%);margin:0 auto 22px;background:var(--songket) repeat-x center/24px 16px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2px 0;box-sizing:content-box}
+section:not(.hero)>.wrap::before{content:"";display:block;height:16px;width:min(280px,72%);margin:0 auto 26px;background:var(--songket) repeat-x center/24px 16px;opacity:.85}
+.rg{width:100%;height:auto;overflow:visible}
+.rg .draw{stroke-dasharray:1400;stroke-dashoffset:1400}
+.started .hero .rg .draw,.cover .rg .draw,.rv.in .rg .draw{animation:draw 3.4s cubic-bezier(.6,.1,.2,1) forwards;animation-delay:calc(var(--k,0) * 60ms + .2s)}
+.hero .rg{width:86%;margin:0 auto 6px;display:block}
+.cover-house{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(420px,94vw);opacity:.32;pointer-events:none}
+.cover .marawa{position:absolute;left:0;right:0;z-index:3}
+.cover .marawa.t{top:0}.cover .marawa.b{bottom:0}
+.cover.open .marawa{opacity:0;transition:opacity .6s}
+.card .roof{width:120px;margin:0 auto 4px;display:block}
+.pepatah{margin-top:34px;font-family:var(--sans);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi)}
+.pepatah small{display:block;margin-top:8px;font-family:var(--serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:1.02rem;color:var(--muted)}
+.closing .rg{width:min(420px,90%);margin:0 auto 10px;display:block}
+.person .portrait .ini{background:var(--batik) center/120px;background-blend-mode:overlay}
 #sparkle{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
 .gold-text{background:var(--gold-grad);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite}
@@ -59,13 +79,13 @@ body.locked{overflow:hidden;height:100vh}
 .curtain{position:absolute;top:0;bottom:0;width:50.5%;
   background:
     radial-gradient(500px 700px at 100% 50%,rgba(201,167,92,.10),transparent 70%),
-    linear-gradient(180deg,#0a1612,#10302a 50%,#0a1612);
+    linear-gradient(180deg,#1a0607,#4a0d12 50%,#1a0607);
   transition:transform 1.6s cubic-bezier(.77,0,.18,1);}
 .curtain.l{left:0;border-right:1px solid var(--line)}
 .curtain.r{right:0;border-left:1px solid var(--line);transform-origin:right}
 .curtain.r{background:
     radial-gradient(500px 700px at 0% 50%,rgba(201,167,92,.10),transparent 70%),
-    linear-gradient(180deg,#0a1612,#10302a 50%,#0a1612);}
+    linear-gradient(180deg,#1a0607,#4a0d12 50%,#1a0607);}
 .curtain::before{content:"";position:absolute;inset:18px;border:1px solid var(--line)}
 .curtain.l::before{right:0;border-right:0}
 .curtain.r::before{left:0;border-left:0}
@@ -137,7 +157,7 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 /* ============ MEMPELAI ============ */
 .couple{display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:center;margin-top:56px}
 .person .portrait{width:min(240px,62vw);aspect-ratio:3/4;margin:0 auto 24px;position:relative;border-radius:200px 200px 14px 14px;overflow:hidden;
-  background:radial-gradient(120% 80% at 50% 0%,#1d4c3e,#0b1c17 70%);border:1px solid var(--line);box-shadow:0 30px 60px -30px #000, inset 0 0 0 8px rgba(11,15,13,.55), inset 0 0 0 9px var(--line)}
+  background:radial-gradient(120% 80% at 50% 0%,#6b1419,#1a0507 70%);border:1px solid var(--line);box-shadow:0 30px 60px -30px #000, inset 0 0 0 8px rgba(11,15,13,.55), inset 0 0 0 9px var(--line)}
 .person .portrait img{width:100%;height:100%;object-fit:cover}
 .person .portrait .ini{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:6rem;color:var(--gold-hi);opacity:.9}
 .person .portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(243,223,166,.22) 48%,transparent 62%);transform:translateX(-120%);animation:sheen 6s ease-in-out infinite}
@@ -160,7 +180,7 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 /* ============ ACARA ============ */
 .events{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;margin-top:56px}
 .card{position:relative;padding:52px 30px 40px;border-radius:220px 220px 22px 22px;
-  background:linear-gradient(180deg,rgba(18,58,47,.75),rgba(8,20,16,.85));
+  background:linear-gradient(180deg,rgba(84,14,18,.75),rgba(22,5,6,.85));
   border:1px solid var(--line);box-shadow:0 40px 80px -40px #000,inset 0 1px 0 rgba(243,223,166,.15);overflow:hidden}
 .card::before{content:"";position:absolute;inset:10px;border-radius:212px 212px 16px 16px;border:1px solid rgba(201,167,92,.18);pointer-events:none}
 .card h3{font-family:var(--script);font-weight:400;font-size:2.8rem}
@@ -189,7 +209,7 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 
 /* ============ GALERI ============ */
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:180px;gap:12px;margin-top:52px}
-.gallery figure{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);background:radial-gradient(120% 90% at 30% 10%,#215a49,#0a1914)}
+.gallery figure{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);background:radial-gradient(120% 90% at 30% 10%,#5e1218,#1a0607)}
 .gallery figure:nth-child(1){grid-row:span 2}
 .gallery figure:nth-child(4){grid-column:span 2}
 .gallery img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s ease}
@@ -199,14 +219,14 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 
 /* ============ RSVP / FORM ============ */
 .panel{max-width:620px;margin:50px auto 0;padding:40px 30px;border-radius:24px;border:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(18,58,47,.6),rgba(8,20,16,.75));backdrop-filter:blur(6px);text-align:left}
+  background:linear-gradient(180deg,rgba(84,14,18,.6),rgba(22,5,6,.75));backdrop-filter:blur(6px);text-align:left}
 .field{margin-bottom:20px}
 .field label{display:block;font-family:var(--sans);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .field input,.field select,.field textarea{width:100%;font-family:var(--serif);font-size:1.15rem;color:var(--ivory);
   background:rgba(0,0,0,.25);border:1px solid rgba(201,167,92,.28);border-radius:12px;padding:13px 16px;outline:none;transition:border-color .3s,box-shadow .3s}
 .field textarea{min-height:110px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,167,92,.12)}
-.field select option{background:#0e2a22}
+.field select option{background:#3a0a0d}
 .seg{display:flex;gap:10px;flex-wrap:wrap}
 .seg label{flex:1;min-width:120px;margin:0;cursor:pointer}
 .seg input{position:absolute;opacity:0;pointer-events:none}
@@ -225,7 +245,7 @@ h2.title{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,8vw,4.
 /* ============ AMPLOP DIGITAL ============ */
 .gifts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:50px}
 .bank{position:relative;padding:28px 26px;border-radius:20px;text-align:left;overflow:hidden;
-  background:linear-gradient(135deg,#1a1408 0%,#3b2c10 40%,#8a6a2b 75%,#c9a75c 100%);
+  background:var(--songket) repeat-x left bottom 10px/24px 16px,linear-gradient(135deg,#1e0405 0%,#5a1015 42%,#8a6a2b 80%,#c9a75c 100%);
   color:#fff8e7;box-shadow:0 30px 60px -30px #000, inset 0 1px 0 rgba(255,255,255,.3)}
 .bank::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.25) 50%,transparent 65%);transform:translateX(-120%);animation:sheen 7s ease-in-out infinite}
 .bank .btop{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
@@ -245,7 +265,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
 
 /* ============ NAV MENGAMBANG ============ */
 .dock{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:30;display:flex;gap:2px;padding:6px;border-radius:999px;
-  background:rgba(8,20,16,.72);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px -16px #000;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+  background:rgba(22,5,6,.72);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px -16px #000;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
 .dock.show{transform:translate(-50%,0)}
 .dock a{width:46px;height:46px;display:grid;place-items:center;border-radius:999px;color:var(--muted);transition:all .3s}
 .dock a svg{width:19px;height:19px}
@@ -277,12 +297,17 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
 </head>
 <body class="locked">
 <div class="bg"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="rgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a2b"/><stop offset=".45" stop-color="#f3dfa6"/><stop offset="1" stop-color="#b8913f"/></linearGradient>
+</defs></svg>
 <canvas id="sparkle"></canvas>
 
 <!-- ================= COVER ================= -->
 <div class="cover" id="cover">
   <div class="curtain l"></div>
   <div class="curtain r"></div>
+  <div class="marawa t"></div><div class="marawa b"></div>
+  <div class="cover-house" data-rg></div>
   <div class="cover-inner">
     <div class="seal">
       <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
@@ -290,7 +315,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
           <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a2b"/><stop offset=".5" stop-color="#f3dfa6"/><stop offset="1" stop-color="#8a6a2b"/></linearGradient></defs>
         <circle cx="60" cy="60" r="57" fill="none" stroke="url(#g1)" stroke-width=".8"/>
         <circle cx="60" cy="60" r="36" fill="none" stroke="url(#g1)" stroke-width=".6"/>
-        <text font-family="Jost" font-size="7.4" letter-spacing="3.2" fill="#c9a75c"><textPath href="#circ" id="sealText">THE WEDDING OF · THE WEDDING OF · </textPath></text>
+        <text font-family="Jost" font-size="7.4" letter-spacing="3.2" fill="#c9a75c"><textPath href="#circ" id="sealText">BARALEK GADANG · BARALEK GADANG · </textPath></text>
       </svg>
       <div class="mono" id="sealMono">R&amp;S</div>
     </div>
@@ -320,7 +345,8 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
           <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a2b"/><stop offset=".45" stop-color="#f3dfa6"/><stop offset="1" stop-color="#8a6a2b"/></linearGradient></defs>
         </svg>
         <div>
-          <p class="eyebrow rv">The Wedding Of</p>
+          <div data-rg class="rv"></div>
+          <p class="eyebrow rv" style="--d:.15s">Baralek Gadang</p>
           <h1 class="names script gold-text rv" style="--d:.25s"><span data-k="groomNick">Rian</span><span class="amp">&amp;</span><span data-k="brideNick">Syherli</span></h1>
           <div class="divider rv" style="--d:.5s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.6 2.4 7.6L12 17.2l-6.2 4.6 2.4-7.6L2 9.6h7.6z" opacity=".9"/></svg></div>
           <p class="date rv" style="--d:.7s" id="heroDate">12 · 12 · 2026</p>
@@ -336,6 +362,7 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
       <p class="arabic rv">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
       <blockquote class="rv" style="--d:.2s">“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</blockquote>
       <cite class="rv" style="--d:.4s">QS. AR-RUM : 21</cite>
+      <p class="pepatah rv" style="--d:.6s">Adat basandi syarak, syarak basandi Kitabullah<small>Adat bersendikan syariat, syariat bersendikan Kitabullah</small></p>
     </div>
   </section>
 
@@ -441,11 +468,13 @@ footer{padding:30px 20px 120px;text-align:center;font-family:var(--sans);font-si
     <div class="wrap">
       <p class="lead rv">Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
       <div class="divider rv"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8 3.3 4.5 6.8 4.5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3 3.5 0 5.8 3.5 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
+      <div data-rg class="rv"></div>
       <p class="eyebrow rv">Kami yang berbahagia</p>
       <h2 class="names script gold-text rv zoom" style="--d:.2s" id="closeNames">Rian &amp; Syherli</h2>
     </div>
   </section>
-  <footer>WITH LOVE · <span id="footYear">2026</span></footer>
+  <div class="marawa"></div>
+<footer>WITH LOVE · <span id="footYear">2026</span></footer>
 </main>
 
 <nav class="dock" id="dock" aria-label="Navigasi">
@@ -491,6 +520,44 @@ const WEDDING = {
   whatsapp: '6281265066837'                   // nomor WA penerima RSVP (format 62…)
 };
 
+/* ===================== motif Minangkabau ===================== */
+const GOLD = '#c9a75c';
+// batik: kaluak paku (pakis melingkar) + belah ketupat + titik
+const BATIK = `<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150" fill="none" stroke="${GOLD}" stroke-width="1.3">
+  ${[[0,0],[150,0],[0,150],[150,150]].map(([x,y])=>`<path d="M${x} ${y} m-34 0 a34 34 0 1 1 34 34 a25 25 0 1 1 -25 -25 a16 16 0 1 1 16 16 a8 8 0 1 1 -8 -8"/>`).join('')}
+  <path d="M75 40 L110 75 L75 110 L40 75 Z"/><path d="M75 54 L96 75 L75 96 L54 75 Z"/>
+  <path d="M75 66 l9 9 -9 9 -9 -9z" fill="${GOLD}"/>
+  <circle cx="75" cy="12" r="2" fill="${GOLD}"/><circle cx="75" cy="138" r="2" fill="${GOLD}"/><circle cx="12" cy="75" r="2" fill="${GOLD}"/><circle cx="138" cy="75" r="2" fill="${GOLD}"/></svg>`;
+// songket: pucuak rabuang (tunas rebung)
+const SONGKET = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="${GOLD}" stroke-width="1"><path d="M0 16 L12 1 L24 16"/><path d="M5 16 L12 7 L19 16"/><path d="M12 10 l2.4 3 -2.4 3 -2.4 -3z" fill="${GOLD}"/></svg>`;
+const svgUrl = x => `url("data:image/svg+xml,${encodeURIComponent(x)}")`;
+document.documentElement.style.setProperty('--batik', svgUrl(BATIK));
+document.documentElement.style.setProperty('--songket', svgUrl(SONGKET));
+
+// rumah gadang bergonjong (line-art emas, digambar perlahan)
+function rumahGadang(){
+  let k=0; const p = (d, o='') => `<path class="draw" style="--k:${k++}" d="${d}" ${o}/>`;
+  let zig='M50 134'; for(let x=50;x<350;x+=10) zig+=` L${x+5} 142 L${x+10} 134`;
+  let win=''; for(let x=80;x<=320;x+=40){ if(x===200) continue; win+=p(`M${x-9} 176 V156 Q${x} 148 ${x+9} 156 V176 Z`); }
+  let tiang=''; for(let x=66;x<=334;x+=34){ if(x>176&&x<224) continue; tiang+=p(`M${x} 186 V212`); }
+  return `<svg class="rg" viewBox="0 0 400 222" fill="none" stroke="url(#rgGold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    ${p('M14 6 Q44 96 108 30 Q200 128 292 30 Q356 96 386 6','stroke-width="2.2"')}
+    ${p('M14 6 l-5 -5 M386 6 l5 -5 M108 30 l-3 -6 M292 30 l3 -6','stroke-width="2"')}
+    ${p('M14 6 Q28 80 44 122 M386 6 Q372 80 356 122')}
+    ${p('M30 34 Q62 104 108 50 Q200 140 292 50 Q338 104 370 34','opacity=".55"')}
+    ${p('M38 66 Q72 114 108 72 Q200 150 292 72 Q328 114 362 66','opacity=".35"')}
+    ${p('M44 122 H356')}
+    ${p('M44 122 L58 186 H342 L356 122')}
+    ${p('M49 134 H351 M51 142 H349','opacity=".7"')}${p(zig,'opacity=".7" stroke-width="1"')}
+    ${win}${p('M190 186 V154 Q200 146 210 154 V186')}
+    ${tiang}${p('M188 186 L182 214 M212 186 L218 214 M186 196 H214 M184 205 H216','opacity=".85"')}
+    ${p('M6 215 H394','opacity=".5"')}
+  </svg>`;
+}
+const ROOF = `<svg class="roof" viewBox="0 0 400 130" fill="none" stroke="url(#rgGold)" stroke-width="5" stroke-linecap="round" aria-hidden="true">
+  <path d="M14 6 Q44 96 108 30 Q200 128 292 30 Q356 96 386 6"/><path d="M14 6 Q28 80 44 122 H356 Q372 80 386 6" stroke-width="3" opacity=".6"/></svg>`;
+document.querySelectorAll('[data-rg]').forEach(el=>el.innerHTML = rumahGadang());
+
 /* ===================== util ===================== */
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -507,7 +574,7 @@ document.querySelectorAll('[data-k=brideNick]').forEach(e=>e.textContent=B.nick)
 $('#coverNames').innerHTML = `${esc(G.nick)} <span class="amp">&amp;</span> ${esc(B.nick)}`;
 $('#closeNames').textContent = `${G.nick} & ${B.nick}`;
 $('#sealMono').textContent = `${G.nick[0]}&${B.nick[0]}`;
-document.title = `Undangan Pernikahan ${G.nick} & ${B.nick}`;
+document.title = `Undangan Baralek ${G.nick} & ${B.nick}`;
 const D0 = wib(WEDDING.date);
 $('#heroDate').textContent = `${String(D0.d).padStart(2,'0')} · ${String(D0.m+1).padStart(2,'0')} · ${D0.y}`;
 $('#footYear').textContent = `${G.nick.toUpperCase()} & ${B.nick.toUpperCase()} · ${D0.y}`;
@@ -535,6 +602,7 @@ person(G, $('#groom')); person(B, $('#bride'));
 $('#events').innerHTML = WEDDING.events.map((e,i)=>{
   const d = wib(e.start);
   return `<article class="card rv zoom" style="--d:${.2+i*.2}s">
+    ${ROOF}
     <h3 class="gold-text">${esc(e.name)}</h3>
     <div class="day">${HARI[d.w].toUpperCase()}</div>
     <div class="bigdate">${String(d.d).padStart(2,'0')}</div>
@@ -583,13 +651,13 @@ document.addEventListener('click', async e=>{
   $('#calBtn').href = 'https://calendar.google.com/calendar/render?' + q;
 })();
 
-// mandala ornamen (digambar dengan JS)
+// ornamen besar: bintang songket delapan sudut
 (()=>{
-  let s = '<g fill="none" stroke="#c9a75c" stroke-width=".35">';
-  for (let i=0;i<24;i++){ const r=i*15; s+=`<ellipse cx="100" cy="55" rx="14" ry="45" transform="rotate(${r} 100 100)"/>`; }
-  for (let i=0;i<12;i++){ const r=i*30; s+=`<path d="M100 100 L100 6" transform="rotate(${r} 100 100)"/><circle cx="100" cy="12" r="3" transform="rotate(${r} 100 100)"/>`; }
-  s += '<circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="22"/></g>';
-  $('#mandala').innerHTML = s;
+  let o = '<g fill="none" stroke="#c9a75c" stroke-width=".4">';
+  for (const r of [92,70,48,26]) for (const a of [0,45]) o += `<rect x="${100-r/1.414}" y="${100-r/1.414}" width="${r*1.414}" height="${r*1.414}" transform="rotate(${a} 100 100)"/>`;
+  for (let i=0;i<16;i++) o += `<path d="M100 2 l4 7 -4 7 -4 -7z" transform="rotate(${i*22.5} 100 100)"/>`;
+  o += '<circle cx="100" cy="100" r="97"/><circle cx="100" cy="100" r="12"/></g>';
+  $('#mandala').innerHTML = o;
 })();
 
 /* ===================== countdown ===================== */
