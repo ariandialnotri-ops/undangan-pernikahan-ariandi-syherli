@@ -1,0 +1,21 @@
+# Undangan Pernikahan Digital
+
+Undangan pernikahan berbasis website, satu file (`index.html`), gaya luxury elegant (zamrud & emas) dengan animasi.
+
+## Fitur
+- Sampul dengan nama tamu (`index.html#Nama-Tamu`) dan animasi tirai terbuka
+- Bingkai lengkung, mandala parallax, partikel emas, kelopak berjatuhan, reveal saat scroll
+- Mempelai, ayat, hitung mundur + Simpan ke Google Calendar
+- Waktu & tempat (Akad, Resepsi) dengan tautan peta
+- Kisah kami (timeline), galeri foto
+- RSVP & ucapan dikirim ke WhatsApp
+- Amplop digital dengan tombol salin nomor rekening
+- Menghormati `prefers-reduced-motion`
+
+## Mengubah isi
+Semua data ada di objek `WEDDING` di bagian bawah `index.html`:
+nama, orang tua, tanggal, acara, lokasi, kisah, foto, rekening, nomor WhatsApp.
+
+## Menjalankan
+Buka `index.html` langsung di browser, atau deploy sebagai situs statis
+(GitHub Pages, Vercel, Netlify, Cloudflare Pages) tanpa proses build.
