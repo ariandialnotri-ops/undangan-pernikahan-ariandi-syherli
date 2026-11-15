@@ -173,7 +173,7 @@ section>*:not(.posy){position:relative}
 .closing .kami{font-family:var(--serif);font-style:italic;font-size:14px;margin-top:12px;color:var(--stone-700)}
 .closing .nm{font-family:var(--script);font-size:30px;color:var(--crimson);margin-top:4px}
 .closing .fam{font-size:10px;font-family:var(--cinzel);letter-spacing:.1em;color:var(--stone-400);margin-top:24px;text-transform:uppercase}
-.closing-art{position:relative;height:300px;overflow:hidden;margin-top:-10px;-webkit-mask-image:linear-gradient(transparent,#000 35%);mask-image:linear-gradient(transparent,#000 35%)}
+.closing-art{position:relative;height:calc(min(100vw,414px) * 1.0885);overflow:hidden;margin-top:-10px;-webkit-mask-image:linear-gradient(transparent,#000 9%);mask-image:linear-gradient(transparent,#000 9%)}
 .closing-art .stage{top:auto;bottom:0;height:auto;width:100%;min-width:0}
 .closing-art .life{z-index:2}
 
@@ -263,7 +263,10 @@ section>*:not(.posy){position:relative}
 .edge.on{opacity:.55;transform:none}
 @keyframes edgeL{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(2deg) skewY(-.6deg)}}
 @keyframes edgeR{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(-2deg) skewY(.6deg)}}
-.posy{position:absolute;pointer-events:none;width:120px;height:160px;scale:.74;transform-origin:50% 100%}
+.posy{position:absolute;z-index:4;pointer-events:none;width:120px;height:160px;scale:.74;transform-origin:50% 100%}
+.posy .bow{position:absolute;left:44px;bottom:-6px;width:32px;opacity:0;scale:.4;transition:opacity .8s ease .2s,scale 1s cubic-bezier(.34,1.5,.64,1) .2s;filter:drop-shadow(0 2px 2px rgba(90,60,10,.25))}
+.posy.on .bow{opacity:1;scale:1}
+.stalk .head svg{filter:drop-shadow(0 2px 2px rgba(90,40,20,.18))}
 .posy.tl{transform:scaleX(-1)}.posy.mini{scale:.56}
 .stalk{position:absolute;bottom:0;transform-origin:50% 100%;scale:1 0;opacity:0;
   transition:scale 1.5s cubic-bezier(.22,1,.36,1) var(--in,0s),opacity .9s ease var(--in,0s)}
@@ -292,7 +295,7 @@ section>*:not(.posy){position:relative}
 </head>
 <body class="locked story-mode">
 <main id="main">
-  <div class="page-art" id="pageArt" aria-hidden="true"><img src="assets/base.webp" alt=""></div>
+  <div class="page-art" id="pageArt" aria-hidden="true"><img src="assets/base.webp" alt=""><div class="life" id="pageLife"></div></div>
   <div id="particles" aria-hidden="true"></div>
 
   <!-- ================= SAMPUL ================= -->
@@ -525,8 +528,16 @@ life($('#heroLife'),
     {y:.36,size:14,period:50,dir:-1,bob:7,phase:.62,flap:.48,op:.6} ],
   [ {img:'bf2',size:30,cx:.16,cy:.80,ax:.10,ay:.05,w1:.16,w2:.23,ph:0,flap:.78},  {img:'bf3',size:34,cx:.82,cy:.78,ax:.10,ay:.05,w1:.13,w2:.19,ph:2,flap:.85},
     {img:'bf7',size:28,cx:.50,cy:.90,ax:.14,ay:.03,w1:.11,w2:.21,ph:4,flap:.72},  {img:'bf9',size:22,cx:.30,cy:.72,ax:.08,ay:.04,w1:.18,w2:.26,ph:1,flap:.7} ]);
+// kawanan burung yang terbang bersamaan di latar halaman isi
+life($('#pageLife'),
+  [ {y:.16,size:22,period:30,dir:1,bob:8,phase:.000,flap:.58,op:.7}, {y:.13,size:17,period:30,dir:1,bob:8,phase:.018,flap:.52,op:.62},
+    {y:.19,size:16,period:30,dir:1,bob:8,phase:.022,flap:.55,op:.6},  {y:.11,size:13,period:30,dir:1,bob:7,phase:.036,flap:.48,op:.5},
+    {y:.21,size:12,period:30,dir:1,bob:7,phase:.040,flap:.5,op:.5},
+    {y:.30,size:18,period:38,dir:-1,bob:10,phase:.52,flap:.56,op:.6}, {y:.27,size:14,period:38,dir:-1,bob:9,phase:.535,flap:.5,op:.5},
+    {y:.33,size:13,period:38,dir:-1,bob:9,phase:.545,flap:.52,op:.5} ], []);
 life($('#footLife'),
-  [ {y:.10,size:20,period:38,dir:1,bob:6,phase:.3,flap:.58,op:.75}, {y:.18,size:15,period:46,dir:-1,bob:5,phase:.7,flap:.5,op:.65} ],
+  [ {y:.10,size:20,period:32,dir:1,bob:6,phase:.30,flap:.58,op:.75}, {y:.07,size:15,period:32,dir:1,bob:6,phase:.318,flap:.52,op:.65},
+    {y:.13,size:14,period:32,dir:1,bob:6,phase:.325,flap:.55,op:.6}, {y:.20,size:15,period:44,dir:-1,bob:5,phase:.7,flap:.5,op:.6} ],
   [ {img:'bf3',size:28,cx:.22,cy:.72,ax:.12,ay:.08,w1:.14,w2:.2,ph:3,flap:.8}, {img:'bf2',size:24,cx:.78,cy:.78,ax:.1,ay:.07,w1:.12,w2:.22,ph:5,flap:.75} ]);
 
 // WebGL: pohon & bunga bergoyang dengan melenturkan gambar utuh (tanpa potongan)
@@ -641,34 +652,42 @@ $('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
   const edgeIO = new IntersectionObserver(es=>es.forEach(en=>en.target.classList.toggle('on', en.isIntersecting)),{rootMargin:'0px 0px -8% 0px'});
   // rangkaian bunga di sudut kartu: tiap bunga diletakkan sendiri & bergoyang sendiri
   const P = 'assets/flowers/';
-  // [bunga, lebar kepala, panjang tangkai, sudut condong, posisi pangkal x]
+  // buket kecil: [bunga, lebar kepala, panjang tangkai, sudut condong]; semua tangkai bertemu di satu titik & diikat pita
   const SETS = [
-    [['lili-pink-1',50,112,-14,46],['anggrek-1',42,84,6,66],['kuncup-anggrek',22,62,22,84]],
-    [['mawar-liar',48,100,-12,48],['heliconia-2',30,122,3,68],['anggrek-merah',40,74,20,84]],
-    [['anggrek-2',50,108,-13,46],['mawar-merah-1',40,84,7,66],['terompet',28,60,24,86]],
-    [['lili-putih',52,104,-11,46],['mawar-pink',40,80,8,66],['jahe-merah',20,100,18,86]],
-    [['anggrek-3',50,106,-14,46],['lili-pink-2',42,84,6,66],['kuncup-anggrek',22,58,24,86]],
-    [['mawar-merah-2',46,102,-11,48],['heliconia-1',28,120,4,68],['anggrek-1',38,72,20,84]],
+    [['anggrek-2',48,116,-20],['lili-pink-2',42,96,14],['bud',16,78,34]],
+    [['mawar-liar',46,110,-18],['anggrek-merah',40,92,16],['bud',16,74,-38]],
+    [['anggrek-3',48,114,-16],['mawar-pink',40,88,20],['bud',15,76,-36]],
+    [['lili-pink-1',48,112,-18],['mawar-merah-2',38,90,16],['bud',16,72,34]],
+    [['anggrek-merah',44,112,-16],['anggrek-1',38,92,20],['bud',15,74,-36]],
+    [['mawar-pink',44,108,-20],['lili-pink-2',40,94,14],['bud',16,76,36]],
   ];
-  const leaf = (x,y,rot,s) => `<path d="M0 0 C5 -6 15 -7 21 -2 C15 3 5 4 0 0Z" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" fill="url(#lf)" stroke="#4f5e40" stroke-width=".5"/><path d="M1 0 L18 -2" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" stroke="#e8ecdc" stroke-width=".5" opacity=".7"/>`;
-  const stalkHTML = ([id,w,L,a,x],j,k) => {
-    const cx = w/2, top = w*.42, b = (j%2 ? 1 : -1) * (4 + (k%3));
+  const BX = 60;   // titik ikat buket di dalam kotak 120x160
+  const leaf = (x,y,rot,s) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0 0 C5 -6 15 -7 21 -2 C15 3 5 4 0 0Z" fill="url(#lf)" stroke="#4f5e40" stroke-width=".5"/><path d="M1 0 L18 -2" stroke="#e8ecdc" stroke-width=".5" opacity=".7"/></g>`;
+  const BUD = `<svg viewBox="0 0 20 30" style="width:100%;display:block;overflow:visible"><defs><radialGradient id="bd" cx="45%" cy="35%"><stop offset="0" stop-color="#f6c6d0"/><stop offset=".6" stop-color="#d46d84"/><stop offset="1" stop-color="#9c3a52"/></radialGradient></defs>
+    <path d="M10 2 C17 8 17 19 10 25 C3 19 3 8 10 2Z" fill="url(#bd)" stroke="#8e3d52" stroke-width=".6"/><path d="M10 4 C12 11 12 18 10 24" stroke="#fff" stroke-width=".6" opacity=".5" fill="none"/>
+    <path d="M10 25 C6 23 3 20 2 16 C5 18 7 19 10 21 C13 19 15 18 18 16 C17 20 14 23 10 25Z" fill="#7f9264" stroke="#4f5e40" stroke-width=".5"/></svg>`;
+  const stalkHTML = ([id,w,L,a],j,k) => {
+    const isBud = id === 'bud', cx = w/2, top = isBud ? w*1.1 : w*.42, b = (j%2 ? 1 : -1) * (3 + (k%3));
     const stem = `M${cx} ${L} C${cx+b} ${L*.68} ${cx-b} ${L*.36} ${cx} ${top}`;
-    const leaves = leaf(cx+.5, L*.62, j%2 ? -40 : -140, .9) + (L > 80 ? leaf(cx-.5, L*.38, j%2 ? -150 : -30, .75) : '');
+    const leaves = isBud ? leaf(cx, L*.5, j%2 ? -150 : -30, .6) : leaf(cx+.5, L*.6, a < 0 ? -150 : -30, .85) + (L > 95 ? leaf(cx-.5, L*.36, a < 0 ? -30 : -150, .7) : '');
     const sd = (6.4 + j*1.15 + (k%3)*.6).toFixed(2), sdl = -(k*1.3 + j*2.1).toFixed(2), inn = (.2 + j*.22).toFixed(2);
-    return `<i class="stalk" style="left:${x - w/2}px;width:${w}px;height:${L}px;rotate:${a}deg;--in:${inn}s;--sd:${sd}s;--sdl:${sdl}s"><span class="sw">`+
+    const head = isBud ? `<span class="head" style="top:${-w*.15}px">${BUD}</span>` : `<span class="head" style="top:${-w*.5}px"><img src="${P}${id}.png" alt=""></span>`;
+    return `<i class="stalk" style="left:${BX - w/2}px;width:${w}px;height:${L}px;rotate:${a}deg;--in:${inn}s;--sd:${sd}s;--sdl:${sdl}s"><span class="sw">`+
       `<svg viewBox="0 0 ${w} ${L}"><defs><linearGradient id="lf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aab7d"/><stop offset="1" stop-color="#5d6e4a"/></linearGradient></defs>`+
-      `<path d="${stem}" fill="none" stroke="#4f5e40" stroke-width="3.2" stroke-linecap="round"/><path d="${stem}" fill="none" stroke="#7f9264" stroke-width="1.8" stroke-linecap="round"/>${leaves}</svg>`+
-      `<span class="head" style="top:${-w*.5}px"><img src="${P}${id}.png" alt=""></span></span></i>`;
+      `<path d="${stem}" fill="none" stroke="#4f5e40" stroke-width="3" stroke-linecap="round"/><path d="${stem}" fill="none" stroke="#7f9264" stroke-width="1.7" stroke-linecap="round"/>${leaves}</svg>`+
+      `${head}</span></i>`;
   };
-  // rangkaian bunga di sudut ATAS kartu: diletakkan sebelum kartu di DOM sehingga tangkainya terselip di belakang kartu
+  // pita emas pengikat buket
+  const BOW = `<svg class="bow" viewBox="0 0 40 30" aria-hidden="true"><defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D78C"/><stop offset=".55" stop-color="#C59B27"/><stop offset="1" stop-color="#8A640F"/></linearGradient></defs>
+    <path d="M20 12 C12 2 3 4 4 11 C5 17 13 16 20 12Z M20 12 C28 2 37 4 36 11 C35 17 27 16 20 12Z" fill="url(#gb)" stroke="#7a5a12" stroke-width=".6"/>
+    <path d="M19 13 L12 28 L16 26 L18 29 Z M21 13 L28 28 L24 26 L22 29 Z" fill="url(#gb)" stroke="#7a5a12" stroke-width=".5"/><rect x="16.5" y="9" width="7" height="7" rx="2.5" fill="url(#gb)" stroke="#7a5a12" stroke-width=".6"/></svg>`;
   const CORNERS = ['tr','tl'];
   const place = [];
   document.querySelectorAll('section .card, section .ev, section .quote').forEach((card,k)=>{
     const set = SETS[k % SETS.length], corner = CORNERS[k % 2], mini = card.classList.contains('quote');
     const box = document.createElement('div'); box.className = `posy ${corner}${mini?' mini':''}`; box.setAttribute('aria-hidden','true');
-    box.innerHTML = set.map((f,j)=>stalkHTML(f,j,k)).join('');
-    card.before(box);
+    box.innerHTML = set.map((f,j)=>stalkHTML(f,j,k)).join('') + BOW;
+    card.after(box);
     const pos = () => {
       // ruang kosong di atas sudut kartu: dibatasi teks/tombol/kartu lain di pita horizontal sudut itu
       const cr = card.getBoundingClientRect(), x0 = corner==='tr' ? cr.right-74 : cr.left-20, x1 = corner==='tr' ? cr.right+20 : cr.left+74;
@@ -678,10 +697,10 @@ $('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
         const rs = /^(H2|H3|H4|P|SPAN)$/.test(el.tagName) ? (()=>{ const r=document.createRange(); r.selectNodeContents(el); return [...r.getClientRects()]; })() : [el.getBoundingClientRect()];
         rs.forEach(r=>{ if (r.bottom <= cr.top + 2 && r.right > x0 && r.left < x1) limit = Math.max(limit, r.bottom); });
       });
-      const sink = mini ? 18 : 30, free = cr.top - limit - 4, sc = Math.min(mini ? .56 : .74, (free + sink) / 160);
+      const sink = mini ? 10 : 14, free = cr.top - limit - 4, sc = Math.min(mini ? .56 : .74, (free + sink) / 160);
       box.style.display = sc < .5 ? 'none' : ''; box.style.scale = sc.toFixed(3);
       box.style.top = (card.offsetTop + sink - 160) + 'px';
-      box.style.left = (corner==='tr' ? card.offsetLeft + card.offsetWidth - 120 + 30*sc + 6 : card.offsetLeft - 30*sc - 6) + 'px'; };
+      box.style.left = (corner==='tr' ? card.offsetLeft + card.offsetWidth - 34 - BX : card.offsetLeft + 34 - (120 - BX)) + 'px'; };
     place.push(pos); pos();
     edgeIO.observe(box);
   });
