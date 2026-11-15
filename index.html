@@ -94,8 +94,9 @@ main{width:100%;max-width:414px;background:var(--parchment);min-height:100vh;pos
 @keyframes nudgeR{50%{transform:translateX(3px)}}
 
 /* ============ KARTU & BAGIAN ============ */
-section{position:relative;z-index:10;padding:24px 20px}
-.card{background:rgba(255,249,243,.95);border-radius:24px;padding:24px;border:1px solid rgba(197,155,39,.3);box-shadow:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);position:relative;overflow:hidden}
+section{position:relative;z-index:10;padding:24px 20px;overflow:hidden}
+section>*:not(.edge){position:relative;z-index:1}
+.card{background:rgba(255,249,243,.95);border-radius:24px;padding:24px;border:1px solid rgba(197,155,39,.3);box-shadow:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);position:relative;overflow:visible}
 .orn-line{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin-bottom:16px;font-size:12px}
 .orn-line b{height:1px;width:48px;background:rgba(197,155,39,.5)}
 .bism{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--crimson);text-align:center}
@@ -163,7 +164,7 @@ section{position:relative;z-index:10;padding:24px 20px}
 .wishes{display:flex;flex-direction:column;gap:8px;margin-top:12px}
 .wish{background:var(--parchment-card);border:1px solid rgba(197,155,39,.3);border-radius:14px;padding:10px 14px;font-family:var(--serif);font-size:14px;text-align:left}
 .wish b{color:var(--crimson)}.wish em{font-family:var(--cinzel);font-size:9px;font-style:normal;margin-left:6px;color:var(--gold-dark)}
-.quote{padding:24px;border-radius:16px;background:#F4ECDD;border:1px solid rgba(197,155,39,.3);text-align:center}
+.quote{position:relative;padding:24px;border-radius:16px;background:#F4ECDD;border:1px solid rgba(197,155,39,.3);text-align:center}
 .quote p{font-family:var(--serif);font-style:italic;color:var(--stone-800);font-size:14px;line-height:1.65}
 .quote small{display:block;font-family:var(--cinzel);font-size:10px;color:var(--stone-600);letter-spacing:.1em;margin-top:8px;text-transform:uppercase;font-weight:600}
 .closing{padding:24px 24px 48px;text-align:center;color:var(--stone-600);position:relative;z-index:10}
@@ -244,6 +245,23 @@ section{position:relative;z-index:10;padding:24px 20px}
 @keyframes burst{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1.1) rotate(var(--r));opacity:0}}
 .toast{position:fixed;left:50%;top:calc(20px + env(safe-area-inset-top));transform:translate(-50%,-30px);opacity:0;z-index:80;background:var(--crimson);color:#fef3c7;font-family:var(--cinzel);font-size:11px;letter-spacing:.06em;padding:9px 18px;border-radius:999px;transition:all .4s;pointer-events:none;border:1px solid rgba(252,211,77,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+/* ============ HIASAN POHON & BUNGA DI TEPI HALAMAN DAN KARTU ============ */
+.edge{position:absolute;z-index:0;pointer-events:none;width:42%;max-width:170px;opacity:0;transition:opacity 1.8s ease,transform 2.2s cubic-bezier(.16,1,.3,1)}
+.edge img{width:100%;display:block}
+.edge.l{left:-6px;transform:translateX(-30px)}.edge.r{right:-6px;transform:translateX(30px)}
+.edge.l img{transform-origin:0% 20%;animation:edgeL 9s ease-in-out infinite}
+.edge.r img{transform-origin:100% 20%;animation:edgeR 10s ease-in-out infinite}
+.edge.on{opacity:.55;transform:none}
+@keyframes edgeL{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(2deg) skewY(-.6deg)}}
+@keyframes edgeR{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(-2deg) skewY(.6deg)}}
+.posy{position:absolute;z-index:3;pointer-events:none;width:118px;height:96px}
+.posy.tr{top:-46px;right:-22px;transform-origin:100% 0}.posy.bl{bottom:-50px;left:-24px;transform-origin:0 100%}.posy.tl{top:-46px;left:-22px;transform-origin:0 0}.posy.br{bottom:-50px;right:-24px;transform-origin:100% 100%}
+.posy{transform:scale(.86)}.posy.mini{transform:scale(.6)}
+.posy i{position:absolute;display:block;opacity:0;transform:translateY(14px) scale(.6) rotate(var(--r0,0deg));transition:opacity 1.2s ease var(--in,0s),transform 1.6s cubic-bezier(.34,1.4,.64,1) var(--in,0s)}
+.posy i img{width:100%;display:block;transform-origin:50% 92%;animation:bloomSway var(--sd,7s) ease-in-out infinite;animation-delay:var(--sdl,0s);filter:drop-shadow(0 3px 3px rgba(90,40,20,.16))}
+.rv.in .posy i,.posy.on i{opacity:1;transform:rotate(var(--r0,0deg))}
+@keyframes bloomSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3.5deg)}}
+@media (prefers-reduced-motion:reduce){.edge,.posy i{opacity:1;transform:none}}
 /* motion masuk & keluar */
 .rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .6s ease,transform .7s cubic-bezier(.4,0,1,1)}
 .rv.in{opacity:1;transform:none;transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.6s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
@@ -601,6 +619,48 @@ $('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
   addWish(n,a,m); try{ const l=JSON.parse(localStorage.getItem('wedding_wish')||'[]'); l.push({n,a,m}); localStorage.setItem('wedding_wish',JSON.stringify(l.slice(-5))); }catch(e){}
   const link=document.createElement('a'); link.href=`https://wa.me/${WEDDING.whatsapp}?text=${encodeURIComponent(text)}`; link.target='_blank'; link.rel='noopener'; document.body.appendChild(link); link.click(); link.remove();
   toast('Membuka WhatsApp…'); });
+
+/* ===================== HIASAN TEPI: ranting pohon & rangkaian bunga ===================== */
+(function decorate(){
+  // ranting pohon bergantian kiri/kanan di setiap halaman
+  const secs = ['greeting','couple','event','story','rsvp','pepatah'].map(id=>document.getElementById(id));
+  secs.forEach((sec,i)=>{
+    const side = i%2 ? 'r' : 'l', e = document.createElement('div');
+    e.className = `edge ${side}`; e.style.top = (i%3===1 ? '28%' : '-10px'); e.setAttribute('aria-hidden','true');
+    e.innerHTML = `<img src="assets/branch${side==='l'?'L':'R'}.webp" alt="" style="animation-delay:-${i*1.7}s">`;
+    sec.prepend(e);
+    // ranting kedua di sisi seberang, lebih kecil, di bagian bawah halaman panjang
+    if (['couple','event','rsvp'].includes(sec.id)){
+      const o = side==='l' ? 'r' : 'l', e2 = document.createElement('div');
+      e2.className = `edge ${o}`; e2.style.cssText = 'bottom:4%;width:30%;max-width:120px'; e2.setAttribute('aria-hidden','true');
+      e2.innerHTML = `<img src="assets/branch${o==='l'?'L':'R'}.webp" alt="" style="animation-delay:-${i*2.3+1}s">`;
+      sec.prepend(e2);
+    }
+  });
+  const edgeIO = new IntersectionObserver(es=>es.forEach(en=>en.target.classList.toggle('on', en.isIntersecting)),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.edge').forEach(el=>edgeIO.observe(el));
+  // rangkaian bunga di sudut kartu: tiap bunga diletakkan sendiri & bergoyang sendiri
+  const P = 'assets/flowers/';
+  const SETS = [
+    [['lili-pink-1',0,10,62,-14],['anggrek-1',44,0,50,12],['kuncup-anggrek',86,30,28,24]],
+    [['mawar-liar',8,18,58,-8],['heliconia-2',62,0,34,18],['anggrek-merah',40,38,44,4]],
+    [['anggrek-2',0,16,64,-10],['mawar-merah-1',52,4,46,14],['terompet',84,40,30,28]],
+    [['lili-putih',4,12,66,-12],['mawar-pink',56,26,46,10],['jahe-merah',90,0,22,22]],
+    [['anggrek-3',0,14,64,-8],['lili-pink-2',50,6,52,16],['kuncup-anggrek',10,52,26,-30]],
+    [['mawar-merah-2',6,14,54,-10],['heliconia-1',58,0,30,20],['anggrek-1',38,40,44,6]],
+  ];
+  const CORNERS = ['tr','br','tl','bl'];   // kartu berurutan tidak berbagi sudut yang berdekatan
+  document.querySelectorAll('section .card, section .ev, section .quote').forEach((card,k)=>{
+    const set = SETS[k % SETS.length], corner = CORNERS[k % CORNERS.length], mirror = corner==='tl' || corner==='bl';
+    const box = document.createElement('div'); box.className = `posy ${corner}${card.classList.contains('quote')?' mini':''}`; box.setAttribute('aria-hidden','true');
+    box.innerHTML = set.map(([id,x,y,w,r],j)=>{
+      const left = mirror ? 118 - x - w : x;
+      return `<i style="left:${left}px;top:${y}px;width:${w}px;--r0:${mirror?-r:r}deg;--in:${(.25+j*.18).toFixed(2)}s"><img src="${P}${id}.png" alt="" style="--sd:${(6+j*1.3+k%3*.7).toFixed(1)}s;--sdl:-${(k*1.1+j*2).toFixed(1)}s"></i>`;
+    }).join('');
+    card.appendChild(box);
+    if (!card.classList.contains('rv')) edgeIO.observe(box);
+  });
+})();
 
 /* ===================== PARTIKEL: kelopak & kupu-kupu ===================== */
 const PCOL = ['#8B1E1E','#A62E2E','#D95368','#B84A62','#C59B27','#E892A2'], parts = $('#particles');
