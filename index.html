@@ -7,13 +7,13 @@
 <title>Undangan Pernikahan Rian &amp; Syherli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 /* Data undangan ada di <script> paling bawah (const WEDDING). Ilustrasi digambar dengan SVG di fungsi scene()/floral(). */
 :root{
-  --paper:#f4eee2; --paper-2:#ebe3d2; --card:#fbf8f2;
-  --ink:#3d3a33; --ink-soft:#6b665a;
-  --maroon:#9a3f41; --maroon-d:#7c2c30;
+  --paper:#f3ece8; --paper-2:#ebe2df; --card:#fcf9f7;
+  --ink:#4a3a41; --ink-soft:#7a6870;
+  --maroon:#7b4b5e; --maroon-d:#5f3547;
   --gold:#c9a24a;
   --script:'Pinyon Script', cursive;
   --serif:'Lora', Georgia, serif;
@@ -31,8 +31,8 @@ svg{display:block}
 .app{position:relative;max-width:var(--col);margin:0 auto;background:var(--paper);overflow:hidden;
   box-shadow:0 0 0 1px rgba(0,0,0,.25),0 0 120px rgba(0,0,0,.6)}
 .paper{background:
-   repeating-linear-gradient(0deg,rgba(80,70,50,.045) 0 1px,transparent 1px 3px),
-   radial-gradient(120% 70% at 50% 0%,#f8f3e8,transparent 70%),
+   repeating-linear-gradient(0deg,rgba(110,80,95,.045) 0 1px,transparent 1px 3px),
+   radial-gradient(120% 70% at 50% 0%,#f8f3f1,transparent 70%),
    linear-gradient(180deg,var(--paper),var(--paper-2))}
 
 .script{font-family:var(--script);font-weight:400;color:var(--maroon);line-height:1.15}
@@ -43,15 +43,25 @@ svg{display:block}
   transition:opacity 1.6s cubic-bezier(.4,0,.2,1)}
 .cover .scene{position:absolute;inset:0;width:100%;height:100%;transform:scale(1.04);transition:transform 4.5s cubic-bezier(.3,0,.2,1)}
 .cover .fog{position:absolute;inset:0;background:
-   radial-gradient(70% 38% at 50% 56%,rgba(246,241,230,.92),rgba(246,241,230,.55) 60%,transparent 100%),
-   linear-gradient(180deg,rgba(170,160,140,.35),rgba(240,234,220,.55) 40%,rgba(240,234,220,.6) 70%,rgba(240,234,220,.2));
+   radial-gradient(70% 34% at 50% 38%,rgba(246,240,238,.92),rgba(246,240,238,.55) 60%,transparent 100%),
+   linear-gradient(180deg,rgba(200,185,190,.2),rgba(242,235,232,.55) 40%,rgba(242,235,232,.6) 70%,rgba(242,235,232,.2));
   transition:opacity 2.2s ease}
-.cover-text{position:absolute;left:0;right:0;top:41%;transform:translateY(-50%);text-align:center;padding:0 24px;z-index:3;
+.mono{position:relative;width:120px;height:132px;margin:0 auto 6px;font-family:'Cormorant Garamond',serif;font-weight:500;color:#7b4b5e;line-height:1}
+.mono span{position:absolute;font-size:96px}
+.mono span:first-child{left:6px;top:-6px}
+.mono span:last-child{left:40px;top:44px}
+.fl.sl{left:-30px;top:47%;width:26%;transform-origin:0 50%}
+.fl.sr{right:-30px;top:47%;width:26%;transform-origin:100% 50%}
+.cover.opening .fl.sl{transform:translateX(-40%)}.cover.opening .fl.sr{transform:translateX(40%)}
+.cover .bfly{width:30px}
+.cover .fl.tl,.cover .fl.tr{width:40%}
+.cover .fl.bl,.cover .fl.br{width:40%}
+.cover-text{position:absolute;left:0;right:0;top:36%;transform:translateY(-50%);text-align:center;padding:0 24px;z-index:3;
   transition:opacity 1s ease,transform 1.4s cubic-bezier(.4,0,.2,1)}
 .cover-text .caps{font-size:.95rem;color:var(--ink)}
-.cover-text .script{font-size:clamp(2.6rem,12vw,3.4rem);margin:4px 0 18px}
+.cover-text .script{font-size:clamp(2.4rem,11vw,3.2rem);margin:2px 0 12px}
 .cover-text .yth{font-size:.98rem}
-.cover-text .guest{font-size:1.35rem;margin:6px 0 20px}
+.cover-text .guest{font-size:1.3rem;margin:4px 0 16px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--serif);font-size:.95rem;letter-spacing:.04em;
   color:#fff;background:var(--maroon);border:0;border-radius:999px;padding:13px 46px;cursor:pointer;text-decoration:none;
   box-shadow:0 10px 22px -10px rgba(90,30,30,.7);transition:transform .3s ease,background .3s}
@@ -89,11 +99,13 @@ section{position:relative;padding:130px 26px 110px;text-align:center;overflow:hi
 section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){position:relative;z-index:3}
 .app .fl{width:36%!important;opacity:.95}
 .app .fl.bl,.app .fl.br{width:42%!important}
-.hero .fl{width:40%!important}
+.hero .fl{width:38%!important}
+.hero .fl.sl,.hero .fl.sr{width:24%!important;top:50%}
+.hero .fl.bl,.hero .fl.br{width:36%!important}
 .title{font-size:clamp(2.6rem,12vw,3.3rem)}
 .lead{font-style:italic;font-size:1.02rem;color:var(--ink);max-width:420px;margin:12px auto 0}
 .arch-card{position:relative;z-index:3;background:var(--card);padding:56px 26px 64px;margin:0 auto;max-width:360px;
-  border-radius:50% 50% 50% 50% / 13% 13% 13% 13%;box-shadow:0 18px 40px -26px rgba(60,50,30,.45)}
+  border-radius:50% 50% 50% 50% / 13% 13% 13% 13%;box-shadow:0 18px 40px -26px rgba(80,50,62,.45)}
 .arch-card.tall{border-radius:50% 50% 30px 30px / 16% 16% 30px 30px}
 .seal{width:72px;margin:0 auto 22px;filter:drop-shadow(0 4px 4px rgba(80,10,10,.35))}
 .verse{font-style:italic;font-size:1.02rem;line-height:1.75}
@@ -103,15 +115,16 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 .hero{min-height:100vh;min-height:100svh;padding:0;display:flex;align-items:flex-start;justify-content:center}
 .hero .scene{position:absolute;inset:0;width:100%;height:100%}
 .hero .glow{position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(180deg,transparent,var(--paper))}
-.hero .sky{position:absolute;left:-10%;right:-10%;top:0;height:46%;background:radial-gradient(60% 50% at 50% 48%,rgba(246,241,230,.9),rgba(246,241,230,.45) 60%,transparent)}
-.hero .htext{position:relative;z-index:3;padding:calc(118px + env(safe-area-inset-top)) 24px 0}
+.hero .sky{position:absolute;left:-10%;right:-10%;top:4%;height:40%;background:radial-gradient(60% 50% at 50% 48%,rgba(246,240,238,.9),rgba(246,240,238,.45) 60%,transparent)}
+.hero .htext{position:relative;z-index:3;padding:calc(70px + env(safe-area-inset-top)) 24px 0}
+.hero .mono{width:88px;height:100px;margin-bottom:8px}.hero .mono span{font-size:70px}.hero .mono span:first-child{left:4px;top:-4px}.hero .mono span:last-child{left:30px;top:33px}
 .hero .script{font-size:clamp(2.7rem,12.5vw,3.5rem)}
 .hero .date{letter-spacing:.32em;font-size:.88rem;margin-top:10px}
 
 /* mempelai */
 .person{margin-top:46px}
 .portrait{width:200px;aspect-ratio:3/4;margin:0 auto 18px;border-radius:999px 999px 10px 10px;overflow:hidden;position:relative;
-  border:6px solid var(--card);outline:1px solid #c9bfa8;outline-offset:4px;background:#ddd5c2}
+  border:6px solid var(--card);outline:1px solid #cdb9c0;outline-offset:4px;background:#e4d9db}
 .portrait img{width:100%;height:100%;object-fit:cover}
 .portrait .ph{position:absolute;inset:0}
 .portrait .ini{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:4.4rem;color:var(--maroon)}
@@ -122,7 +135,7 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 
 /* hitung mundur */
 .count{display:flex;justify-content:center;gap:10px;margin:28px 0 26px}
-.cbox{width:68px;padding:12px 0 10px;background:var(--card);border-radius:14px;box-shadow:0 10px 20px -14px rgba(60,50,30,.5)}
+.cbox{width:68px;padding:12px 0 10px;background:var(--card);border-radius:14px;box-shadow:0 10px 20px -14px rgba(80,50,62,.5)}
 .cbox b{display:block;font-size:1.7rem;font-weight:500;color:var(--maroon);font-variant-numeric:tabular-nums;line-height:1.1}
 .cbox span{font-size:.7rem;letter-spacing:.08em;color:var(--ink-soft)}
 
@@ -138,7 +151,7 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 
 /* kisah */
 .story{position:relative;max-width:360px;margin:34px auto 0;text-align:left}
-.story::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:1px;background:#bdb39b}
+.story::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:1px;background:#c7b4bb}
 .st{position:relative;padding:0 0 30px 40px}
 .st::before{content:"";position:absolute;left:5px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--card);border:2px solid var(--maroon)}
 .st .yr{font-size:.8rem;letter-spacing:.14em;color:var(--maroon);font-weight:600}
@@ -147,22 +160,22 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 
 /* galeri */
 .gallery{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:150px;gap:10px;margin-top:28px}
-.gallery figure{position:relative;overflow:hidden;border-radius:8px;background:#ddd5c2;border:4px solid var(--card)}
+.gallery figure{position:relative;overflow:hidden;border-radius:8px;background:#e4d9db;border:4px solid var(--card)}
 .gallery figure:nth-child(1){grid-row:span 2;border-radius:999px 999px 8px 8px}
 .gallery img{width:100%;height:100%;object-fit:cover}
-.gallery .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:.72rem;letter-spacing:.2em;color:#8c8470}
+.gallery .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:.72rem;letter-spacing:.2em;color:#9a8790}
 
 /* rsvp */
-.form{max-width:380px;margin:26px auto 0;text-align:left;background:var(--card);border-radius:22px;padding:28px 22px;box-shadow:0 18px 40px -26px rgba(60,50,30,.45)}
+.form{max-width:380px;margin:26px auto 0;text-align:left;background:var(--card);border-radius:22px;padding:28px 22px;box-shadow:0 18px 40px -26px rgba(80,50,62,.45)}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#f6f1e7;border:1px solid #d8ceb9;border-radius:10px;padding:11px 13px;outline:none}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#f6f0ee;border:1px solid #dccdd2;border-radius:10px;padding:11px 13px;outline:none}
 .field textarea{min-height:96px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--maroon)}
 .seg{display:flex;gap:8px}
 .seg label{flex:1;margin:0;cursor:pointer;font-weight:400}
 .seg input{position:absolute;opacity:0;pointer-events:none}
-.seg span{display:block;text-align:center;font-size:.86rem;padding:9px 4px;border-radius:999px;border:1px solid #d8ceb9;transition:all .3s}
+.seg span{display:block;text-align:center;font-size:.86rem;padding:9px 4px;border-radius:999px;border:1px solid #dccdd2;transition:all .3s}
 .seg input:checked+span{background:var(--maroon);color:#fff;border-color:var(--maroon)}
 .form .btn{width:100%}
 .hint{font-size:.82rem;font-style:italic;color:var(--ink-soft);text-align:center;margin-top:10px}
@@ -173,7 +186,7 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 
 /* hadiah */
 .gifts{display:flex;flex-direction:column;gap:16px;max-width:360px;margin:26px auto 0}
-.bank{position:relative;text-align:left;background:var(--card);border-radius:18px;padding:20px 20px 18px;box-shadow:0 18px 40px -26px rgba(60,50,30,.45);overflow:hidden}
+.bank{position:relative;text-align:left;background:var(--card);border-radius:18px;padding:20px 20px 18px;box-shadow:0 18px 40px -26px rgba(80,50,62,.45);overflow:hidden}
 .bank::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;border:1px solid rgba(201,162,74,.35)}
 .bank .blogo{width:76px;height:26px;border-radius:6px;margin-bottom:14px}
 .bank .no{font-size:1.25rem;font-weight:600;letter-spacing:.08em;font-variant-numeric:tabular-nums}
@@ -182,8 +195,8 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 
 /* penutup */
 .thanks{min-height:100vh;min-height:100svh;padding-top:150px;padding-bottom:0}
-.thanks .scene{position:absolute;left:0;right:0;bottom:0;width:100%;height:55%;-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
-.thanks .veil{position:absolute;left:0;right:0;bottom:22%;height:30%;background:linear-gradient(180deg,var(--paper) 10%,rgba(244,238,226,0))}
+.thanks .scene{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
+.thanks .veil{position:absolute;left:0;right:0;bottom:22%;height:30%;background:linear-gradient(180deg,var(--paper) 10%,rgba(243,236,232,0))}
 .thanks .t{position:relative;z-index:3}
 .thanks .script{font-size:3rem}
 .thanks .names{font-size:2.6rem;margin-top:16px}
@@ -233,7 +246,7 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
 .menu.open{pointer-events:auto}.menu.open .back{opacity:1}.menu.open .sheet{transform:none}
 .menu .sheet h3{font-family:var(--script);font-weight:400;font-size:2rem;color:var(--maroon);text-align:center;margin-bottom:10px}
 .menu .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.menu a{display:block;text-align:center;text-decoration:none;color:var(--ink);font-size:.92rem;padding:11px 6px;border-radius:12px;background:#f3ede1}
+.menu a{display:block;text-align:center;text-decoration:none;color:var(--ink);font-size:.92rem;padding:11px 6px;border-radius:12px;background:#f4ecea}
 .toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top));transform:translate(-50%,-30px);opacity:0;z-index:70;background:var(--maroon);color:#fff;font-size:.86rem;padding:9px 18px;border-radius:999px;transition:all .4s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -263,7 +276,10 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
   <div class="fl tr sway" data-fl="corner" data-flip></div>
   <div class="fl bl sway" data-fl="low"></div>
   <div class="fl br sway" data-fl="low" data-flip></div>
+  <div class="fl sl sway" data-fl="side"></div>
+  <div class="fl sr sway" data-fl="side" data-flip></div>
   <div class="cover-text">
+    <div class="mono" id="mono"><span>R</span><span>S</span></div>
     <p class="caps">The Wedding of</p>
     <h1 class="script" id="coverNames">Rian &amp; Syherli</h1>
     <p class="yth">Yth. Bapak/Ibu/Saudara/i</p>
@@ -277,8 +293,11 @@ section>:not(.fl):not(.scene):not(.bfly):not(.veil):not(.glow):not(.sky){positio
   <section class="hero" id="home">
     <div class="scene" data-scene="hero"></div>
     <div class="sky"></div><div class="glow"></div>
-    <div class="fl tl sway" data-fl="gold"></div><div class="fl tr sway" data-fl="gold" data-flip></div>
+    <div class="fl tl sway" data-fl="corner"></div><div class="fl tr sway" data-fl="corner" data-flip></div>
+    <div class="fl sl sway" data-fl="side"></div><div class="fl sr sway" data-fl="side" data-flip></div>
+    <div class="fl bl sway" data-fl="low"></div><div class="fl br sway" data-fl="low" data-flip></div>
     <div class="htext">
+      <div class="mono rv" data-mono></div>
       <p class="caps rv">The Wedding of</p>
       <h2 class="script rv" style="--d:.2s"><span data-k="groomNick">Rian</span> &amp; <span data-k="brideNick">Syherli</span></h2>
       <p class="date rv" style="--d:.4s" id="heroDate">12 · 12 · 2026</p>
@@ -499,122 +518,157 @@ function jamGadang(u){
   o += `<rect x="0" y="240" width="60" height="22" fill="#d4cebe" stroke="${k}"/><path d="M22 262 V250 Q30 242 38 250 V262 Z" fill="#4e4b42"/>`;
   return o;
 }
-// pemandangan lengkap 400x860: langit sepia, gunung, danau, rumah gadang, Jam Gadang, pepohonan
+// ===== rumah gadang tampak samping di atas tiang (gaya toile, lokal 320x270, tanah y=268) =====
+function rgSide(u){
+  const k='#6e5560', f='#efe6e6'; let o='';
+  // tiang & palang
+  for (let x=22;x<=298;x+=23){ o+=`<path d="M${x} 196 V266" stroke="${k}" stroke-width="2.2"/><path d="M${x} 196 V266" stroke="#d8cbd0" stroke-width=".7"/>`; }
+  o += `<path d="M14 214 H306 M14 238 H306" stroke="${k}" stroke-width="1"/>`;
+  for (let x=22;x<298;x+=23) o += `<path d="M${x} 214 L${x+23} 238 M${x+23} 214 L${x} 238" stroke="${k}" stroke-width=".5" opacity=".6"/>`;
+  // tangga depan
+  o += `<path d="M4 268 L22 200 M26 268 L40 200" stroke="${k}" stroke-width="1.2"/>`; for (let y=210;y<268;y+=10) o+=`<path d="M${4+ (268-y)*.26} ${y} H${26+(268-y)*.2}" stroke="${k}" stroke-width=".8"/>`;
+  // badan (melebar ke atas)
+  o += `<path d="M14 196 L306 196 L314 120 L6 120 Z" fill="${f}" stroke="${k}" stroke-width="1.3"/><path d="M14 196 L306 196 L314 120 L6 120 Z" fill="url(#tv${u})" opacity=".55"/>`;
+  o += `<path d="M10 150 H310 M12 172 H308" stroke="${k}" stroke-width=".7"/>`;
+  for (let x=28;x<=290;x+=26){ o += `<rect x="${x}" y="126" width="14" height="22" fill="#8c707b" stroke="${k}" stroke-width=".6"/><path d="M${x} 137 h14 M${x+7} 126 v22" stroke="#e9dfe2" stroke-width=".5"/>`; }
+  let z=''; for (let x=12;x<308;x+=6) z+=`M${x} 172 l3 -6 l3 6 `; o += `<path d="${z}" fill="none" stroke="${k}" stroke-width=".6"/>`;
+  for (let x=14;x<306;x+=5) o += `<path d="M${x} 176 v18" stroke="${k}" stroke-width=".35" opacity=".7"/>`;
+  // atap ijuk bergonjong (depan kiri tinggi, berulang ke belakang)
+  const H = [[-14,74,-12,0,124],[54,140,92,26,116],[120,206,162,36,116],[186,272,232,44,116],[248,330,326,34,124]];
+  H.slice().reverse().forEach(([L,R,tx,ty,yb])=>{ const d=horn(L,R,tx,ty,yb); o += `<path d="${d}" fill="#cdbcc2" stroke="${k}" stroke-width="1.2"/><path d="${d}" fill="url(#tv${u})"/><path d="M${tx} ${ty} l${tx<0?-3:3} -7" stroke="${k}" stroke-width="1.3"/>`; });
+  o += `<path d="M-8 124 Q160 104 322 124 L314 132 Q160 114 6 132 Z" fill="#b9a5ac" stroke="${k}"/>`;
+  // anjung depan (gonjong kecil dengan kisi)
+  o += `<path d="${horn(-8,56,24,48,124)}" fill="#e7dcdf" stroke="${k}" stroke-width="1.1"/>`;
+  for (let i=1;i<6;i++) o += `<path d="M${24-i*5} ${60+i*11} H${24+i*5}" stroke="${k}" stroke-width=".5"/>`; o += `<path d="M24 52 V122 M12 90 L36 90" stroke="${k}" stroke-width=".5"/>`;
+  return o;
+}
+// ornamen damask renda (lokal, pusat 0,0)
+function damaskLace(c){
+  const half = `<path d="M0 -40 C-16 -40 -30 -26 -26 -10 C-22 4 -6 2 -8 -10 C-10 -18 -18 -16 -16 -10" fill="none" stroke="${c}" stroke-width="1.4"/>
+   <path d="M-6 -2 C-30 -4 -54 8 -60 26 C-64 40 -50 48 -42 38 C-36 30 -44 22 -50 28" fill="none" stroke="${c}" stroke-width="1.4"/>
+   <path d="M-4 10 C-14 22 -18 36 -10 48" fill="none" stroke="${c}" stroke-width="1.2"/><path d="M-30 -30 C-44 -40 -62 -34 -66 -20 C-68 -8 -56 -4 -52 -14" fill="none" stroke="${c}" stroke-width="1.2"/>
+   <circle cx="-42" cy="38" r="2" fill="${c}"/><circle cx="-52" cy="-14" r="2" fill="${c}"/><path d="M-20 18 q-8 6 -4 14 q8 -4 4 -14z" fill="${c}" opacity=".6"/>`;
+  return `${half}<g transform="scale(-1 1)">${half}</g><path d="M0 -54 C8 -42 8 -28 0 -18 C-8 -28 -8 -42 0 -54Z" fill="none" stroke="${c}" stroke-width="1.4"/><path d="M0 -44 v20" stroke="${c}"/><circle cy="2" r="4" fill="none" stroke="${c}" stroke-width="1.2"/><path d="M0 8 C6 20 6 34 0 50 C-6 34 -6 20 0 8Z" fill="none" stroke="${c}" stroke-width="1.2"/>`;
+}
+// motif songket belah ketupat kecil
+const ketupat = (x,y,s,c) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -8 L6 0 L0 8 L-6 0Z" fill="none" stroke="${c}" stroke-width="1"/><path d="M0 -4 L3 0 L0 4 L-3 0Z" fill="${c}" opacity=".7"/><path d="M0 -12 v3 M0 12 v-3 M-10 0 h3 M10 0 h-3" stroke="${c}" stroke-width=".8"/></g>`;
+const kristik = (x,y,s,c) => { let o=`<g transform="translate(${x} ${y}) scale(${s})" fill="${c}">`; [[0,0],[-4,0],[4,0],[0,-4],[0,4],[-8,0],[8,0],[0,-8],[0,8],[-4,-4],[4,4],[-4,4],[4,-4]].forEach(([a,b])=>o+=`<rect x="${a-1.3}" y="${b-1.3}" width="2.6" height="2.6"/>`); return o+'</g>'; };
+// bandul gantung: tali + manik + kelopak tiga
+const pendant = (x,len,c) => `<path d="M${x} 0 V${len}" stroke="${c}" stroke-width=".7"/><circle cx="${x}" cy="${len*.55}" r="2" fill="${c}"/><circle cx="${x}" cy="${len*.75}" r="1.4" fill="${c}"/>
+  <g transform="translate(${x} ${len+8})" fill="${c}"><circle cx="0" cy="-5" r="4.2"/><circle cx="-4.6" cy="1" r="4.2"/><circle cx="4.6" cy="1" r="4.2"/><path d="M0 2 L-3 12 L0 16 L3 12Z"/><circle cx="0" cy="0" r="1.6" fill="#f3e9ec"/></g>`;
+// pemandangan toile 400x860
 function scene(kind){
-  const u = ++UID, cover = kind==='cover';
+  const u = ++UID, M='#9c8790', r = rng(17);
   let s = `<svg viewBox="0 0 400 860" preserveAspectRatio="${kind==='foot'?'xMidYMax slice':'xMidYMid slice'}" style="width:100%;height:100%" aria-hidden="true"><defs>
-    <linearGradient id="sky${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c7c65"/><stop offset=".45" stop-color="#c4b79f"/><stop offset="1" stop-color="#eee8d9"/></linearGradient>
-    <linearGradient id="mt${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e4d4"/><stop offset="1" stop-color="#9f9a88"/></linearGradient>
-    <linearGradient id="mt2${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9c4b2"/><stop offset="1" stop-color="#7f7b6c"/></linearGradient>
-    <linearGradient id="ground${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e1d1"/><stop offset="1" stop-color="#cfc9b6"/></linearGradient>
-    <pattern id="hh${u}" width="6" height="2.4" patternUnits="userSpaceOnUse"><path d="M0 1.2H6" stroke="#3b392f" stroke-width=".42" opacity=".5"/></pattern>
-    <pattern id="hv${u}" width="2.6" height="6" patternUnits="userSpaceOnUse"><path d="M1.3 0V6" stroke="#2f2d26" stroke-width=".5" opacity=".45"/></pattern>
-    <pattern id="hd${u}" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 1.5H3" stroke="#3b392f" stroke-width=".45" opacity=".45"/></pattern>
+    <linearGradient id="bg${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2ebe7"/><stop offset=".55" stop-color="#ece3e1"/><stop offset="1" stop-color="#e7dcdb"/></linearGradient>
+    <pattern id="th${u}" width="6" height="2.6" patternUnits="userSpaceOnUse"><path d="M0 1.3H6" stroke="#8d7680" stroke-width=".4" opacity=".35"/></pattern>
+    <pattern id="tv${u}" width="2.4" height="6" patternUnits="userSpaceOnUse"><path d="M1.2 0V6" stroke="#5f4651" stroke-width=".45" opacity=".5"/></pattern>
+    <pattern id="lace${u}" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M7 0 L14 7 L7 14 L0 7Z" fill="none" stroke="${M}" stroke-width=".6"/><circle cx="7" cy="7" r="1.4" fill="${M}"/><circle cx="0" cy="0" r=".9" fill="${M}"/></pattern>
   </defs>`;
-  s += `<rect width="400" height="470" fill="url(#sky${u})"/><rect width="400" height="470" fill="url(#hh${u})" opacity=".55"/>`;
-  // awan
-  const r = rng(7);
-  for (let i=0;i<9;i++){ const x=r()*400, y=40+r()*220; s += `<ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="${(40+r()*60).toFixed(0)}" ry="${(8+r()*10).toFixed(0)}" fill="#e8dfcc" opacity="${(.18+r()*.2).toFixed(2)}"/>`; }
-  // gunung
-  s += `<path d="M-10 420 L60 360 L110 372 L170 296 L200 318 L232 304 L276 344 L320 326 L360 352 L410 340 L410 440 L-10 440Z" fill="url(#mt${u})"/>`;
-  s += `<path d="M-10 420 L60 360 L110 372 L170 296 L200 318 L232 304 L276 344 L320 326 L360 352 L410 340 L410 440 L-10 440Z" fill="url(#hd${u})"/>`;
-  s += `<path d="M170 296 L150 360 M170 296 L188 352 M232 304 L222 346 M320 326 L310 366 M60 360 L52 392" stroke="#6f6b5e" stroke-width=".8" fill="none"/>`;
-  s += `<path d="M-10 440 L40 404 L96 420 L150 398 L220 426 L300 404 L360 420 L410 408 L410 460 L-10 460Z" fill="url(#mt2${u})"/><path d="M-10 440 L40 404 L96 420 L150 398 L220 426 L300 404 L360 420 L410 408 L410 460 L-10 460Z" fill="url(#hh${u})"/>`;
-  // danau
-  s += `<rect x="-10" y="456" width="420" height="120" fill="#e3dfd1"/>`;
-  for (let y=460;y<576;y+=3.2) s += `<path d="M${(r()*60-20).toFixed(0)} ${y.toFixed(1)}H${(360+r()*60).toFixed(0)}" stroke="#7c786a" stroke-width=".4" opacity="${(.25+r()*.35).toFixed(2)}"/>`;
-  // garis pohon jauh
-  for (let x=-10;x<420;x+=14) s += tree(x, 454, 10, 6, 7, 100+x, '#c9c5b5', '#6b685c');
-  // rumah gadang & jam gadang
-  s += `<g transform="translate(18 470) scale(.5)">${rumahGadang(u)}</g>`;
-  s += `<g transform="translate(318 368) scale(1)">${jamGadang(u)}</g>`;
-  // tanah depan
-  s += `<path d="M-10 600 Q120 584 220 604 T410 596 V860 H-10Z" fill="url(#ground${u})"/><path d="M-10 600 Q120 584 220 604 T410 596 V860 H-10Z" fill="url(#hh${u})" opacity=".6"/>`;
-  s += `<rect x="-10" y="575" width="420" height="30" fill="url(#hh${u})" opacity=".5"/>`;
-  // pohon tengah & depan
-  s += tree(300, 560, 30, 34, 70, 11) + tree(275, 590, 22, 20, 40, 12);
-  s += tree(40, 610, 46, 44, 110, 21) + tree(95, 640, 30, 26, 60, 22);
-  s += tree(372, 650, 44, 50, 110, 31) + tree(340, 700, 30, 26, 60, 32);
-  s += tree(20, 760, 56, 58, 140, 41, '#a9a596', '#3f3f36') + tree(388, 790, 52, 60, 140, 42, '#a9a596', '#3f3f36');
-  // semak & rumput depan
-  for (let x=-10;x<420;x+=9) s += `<path d="M${x} 860 q2 -${(20+r()*30).toFixed(0)} ${(2+r()*4).toFixed(1)} -${(36+r()*40).toFixed(0)}" stroke="#5c5a4f" stroke-width=".7" fill="none" opacity=".6"/>`;
+  s += `<rect width="400" height="860" fill="url(#bg${u})"/><rect y="150" width="400" height="420" fill="url(#th${u})"/>`;
+  // awan bergaris
+  for (let i=0;i<7;i++){ const x=r()*400, y=170+r()*230, w=60+r()*90; for(let j=0;j<5;j++) s += `<path d="M${(x-w/2+j*6).toFixed(0)} ${(y+j*3).toFixed(0)} q${(w/2).toFixed(0)} -${(6+r()*6).toFixed(0)} ${(w-j*12).toFixed(0)} 0" stroke="#b9a7ae" stroke-width=".6" fill="none" opacity=".55"/>`; }
+  // damask besar di atas
+  s += `<g transform="translate(200 78) scale(1.25)" opacity=".55">${damaskLace('#9f8a93')}</g>`;
+  // renda tepi atas & sisi
+  s += `<rect x="40" y="0" width="320" height="16" fill="url(#lace${u})" opacity=".55"/>`;
+  s += `<rect x="0" y="330" width="26" height="420" fill="url(#lace${u})" opacity=".45"/><rect x="374" y="330" width="26" height="420" fill="url(#lace${u})" opacity=".45"/>`;
+  // motif songket & kristik bertebaran
+  for (let i=0;i<16;i++){ const x=40+r()*320, y=150+r()*380; s += (i%3===0 ? kristik(x,y,.9,'#c7b3ba') : ketupat(x,y,.8,'#b07f92')); }
+  // pepohonan berkabut di belakang
+  for (let x=-10;x<420;x+=30) s += `<g opacity=".3">${tree(x, 470-r()*24, 26, 26, 22, 300+x, '#efe8ea', '#b6a4ab')}</g>`;
+  s += `<rect y="470" width="400" height="40" fill="#ece3e2" opacity=".6"/>`;
+  // rumah gadang
+  s += `<g transform="translate(100 478) scale(.86)">${rgSide(u)}</g>`;
+  // tanah & rumput
+  s += `<path d="M-10 712 Q200 700 410 714 V860 H-10Z" fill="#e9dfdf"/><rect y="712" width="400" height="150" fill="url(#th${u})" opacity=".6"/>`;
+  for (let x=-10;x<420;x+=6) s += `<path d="M${x} ${724+r()*120} q2 -${(10+r()*22).toFixed(0)} ${(1+r()*5).toFixed(1)} -${(18+r()*30).toFixed(0)}" stroke="#a08b94" stroke-width=".6" fill="none" opacity=".6"/>`;
+  s += tree(46, 690, 30, 34, 60, 71, '#e9e0e2', '#8f7a83') + tree(24, 740, 22, 26, 40, 73, '#e9e0e2', '#8f7a83');
+  for (let i=0;i<6;i++) s += kristik(60+r()*280, 820+r()*20, .7, '#b99aa6');
+  // bandul gantung (di sampul & hero)
+  if (kind!=='foot') [[70,150],[112,90],[150,60],[250,60],[288,90],[330,150]].forEach(([x,l])=> s += pendant(x,l,'#8a5468'));
   return s + `</svg>`;
 }
 
-/* ===================== BUNGA, ORNAMEN EMAS, KUPU-KUPU ===================== */
+/* ===================== BUNGA, ORNAMEN, KUPU-KUPU (palet dusty pink) ===================== */
 const DEFS_FLORA = `<defs>
-  <radialGradient id="lily" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#7d1730"/><stop offset=".45" stop-color="#c04a67"/><stop offset="1" stop-color="#f4cbd3"/></radialGradient>
-  <radialGradient id="lilyW" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#d9b25a"/><stop offset=".35" stop-color="#f6efe0"/><stop offset="1" stop-color="#fffdf8"/></radialGradient>
-  <radialGradient id="roseG"><stop offset="0" stop-color="#6e1426"/><stop offset=".7" stop-color="#b8475c"/><stop offset="1" stop-color="#e9a7b2"/></radialGradient>
-  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a9785"/><stop offset="1" stop-color="#3f4b3d"/></linearGradient>
-  <linearGradient id="goldF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a77b22"/><stop offset=".45" stop-color="#f2d27c"/><stop offset=".7" stop-color="#c99a3a"/><stop offset="1" stop-color="#8a621a"/></linearGradient>
+  <radialGradient id="lily" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#9c4a64"/><stop offset=".45" stop-color="#d993a6"/><stop offset="1" stop-color="#f6dfe5"/></radialGradient>
+  <radialGradient id="lilyW" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#d9c27a"/><stop offset=".35" stop-color="#f7f2ea"/><stop offset="1" stop-color="#fffdfa"/></radialGradient>
+  <radialGradient id="orch" cx="50%" cy="80%" r="90%"><stop offset="0" stop-color="#b56682"/><stop offset=".55" stop-color="#e3aebd"/><stop offset="1" stop-color="#f8e3e8"/></radialGradient>
+  <linearGradient id="lip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e3d5a"/><stop offset="1" stop-color="#d887a0"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c0a6"/><stop offset="1" stop-color="#6f7a5e"/></linearGradient>
+  <linearGradient id="amar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b0687f"/><stop offset="1" stop-color="#e4b4c0"/></linearGradient>
 </defs>`;
 const petal = (L,W) => `M0 0 C${W*.7} ${-L*.25} ${W*.6} ${-L*.75} 0 ${-L} C${-W*.6} ${-L*.75} ${-W*.7} ${-L*.25} 0 0Z`;
 function lily(x,y,s,rot,white){
   let o = `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s} ${s*.82})">`;
-  for (let i=0;i<6;i++){ const a=i*60+(i%2?8:0); o += `<g transform="rotate(${a})"><path d="${petal(i%2?34:38, i%2?10:12)}" fill="url(#${white?'lilyW':'lily'})" stroke="${white?'#bfb49d':'#8a2a40'}" stroke-width=".5"/><path d="M0 -4 Q2 -18 0 -30" stroke="${white?'#d0b56d':'#7a1a33'}" stroke-width=".7" fill="none" opacity=".6"/>${white?'':'<circle cx="2" cy="-12" r=".8" fill="#6b1428"/><circle cx="-1.5" cy="-17" r=".7" fill="#6b1428"/>'}</g>`; }
-  for (let i=0;i<6;i++){ const a=i*60+30; o += `<g transform="rotate(${a})"><path d="M0 0 Q1 -10 0 -18" stroke="#a7894a" stroke-width=".7" fill="none"/><ellipse cx="0" cy="-19" rx="1.4" ry="2.6" fill="#8a4a1e"/></g>`; }
+  for (let i=0;i<6;i++){ const a=i*60+(i%2?8:0); o += `<g transform="rotate(${a})"><path d="${petal(i%2?34:38, i%2?10:12)}" fill="url(#${white?'lilyW':'lily'})" stroke="${white?'#cbbfb0':'#a65a73'}" stroke-width=".5"/><path d="M0 -4 Q2 -18 0 -30" stroke="${white?'#d6c07e':'#8e3d5a'}" stroke-width=".6" fill="none" opacity=".5"/>${white?'':'<circle cx="2" cy="-12" r=".8" fill="#8e3d5a"/><circle cx="-1.5" cy="-17" r=".7" fill="#8e3d5a"/>'}</g>`; }
+  for (let i=0;i<6;i++){ const a=i*60+30; o += `<g transform="rotate(${a})"><path d="M0 0 Q1 -10 0 -18" stroke="#b39561" stroke-width=".7" fill="none"/><ellipse cx="0" cy="-19" rx="1.3" ry="2.4" fill="#9a5a3a"/></g>`; }
   return o + `</g>`;
 }
-function rose(x,y,s){
-  let o = `<g transform="translate(${x} ${y}) scale(${s})"><circle r="16" fill="url(#roseG)" stroke="#6e1426" stroke-width=".5"/>`;
-  for (let i=0;i<4;i++) o += `<path d="M${-12+i*3} ${4-i*2} Q0 ${-14+i*4} ${12-i*3} ${4-i*2}" fill="none" stroke="#5e0f20" stroke-width=".8" opacity=".7"/>`;
-  return o + `<path d="M-4 0 q4 -6 8 0 q-4 4 -8 0z" fill="#5e0f20" opacity=".6"/></g>`;
+// anggrek: 3 kelopak sempit, 2 kelopak lebar, bibir
+function orchid(x,y,s,rot){
+  let o = `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">`;
+  [0,125,235].forEach(a=> o += `<path d="${petal(24,8)}" transform="rotate(${a})" fill="url(#orch)" stroke="#b97b8e" stroke-width=".4"/>`);
+  [62,-62].forEach(a=> o += `<path d="M0 0 C14 -6 22 -22 12 -28 C4 -32 -2 -18 0 0Z" transform="rotate(${a}) ${a<0?'scale(-1 1)':''}" fill="url(#orch)" stroke="#b97b8e" stroke-width=".4"/>`);
+  return o + `<path d="M-6 2 C-9 12 -4 18 0 18 C4 18 9 12 6 2 C3 6 -3 6 -6 2Z" fill="url(#lip)"/><circle r="2.4" fill="#f4e3a6"/></g>`;
 }
-function blossom(x,y,s,c='#f3dde0',core='#d9a441'){
+function blossom(x,y,s,c='#f2d7de',core='#d9b26a'){
   let o = `<g transform="translate(${x} ${y}) scale(${s})">`;
-  for (let i=0;i<5;i++) o += `<ellipse cx="0" cy="-6" rx="4.4" ry="6.4" transform="rotate(${i*72})" fill="${c}" stroke="#c2a3a3" stroke-width=".4"/>`;
+  for (let i=0;i<5;i++) o += `<ellipse cx="0" cy="-6" rx="4.4" ry="6.4" transform="rotate(${i*72})" fill="${c}" stroke="#c9a3ae" stroke-width=".4"/>`;
   return o + `<circle r="2.4" fill="${core}"/></g>`;
 }
-const leaf = (x,y,s,rot) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0 0 C7 -10 7 -28 0 -40 C-7 -28 -7 -10 0 0Z" fill="url(#leaf)" stroke="#33402f" stroke-width=".4"/><path d="M0 -2 V-36" stroke="#d8dccf" stroke-width=".5" opacity=".6"/></g>`;
-function damask(x,y,s,rot=0){
-  const half = `<path d="M0 0 C-6 -6 -14 -4 -14 4 C-14 10 -6 12 -4 6 C-2 2 -8 0 -8 4" fill="none" stroke="url(#goldF)" stroke-width="2"/>
-    <path d="M0 -4 C-4 -14 -14 -18 -20 -12 C-24 -6 -18 2 -12 -2" fill="none" stroke="url(#goldF)" stroke-width="1.8"/>
-    <path d="M0 6 C-3 14 -10 18 -16 16" fill="none" stroke="url(#goldF)" stroke-width="1.6"/><circle cx="-16" cy="16" r="1.8" fill="url(#goldF)"/>`;
-  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">${half}<g transform="scale(-1 1)">${half}</g>
-    <path d="M0 -26 C5 -18 5 -10 0 -4 C-5 -10 -5 -18 0 -26Z" fill="url(#goldF)"/><path d="M0 8 C3 14 3 20 0 26 C-3 20 -3 14 0 8Z" fill="url(#goldF)"/><circle r="3" fill="url(#goldF)"/></g>`;
+const leaf = (x,y,s,rot) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0 0 C7 -10 7 -28 0 -40 C-7 -28 -7 -10 0 0Z" fill="url(#leaf)" stroke="#5f6a50" stroke-width=".4"/><path d="M0 -2 V-36" stroke="#eef0e4" stroke-width=".5" opacity=".6"/></g>`;
+// untaian bunga menjuntai (amaranth)
+function strand(x,y,len,sway,seed){
+  const r=rng(seed); let o='';
+  for (let t=0;t<=1;t+=.035){ const px=x+Math.sin(t*2.4)*sway, py=y+t*len, w=(3.4-t*2)*(.8+r()*.4);
+    o += `<ellipse cx="${(px+(r()-.5)*2).toFixed(1)}" cy="${py.toFixed(1)}" rx="${w.toFixed(1)}" ry="${(w*1.3).toFixed(1)}" fill="url(#amar)" opacity="${(.95-t*.3).toFixed(2)}"/>`; }
+  return o;
 }
-function stem(x1,y1,x2,y2,cx,cy){ return `<path d="M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}" stroke="#4d5a49" stroke-width="1.6" fill="none"/>`; }
-// kumpulan bunga sudut (koordinat 200x200, sudut kiri atas)
+// lonceng putih kecil (bunga jantung)
+const bell = (x,y,s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 C-5 0 -6 8 -5 12 L5 12 C6 8 5 0 0 0Z" fill="#f8f2f0" stroke="#c9b6bc" stroke-width=".4"/><path d="M-5 12 q5 3 10 0" stroke="#d49aab" fill="none"/></g>`;
+function stem(x1,y1,x2,y2,cx,cy){ return `<path d="M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}" stroke="#7d8669" stroke-width="1.4" fill="none"/>`; }
 const FLORA = {
-  corner: () => damask(46,108,1.1,-10) + damask(140,22,.9,20) + damask(18,170,.8,0) +
-    stem(0,10,120,92,60,30) + stem(0,60,80,150,30,120) +
-    leaf(70,52,.9,120) + leaf(100,80,.8,150) + leaf(40,96,.8,200) + leaf(118,96,.6,95) + leaf(30,30,.7,60) +
-    lily(56,64,1.35,-20) + lily(24,132,1.1,30) + lily(124,104,.95,-60) + blossom(108,30,.9) + blossom(146,60,.7) + blossom(16,60,.8,'#f6efe4'),
-  low: () => stem(0,200,90,110,30,140) + stem(30,200,150,150,100,160) + stem(0,160,60,60,10,100) +
-    leaf(60,130,1,40) + leaf(100,160,.9,70) + leaf(30,110,.8,10) + leaf(140,176,.7,100) + leaf(14,150,.8,-20) +
-    lily(84,120,1.35,10,true) + rose(38,168,1.5) + lily(146,150,1.1,-30) + lily(44,82,1,20) + blossom(112,184,1,'#f1d9a6','#b5632a') + blossom(164,190,.8) + blossom(10,120,.8,'#f6efe4') + damask(170,120,.7,30),
-  gold: () => damask(40,40,1.3,0) + damask(110,26,1,25) + damask(26,118,1,-25) + damask(96,96,.8,10) + stem(0,0,70,70,10,40) + leaf(56,60,.7,135) + blossom(70,64,.8) + lily(30,78,.6,-40)
+  corner: () => strand(20,10,120,6,1) + strand(44,20,90,5,2) + strand(150,6,70,4,3) +
+    stem(0,10,130,80,60,20) + stem(0,50,70,170,20,120) + leaf(84,40,.8,120) + leaf(118,64,.7,140) + leaf(46,104,.8,200) + leaf(30,150,.7,170) +
+    orchid(70,52,1.25,-10) + orchid(120,88,.95,20) + lily(28,112,1.2,30,true) + orchid(48,160,.9,-30) + blossom(104,20,.8) + blossom(150,42,.6) + bell(160,60,.9) + bell(170,72,.8),
+  low: () => stem(0,200,90,110,30,140) + stem(30,200,150,150,100,160) + leaf(60,130,1,40) + leaf(100,160,.9,70) + leaf(30,110,.8,10) + leaf(140,176,.7,100) +
+    lily(80,122,1.35,10,true) + orchid(36,160,1.3,0) + lily(142,152,1.05,-30) + orchid(46,86,1,20) + blossom(112,186,1) + blossom(166,190,.8,'#f7efe9') + blossom(12,124,.8),
+  gold: () => strand(30,0,80,4,5) + stem(0,0,80,60,20,40) + leaf(60,48,.7,135) + orchid(74,56,.9,-20) + blossom(40,70,.8) + bell(96,30,.8),
+  side: () => strand(100,0,180,8,9) + strand(70,10,150,6,10) + stem(0,40,120,120,60,60) + leaf(60,80,.8,60) + leaf(90,104,.7,100) + orchid(40,70,1.1,10) + lily(110,130,1,0,true) + blossom(30,140,.8) + bell(130,40,.8) + bell(140,54,.7)
 };
 let SV=0; const uniq = svg => { const n=++SV; return svg.replace(/id="(\w+)"/g,`id="$1_${n}"`).replace(/url\(#(\w+)\)/g,`url(#$1_${n})`); };
 function floral(kind, flip){ return uniq(`<svg viewBox="0 0 200 200" aria-hidden="true" ${flip?'style="transform:scaleX(-1)"':''}>${DEFS_FLORA}${FLORA[kind]()}</svg>`); }
-const BUTTERFLY = `<svg viewBox="0 0 40 30"><defs><linearGradient id="bw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f6fb5"/><stop offset=".6" stop-color="#d48a4a"/><stop offset="1" stop-color="#6b3c1f"/></linearGradient></defs>
-  <g class="w"><path d="M20 15 C12 0 0 2 4 12 C6 18 14 18 20 15Z M20 15 C12 20 6 28 12 28 C16 28 19 22 20 15Z" fill="url(#bw)" stroke="#3a2a1a" stroke-width=".5"/>
-  <path d="M20 15 C28 0 40 2 36 12 C34 18 26 18 20 15Z M20 15 C28 20 34 28 28 28 C24 28 21 22 20 15Z" fill="url(#bw)" stroke="#3a2a1a" stroke-width=".5"/></g>
-  <path d="M20 8 V22" stroke="#2a1d12" stroke-width="1.4" stroke-linecap="round"/></svg>`;
+const BUTTERFLY = `<svg viewBox="0 0 40 30"><defs><linearGradient id="bw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9c3cf"/><stop offset=".6" stop-color="#b3758a"/><stop offset="1" stop-color="#4e2f3b"/></linearGradient></defs>
+  <g class="w"><path d="M20 15 C12 0 0 2 4 12 C6 18 14 18 20 15Z M20 15 C12 20 6 28 12 28 C16 28 19 22 20 15Z" fill="url(#bw)" stroke="#3d2530" stroke-width=".5"/>
+  <path d="M20 15 C28 0 40 2 36 12 C34 18 26 18 20 15Z M20 15 C28 20 34 28 28 28 C24 28 21 22 20 15Z" fill="url(#bw)" stroke="#3d2530" stroke-width=".5"/><circle cx="8" cy="8" r="1.4" fill="#fff" opacity=".7"/><circle cx="32" cy="8" r="1.4" fill="#fff" opacity=".7"/></g>
+  <path d="M20 8 V22" stroke="#2e1b23" stroke-width="1.4" stroke-linecap="round"/></svg>`;
 // segel lilin merah dengan bunga mawar
 function seal(){
   const r = rng(3); let edge = '';
   for (let i=0;i<=36;i++){ const a=i/36*Math.PI*2, R=44+r()*4; edge += (i?'L':'M')+(50+Math.cos(a)*R).toFixed(1)+' '+(50+Math.sin(a)*R).toFixed(1); }
-  let rose = ''; for (let i=0;i<5;i++){ const R=5+i*5; rose += `<path d="M${50-R} 50 A${R} ${R} 0 1 1 ${50+R*.6} ${50+R*.75}" fill="none" stroke="#5b0d17" stroke-width="1.5" opacity="${.85-i*.08}"/>`; }
-  return `<svg viewBox="0 0 100 100"><defs><radialGradient id="wax" cx="40%" cy="35%"><stop offset="0" stop-color="#c0303c"/><stop offset=".6" stop-color="#8e1622"/><stop offset="1" stop-color="#5e0b14"/></radialGradient></defs>
-    <path d="${edge}Z" fill="url(#wax)"/><circle cx="50" cy="50" r="33" fill="none" stroke="#5e0b14" stroke-width="2.4" opacity=".7"/><circle cx="50" cy="50" r="31" fill="none" stroke="#d65a66" stroke-width=".8" opacity=".5"/>${rose}
+  let rose = ''; for (let i=0;i<5;i++){ const R=5+i*5; rose += `<path d="M${50-R} 50 A${R} ${R} 0 1 1 ${50+R*.6} ${50+R*.75}" fill="none" stroke="#3f2230" stroke-width="1.5" opacity="${.85-i*.08}"/>`; }
+  return `<svg viewBox="0 0 100 100"><defs><radialGradient id="wax" cx="40%" cy="35%"><stop offset="0" stop-color="#a86a80"/><stop offset=".6" stop-color="#7b4b5e"/><stop offset="1" stop-color="#4f2c3a"/></radialGradient></defs>
+    <path d="${edge}Z" fill="url(#wax)"/><circle cx="50" cy="50" r="33" fill="none" stroke="#4f2c3a" stroke-width="2.4" opacity=".7"/><circle cx="50" cy="50" r="31" fill="none" stroke="#d7a6b6" stroke-width=".8" opacity=".5"/>${rose}
     <ellipse cx="36" cy="30" rx="10" ry="5" fill="#fff" opacity=".18" transform="rotate(-30 36 30)"/></svg>`;
 }
-const DIVIDER = `<svg class="divider" viewBox="0 0 140 16"><path d="M0 8 H52 M88 8 H140" stroke="#b9ad92" stroke-width=".8"/><g fill="#9a3f41"><circle cx="70" cy="8" r="2.4"/><path d="M58 8 l6 -4 v8z M82 8 l-6 -4 v8z" opacity=".7"/></g></svg>`;
+const DIVIDER = `<svg class="divider" viewBox="0 0 140 16"><path d="M0 8 H52 M88 8 H140" stroke="#c3aab4" stroke-width=".8"/><g fill="#9a3f41"><circle cx="70" cy="8" r="2.4"/><path d="M58 8 l6 -4 v8z M82 8 l-6 -4 v8z" opacity=".7"/></g></svg>`;
 
 document.querySelectorAll('[data-scene]').forEach(el => el.innerHTML = scene(el.dataset.scene));
 document.querySelectorAll('[data-fl]').forEach(el => el.innerHTML = floral(el.dataset.fl, el.hasAttribute('data-flip')));
 document.querySelectorAll('[data-seal]').forEach(el => el.innerHTML = uniq(seal()));
 document.querySelectorAll('[data-bfly]').forEach(el => el.innerHTML = uniq(BUTTERFLY));
 // kupu-kupu tambahan di sampul & penutup
-[['#cover','left:66%;top:62%'],['#closing','left:72%;bottom:34%']].forEach(([p,st])=>{ const b=document.createElement('div'); b.className='bfly'; b.style.cssText=st; b.innerHTML=uniq(BUTTERFLY); $(p).appendChild(b); });
+[['#cover','left:70%;top:14%'],['#cover','left:14%;top:78%'],['#cover','left:84%;top:80%'],['#closing','left:72%;bottom:34%']].forEach(([p,st])=>{ const b=document.createElement('div'); b.className='bfly'; b.style.cssText=st; b.innerHTML=uniq(BUTTERFLY); $(p).appendChild(b); });
 
 /* ===================== ISI ===================== */
 const G = WEDDING.groom, B = WEDDING.bride, D0 = wib(WEDDING.date);
 document.querySelectorAll('[data-k=groomNick]').forEach(e=>e.textContent=G.nick);
 document.querySelectorAll('[data-k=brideNick]').forEach(e=>e.textContent=B.nick);
 $('#coverNames').textContent = `${G.nick} & ${B.nick}`;
+document.querySelectorAll('[data-mono]').forEach(m=>m.innerHTML=`<span>${esc(G.nick[0])}</span><span>${esc(B.nick[0])}</span>`);
+$('#mono').innerHTML = `<span>${esc(G.nick[0])}</span><span>${esc(B.nick[0])}</span>`;
 $('#closeNames').textContent = `${G.nick} & ${B.nick}`;
 $('#heroDate').textContent = `${String(D0.d).padStart(2,'0')} · ${String(D0.m+1).padStart(2,'0')} · ${D0.y}`;
 $('#foot').textContent = `${G.nick} & ${B.nick} · ${D0.y}`.toUpperCase();
@@ -626,7 +680,7 @@ document.title = `Undangan Pernikahan ${G.nick} & ${B.nick}`;
   n = n.trim(); if (n && !/^(home|verse|couple|save|event|story|gallery|rsvp|gift|closing)$/i.test(n)) { $('#guestName').textContent = n; $('#fName').value = n; } })();
 
 function person(p, el){
-  el.innerHTML = `<div class="portrait">${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.full)}">` : `<div class="ph">${scene('cover')}</div><div class="ini" style="background:rgba(244,238,226,.55)">${esc(p.nick[0])}</div>`}</div>
+  el.innerHTML = `<div class="portrait">${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.full)}">` : `<div class="ph">${scene('cover')}</div><div class="ini" style="background:rgba(243,236,232,.55)">${esc(p.nick[0])}</div>`}</div>
     <div class="script">${esc(p.nick)}</div><div class="full">${esc(p.full)}</div><div class="parent">${esc(p.parent)}</div>`;
 }
 person(G, $('#groom')); person(B, $('#bride'));

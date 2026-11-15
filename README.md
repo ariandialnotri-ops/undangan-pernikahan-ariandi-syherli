@@ -1,8 +1,8 @@
 # Undangan Pernikahan Digital — Rian & Syherli
 
 Undangan pernikahan berbasis website, satu file (`index.html`), dioptimalkan untuk HP.
-Gaya ilustrasi gravir vintage Minang: langit sepia, gunung & danau, rumah gadang, Jam Gadang,
-bunga lili, ornamen damask emas, kartu krem melengkung dengan segel lilin. Semua ilustrasi digambar sebagai SVG di dalam file.
+Gaya toile dusty pink khas Minang: rumah gadang tampak samping di atas tiang, motif songket, damask renda,
+bandul gantung, anggrek & lili, untaian bunga menjuntai, kupu-kupu, dan monogram. Semua ilustrasi digambar sebagai SVG di dalam file.
 
 ## Fitur
 - Sampul dengan nama tamu (`index.html?to=Nama%20Tamu` atau `index.html#Nama-Tamu`) dan tombol Buka Undangan
