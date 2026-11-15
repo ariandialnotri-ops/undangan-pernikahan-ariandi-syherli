@@ -1,24 +1,20 @@
-# Undangan Pernikahan Digital
+# Undangan Pernikahan Digital — Rian & Syherli
 
-Undangan pernikahan berbasis website, satu file (`index.html`), gaya luxury elegant khas Minangkabau: warna marawa (hitam–merah–kuning emas), motif batik kaluak paku, songket pucuak rabuang, dan ilustrasi rumah gadang beranimasi.
+Undangan pernikahan berbasis website, satu file (`index.html`), dioptimalkan untuk HP.
+Gaya ilustrasi gravir vintage Minang: langit sepia, gunung & danau, rumah gadang, Jam Gadang,
+bunga lili, ornamen damask emas, kartu krem melengkung dengan segel lilin. Semua ilustrasi digambar sebagai SVG di dalam file.
 
 ## Fitur
-- Dioptimalkan untuk HP (di layar lebar tampil sebagai kolom HP di tengah)
-- Sampul rumah gadang vektor garis emas: pintu ukir berayun terbuka, cahaya dari dalam, lalu kamera masuk melewati pintu; nama tamu lewat `index.html#Nama-Tamu`
-- Bingkai lengkung, mandala parallax, partikel emas, kelopak berjatuhan, reveal saat scroll
-- Mempelai, ayat, hitung mundur + Simpan ke Google Calendar
-- Waktu & tempat (Akad, Resepsi) dengan tautan peta
-- Kisah kami (timeline), galeri foto
-- RSVP & ucapan dikirim ke WhatsApp
-- Amplop digital dengan tombol salin nomor rekening
-- Tombol gulir bercerita: membawa tamu bab demi bab (dengan cincin progres & nama bab berikutnya); navbar muncul setelah cerita selesai
-- Konten memudar turun saat digulir ke atas (motion terbalik)
+- Sampul dengan nama tamu (`index.html?to=Nama%20Tamu` atau `index.html#Nama-Tamu`) dan tombol Buka Undangan
+- Animasi buka: kabut tersibak, pemandangan mendekat, bunga menyibak ke sudut
+- Musik kotak musik (dibuat di browser, tanpa file) dengan tombol on/off
+- Tombol gulir bercerita (bab demi bab); menu ☰ dan tombol RSVP muncul setelah cerita selesai
+- Konten muncul halus saat digulir dan memudar turun saat digulir ke atas
+- Ayat, mempelai, hitung mundur + Google Calendar, acara + peta, love story, galeri, RSVP ke WhatsApp, wedding gift (BCA/BRI) dengan tombol salin
 - Menghormati `prefers-reduced-motion`
 
 ## Mengubah isi
-Semua data ada di objek `WEDDING` di bagian bawah `index.html`:
-nama, orang tua, tanggal, acara, lokasi, kisah, foto, rekening, nomor WhatsApp.
+Semua data ada di objek `WEDDING` di bagian bawah `index.html`. Bagian bertanda `[DUMMY]` masih data sementara.
 
 ## Menjalankan
-Buka `index.html` langsung di browser, atau deploy sebagai situs statis
-(GitHub Pages, Vercel, Netlify, Cloudflare Pages) tanpa proses build.
+Buka `index.html` di browser, atau deploy sebagai situs statis (GitHub Pages, Vercel, Netlify, Cloudflare Pages).
