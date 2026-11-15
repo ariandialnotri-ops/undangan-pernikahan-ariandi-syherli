@@ -8,7 +8,7 @@ SPR = {'hb1':(250,135,320,200),'bf2':(474,152,542,214),'bf3':(165,265,242,340),'
        'hb6':(598,545,685,625),'bf7':(100,710,165,770),'bf8':(30,735,105,792),'bf9':(636,690,676,740),'bf11':(560,995,605,1035),
        'hb13':(410,1022,515,1078),'bf14':(540,325,565,360)}
 # sprite yang menempel ke dedaunan dibiarkan diam di latar (tidak dipisah)
-for k in ('bf8','bf11','bf14'): SPR.pop(k)
+EXPORT = {'bf2','bf3','bf7','bf9'}   # hanya kupu-kupu yang dipakai; semua burung & kupu dihapus dari latar
 # area di dalam kotak sprite yang bukan bagian tubuh burung/kupu (daun, ranting) — koordinat lokal
 EXCL = {'hb1':[[(0,0),(14,0),(14,65),(0,65)]], 'hb5':[[(0,38),(30,75),(0,75)],[(0,0),(16,0),(16,10),(0,10)]], 'hb13':[[(0,49),(105,49),(105,56),(0,56)]],
         'bf7':[[(0,52),(65,52),(65,60),(0,60)]]}
@@ -42,11 +42,18 @@ for k,(x0,y0,x1,y1) in SPR.items():
     col = np.where(a[...,None]>0.02, col, c)
     rgba = np.dstack([col, a*255]).astype(np.uint8)
     # 2x untuk ketajaman
-    img = Image.fromarray(rgba,'RGBA').resize(((x1-x0)*2,(y1-y0)*2), Image.LANCZOS)
-    img.save(f'{out}/{k}.webp', quality=92)
-    meta['sprites'][k] = [x0,y0,x1-x0,y1-y0]
+    if k in EXPORT:
+        img = Image.fromarray(rgba,'RGBA').resize(((x1-x0)*2,(y1-y0)*2), Image.LANCZOS)
+        img.save(f'{out}/{k}.webp', quality=92)
+        meta['sprites'][k] = [x0,y0,x1-x0,y1-y0]
     full = np.zeros((H,W),np.uint8); full[y0:y1,x0:x1] = sil
     inpaint |= cv2.dilate(full, np.ones((9,9),np.uint8))
+# sisa burung/kupu kecil yang tidak dijadikan sprite
+for (x0,y0,x1,y1) in [(100,895,142,948),(150,1040,218,1100),(648,848,712,892),(430,1060,505,1112),(30,770,110,815),(60,770,100,800)]:
+    c8 = im[y0:y1,x0:x1]; L = cv2.cvtColor(c8, cv2.COLOR_RGB2GRAY).astype(np.float32)
+    bg = np.percentile(np.concatenate([L[0],L[-1],L[:,0],L[:,-1]]),70)
+    m = (L < bg-30).astype(np.uint8); m = cv2.dilate(m, np.ones((7,7),np.uint8))
+    inpaint[y0:y1,x0:x1] |= m
 clean = cv2.cvtColor(cv2.inpaint(cv2.cvtColor(im,cv2.COLOR_RGB2BGR), inpaint, 7, cv2.INPAINT_TELEA), cv2.COLOR_BGR2RGB)
 Image.fromarray(clean).save(f'{out}/base.webp', quality=88)
 # ---- peta angin ----
