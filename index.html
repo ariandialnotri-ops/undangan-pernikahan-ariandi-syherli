@@ -3,368 +3,436 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f8f1df">
-<title>Undangan Pernikahan Rian &amp; Syherli</title>
+<meta name="theme-color" content="#FBF6EE">
+<title>The Wedding of Rian &amp; Syherli - Undangan Pernikahan Minangkabau</title>
 <link rel="preload" as="image" href="assets/base.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Ilustrasi: assets/base.webp (latar) + lapisan pohon/bunga (bergoyang) + sprite burung & kupu-kupu (terbang).
+/* Desain mengikuti rancangan "Pusaka Marawa" (code.html dari Stitch).
+   Ilustrasi: assets/base.webp; gerak pohon & bunga = WebGL (peta angin assets/wind.png); burung & kupu = sprite assets/*.webp.
    Data undangan: objek WEDDING di <script> paling bawah. */
 :root{
-  --paper:#f8f1df; --paper-2:#f2e8d2; --card:#fffaf0;
-  --ink:#4b3a2a; --ink-soft:#7a6650;
-  --terra:#9c4a32; --terra-d:#7d3624; --sage:#5f7a4f;
-  --script:'Pinyon Script', cursive; --serif:'Lora', Georgia, serif; --display:'Cormorant Garamond', Georgia, serif;
-  --col:480px;
+  --crimson:#8B1E1E; --crimson-dark:#6E1414; --crimson-deep:#541010; --crimson-light:#A62E2E;
+  --parchment:#FBF6EE; --parchment-card:#FFF9F3; --parchment-dark:#F0E7D8;
+  --gold:#C59B27; --gold-light:#E5C05B; --gold-dark:#9E7815;
+  --sage:#6D8269; --stone-800:#292524; --stone-700:#44403c; --stone-600:#57534e; --stone-500:#78716c; --stone-400:#a8a29e;
+  --script:'Pinyon Script',cursive; --cinzel:'Cinzel',serif; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;overflow-x:hidden;background:#e9dec4}
-body{font-family:var(--serif);color:var(--ink);line-height:1.6;overflow-x:hidden;min-height:100vh}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;background:#1c1917}
+body{font-family:var(--sans);color:var(--stone-800);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;min-height:100vh;overflow-x:hidden}
 body.locked{overflow:hidden;height:100vh;overscroll-behavior:none}
-button,a,label{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-img{display:block;max-width:none}
-::selection{background:var(--terra);color:#fff}
-.app{position:relative;max-width:var(--col);margin:0 auto;background:var(--paper);overflow:hidden;box-shadow:0 0 80px rgba(90,60,30,.25)}
-.paper{background:radial-gradient(120% 60% at 50% 0%,#fbf6e8,transparent 70%),linear-gradient(180deg,var(--paper),var(--paper-2))}
-.script{font-family:var(--script);font-weight:400;color:var(--terra);line-height:1.15}
-.caps{font-family:var(--display);font-weight:600;font-size:.95rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
+button,a,label{-webkit-tap-highlight-color:transparent;touch-action:manipulation;font:inherit}
+img{display:block}
+::selection{background:var(--crimson);color:#fff}
+.cinzel{font-family:var(--cinzel)}.script{font-family:var(--script);font-weight:400}.serif{font-family:var(--serif)}
+.sh-parch{text-shadow:0 1px 3px rgba(255,255,255,.8),0 0 12px rgba(255,248,240,.9)}
+.sh-crim{text-shadow:0 2px 10px rgba(139,30,30,.15)}
+main{width:100%;max-width:414px;background:var(--parchment);min-height:100vh;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);overflow-x:hidden;padding-bottom:96px}
 
-/* ============ PANGGUNG ILUSTRASI (sampul, pembuka, penutup) ============ */
-.frame{position:relative;overflow:hidden;background:var(--paper)}
-.stage{position:absolute;left:50%;top:50%;width:max(100%, calc(100vh * .5581));width:max(100%, calc(100svh * .5581));aspect-ratio:768/1376;transform:translate(-50%,-50%)}
-.stage>img,.stage>i{position:absolute}
-.stage .base{inset:0;width:100%;height:100%}
-.lay{will-change:transform;animation:var(--anim) var(--dur,6s) ease-in-out infinite;animation-delay:var(--del,0s)}
-.lay.treeL{transform-origin:0% 100%;--anim:windL}
-.lay.treeR{transform-origin:100% 100%;--anim:windR}
-.lay.fl{transform-origin:50% 100%;--anim:bloom}
-@keyframes windL{0%,100%{transform:rotate(0) skewX(0)}35%{transform:rotate(.9deg) skewX(-.6deg)}70%{transform:rotate(-.25deg) skewX(.3deg)}}
-@keyframes windR{0%,100%{transform:rotate(0) skewX(0)}35%{transform:rotate(-.9deg) skewX(.6deg)}70%{transform:rotate(.25deg) skewX(-.3deg)}}
-@keyframes bloom{0%,100%{transform:rotate(0) scale(1)}30%{transform:rotate(1.1deg) scale(1.006)}65%{transform:rotate(-.8deg) scale(.998)}}
+/* ============ HERO / SAMPUL ============ */
+.hero{position:relative;width:100%;height:max(100vh,520px);height:max(100svh,520px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.art{position:absolute;inset:0;overflow:hidden;z-index:0}
+.stage{position:absolute;top:0;left:50%;height:100%;min-width:100%;aspect-ratio:768/1376;transform:translateX(-50%);transform-origin:50% 65%}
+.stage.pushin{animation:pushin 18s cubic-bezier(.45,.05,.55,.95) infinite}
+@keyframes pushin{0%,100%{transform:translateX(-50%) scale(1) translateY(0)}50%{transform:translateX(-50%) scale(1.08) translateY(-10px)}}
+.stage>img,.stage>canvas,.stage>i{position:absolute}
+.stage .base,.stage canvas{inset:0;width:100%;height:100%}
+.stage canvas{opacity:0;transition:opacity .8s}
+.stage canvas.ready{opacity:1}
+.sheen{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(251,246,238,.4),transparent 45%,rgba(251,246,238,.5))}
+.mist{position:absolute;left:-10%;right:-10%;top:30%;height:30%;z-index:1;pointer-events:none;background:radial-gradient(50% 50% at 30% 50%,rgba(255,252,245,.55),transparent 70%),radial-gradient(40% 45% at 75% 60%,rgba(255,252,245,.45),transparent 70%);animation:mist 16s ease-in-out infinite alternate}
+@keyframes mist{0%{transform:translateX(-4%);opacity:.5}100%{transform:translateX(4%) translateY(-6px);opacity:.9}}
+.spark{position:absolute;z-index:1;color:var(--gold);pointer-events:none;animation:drift 9s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translate(0,0);opacity:.4}50%{transform:translate(8px,-14px);opacity:.9}}
+
+/* burung & kupu-kupu (sprite bersih) */
 .fly{display:block;will-change:transform;animation:hover var(--dur,4s) ease-in-out infinite;animation-delay:var(--del,0s)}
 .fly img{width:100%;height:auto;animation:buzz .14s linear infinite alternate;transform-origin:60% 50%}
-@keyframes hover{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(7%,-12%) rotate(-3deg)}50%{transform:translate(-5%,-4%) rotate(2deg)}75%{transform:translate(9%,6%) rotate(-1deg)}}
-@keyframes buzz{from{transform:rotate(-.8deg) translateY(-.5px)}to{transform:rotate(.8deg) translateY(.5px)}}
-.fly.bf{animation:drift var(--dur,9s) ease-in-out infinite;animation-delay:var(--del,0s)}
-.fly.bf img{animation:flap var(--flap,.32s) ease-in-out infinite alternate;transform-origin:50% 50%}
-@keyframes flap{from{transform:scaleX(1)}to{transform:scaleX(.3)}}
-@keyframes drift{0%,100%{transform:translate(0,0) rotate(-6deg)}25%{transform:translate(-30%,-28%) rotate(8deg)}50%{transform:translate(-8%,-55%) rotate(-4deg)}75%{transform:translate(26%,-20%) rotate(10deg)}}
-.fly.bird{animation:hop 5s ease-in-out infinite}
+@keyframes hover{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(8%,-12%) rotate(-3deg)}50%{transform:translate(-5%,-4%) rotate(2deg)}75%{transform:translate(9%,6%) rotate(-1deg)}}
+@keyframes buzz{from{transform:rotate(-.8deg) translateY(-.4px)}to{transform:rotate(.8deg) translateY(.4px)}}
+.fly.bf{animation-name:circle}
+.fly.bf img{animation:flap var(--flap,.34s) ease-in-out infinite alternate;transform-origin:50% 50%}
+@keyframes flap{from{transform:scaleX(1)}to{transform:scaleX(.32)}}
+@keyframes circle{0%,100%{transform:translate(0,0) rotate(-6deg)}25%{transform:translate(-28%,-26%) rotate(8deg)}50%{transform:translate(-8%,-50%) rotate(-4deg)}75%{transform:translate(24%,-20%) rotate(10deg)}}
+.fly.bird{animation-name:hop;animation-duration:5s}
 @keyframes hop{0%,100%{transform:translate(0,0)}20%{transform:translate(-6%,-10%) rotate(-4deg)}40%{transform:translate(4%,-4%)}60%{transform:translate(10%,-14%) rotate(3deg)}}
-.wander{animation:wander var(--dur,22s) linear infinite;animation-delay:var(--del,0s);opacity:0}
-.wander img{width:100%;animation:flap .28s ease-in-out infinite alternate}
-@keyframes wander{0%{transform:translate(0,0) rotate(10deg);opacity:0}6%{opacity:1}25%{transform:translate(120%,-180%) rotate(-6deg)}50%{transform:translate(380%,-80%) rotate(12deg)}75%{transform:translate(560%,-260%) rotate(-8deg)}94%{opacity:1}100%{transform:translate(820%,-140%) rotate(6deg);opacity:0}}
-.petal{top:-4%;width:2.2%;aspect-ratio:1/1.6;border-radius:60% 0 60% 0;opacity:0;animation:fall var(--dur,12s) linear infinite;animation-delay:var(--del,0s)}
-@keyframes fall{0%{transform:translate(0,0) rotate(0);opacity:0}8%{opacity:.85}50%{transform:translate(var(--x1,40px),55vh) rotate(220deg)}92%{opacity:.8}100%{transform:translate(var(--x2,-20px),110vh) rotate(480deg);opacity:0}}
+/* kolibri yang melintas (flight path seperti rancangan) */
+.glide{position:absolute;z-index:3;pointer-events:none;width:46px;opacity:0;animation:fp1 22s linear infinite}
+.glide img{width:100%;animation:buzz .12s linear infinite alternate}
+.glide.g2{width:38px;animation:fp2 26s linear infinite;animation-delay:-9s}
+.glide.g2 img{transform:scaleX(-1)}
+@keyframes fp1{0%{transform:translate(-50px,35px) rotate(-5deg);opacity:0}12%{opacity:.95}45%{transform:translate(150px,-15px) rotate(2deg)}75%{transform:translate(280px,12px) rotate(-3deg);opacity:.9}100%{transform:translate(440px,-35px) rotate(4deg);opacity:0}}
+@keyframes fp2{0%{transform:translate(420px,175px);opacity:0}14%{opacity:.9}50%{transform:translate(205px,145px) rotate(3deg)}85%{transform:translate(60px,185px) rotate(-2deg);opacity:.85}100%{transform:translate(-50px,160px);opacity:0}}
 
-/* ============ SAMPUL ============ */
-.cover{position:fixed;top:0;bottom:0;left:50%;width:min(100%,var(--col));transform:translateX(-50%);z-index:50;transition:opacity 1.6s cubic-bezier(.4,0,.2,1)}
-.cover .stage{transition:transform 4.2s cubic-bezier(.35,0,.15,1)}
-.ctext{position:absolute;left:12%;right:12%;top:14.5%;height:28%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:3;
-  transition:opacity 1s ease,transform 1.3s cubic-bezier(.4,0,.2,1)}
-.ctext::before,.htext::before{content:"";position:absolute;inset:-6% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(250,244,228,.92),rgba(250,244,228,.7) 55%,rgba(250,244,228,0))}
-.ctext .caps{font-size:clamp(.7rem,2.6vw,.9rem)}
-.ctext .script{font-size:clamp(2.3rem,10.5vw,3.3rem);margin:2px 0}
-.orn{display:block;width:min(150px,40%);margin:2px auto 8px;opacity:.85}
-.ctext .yth{font-size:clamp(.78rem,3vw,.9rem);color:var(--ink-soft)}
-.ctext .guest{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,4.8vw,1.45rem);margin:2px 0 12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--serif);font-size:.86rem;letter-spacing:.14em;text-transform:uppercase;
-  color:#fff8ec;background:linear-gradient(180deg,#a95238,var(--terra-d));border:0;border-radius:999px;padding:12px 28px;cursor:pointer;text-decoration:none;
-  box-shadow:0 10px 22px -10px rgba(110,45,25,.75),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .3s}
-.btn:active{transform:scale(.96)}
-.btn svg{width:16px;height:16px}
-.btn.line{background:transparent;color:var(--terra);border:1px solid var(--terra);box-shadow:none;padding:10px 22px;font-size:.78rem}
-.pulse{animation:pulse 2.6s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 10px 22px -10px rgba(110,45,25,.75),0 0 0 0 rgba(156,74,50,.35)}50%{box-shadow:0 10px 22px -10px rgba(110,45,25,.75),0 0 0 12px rgba(156,74,50,0)}}
-.cover.opening .ctext{opacity:0;transform:translateY(-24px)}
-.cover.opening .stage{transform:translate(-50%,-50%) scale(1.22);transform-origin:52% 62%}
-.cover.fade{opacity:0}.cover.gone{display:none}
+.hero-top{position:relative;z-index:10;padding:calc(clamp(24px,5.5vh,64px) + env(safe-area-inset-top)) 24px 0;text-align:center;display:flex;flex-direction:column;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:999px;background:rgba(255,255,255,.75);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(197,155,39,.4);box-shadow:0 1px 2px rgba(0,0,0,.05);margin-bottom:10px}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--crimson)}
+.badge span{font-family:var(--cinzel);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--stone-700);font-weight:600}
+.pill-mini{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;background:rgba(255,251,235,.7);border:1px solid rgba(197,155,39,.25);margin-bottom:8px;font-family:var(--cinzel);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone-600)}
+.wed-of{font-family:var(--cinzel);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--crimson);font-weight:500}
+.names{margin:4px 0}
+.names h1{font-family:var(--script);font-weight:400;font-size:clamp(44px,7.4vh,60px);line-height:1.05;color:var(--crimson)}
+.amp-row{display:inline-flex;align-items:center;justify-content:center;margin:2px 0}
+.amp-row b{height:.5px;width:32px;background:var(--gold)}
+.amp-row span{font-family:var(--script);font-size:24px;padding:0 12px;color:var(--gold-dark);font-style:italic}
+.gelar{font-family:var(--serif);font-style:italic;color:var(--stone-700);font-size:14px;letter-spacing:.02em;margin-top:4px}
+.date-pill{margin-top:10px;padding:4px 16px;border-radius:999px;background:rgba(255,251,235,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(197,155,39,.5);box-shadow:0 1px 2px rgba(0,0,0,.05);
+  font-family:var(--cinzel);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.spacer{flex-grow:1;min-height:20px}
+.hero-bottom{position:relative;z-index:10;padding:0 24px calc(clamp(16px,3vh,32px) + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
+.guest-card{width:100%;max-width:320px;padding:12px 14px!important;margin-bottom:12px!important;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:16px;border:1px solid rgba(197,155,39,.5);
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1);text-align:center;margin-bottom:16px}
+.guest-card .to{font-family:var(--serif);font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--stone-500);margin-bottom:4px}
+.guest-card h3{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--crimson);letter-spacing:.02em}
+.guest-card .sorry{font-family:var(--serif);font-size:11px;color:var(--stone-500);font-style:italic;margin-top:4px}
+.songket{border-top:2px dashed var(--gold);border-bottom:2px dashed var(--gold);padding:6px 0;position:relative;margin:4px 0}
+.songket::before,.songket::after{content:'◆';position:absolute;top:50%;transform:translateY(-50%);font-size:8px;color:var(--crimson)}
+.songket::before{left:4px}.songket::after{right:4px}
+.btn-open{width:100%;max-width:320px;background:linear-gradient(90deg,var(--crimson),var(--crimson-light),var(--crimson));color:#fff;font-family:var(--cinzel);font-size:12px;text-transform:uppercase;letter-spacing:.2em;
+  padding:14px 24px;border-radius:999px;box-shadow:0 20px 25px -5px rgba(0,0,0,.15),0 8px 10px -6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid rgba(252,211,77,.4);cursor:pointer;transition:transform .3s}
+.btn-open:active{transform:scale(.95)}
+.btn-open .seal{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.btn-open .label{font-weight:600;letter-spacing:.22em;color:#fef3c7}
+.btn-open svg{width:14px;height:14px}
+.gold-seal{background:radial-gradient(circle at 35% 35%,#F0D78C,#C59B27 60%,#8A640F);box-shadow:0 4px 14px rgba(139,30,30,.25),inset 0 1px 1px rgba(255,255,255,.6)}
+.btn-open .arrow{animation:nudgeR 1.8s ease-in-out infinite}
+@keyframes nudgeR{50%{transform:translateX(3px)}}
 
-/* ============ PEMBUKA & PENUTUP ============ */
-.hero,.thanks{height:100vh;height:100svh;min-height:560px;padding:0}
-.htext{position:absolute;left:10%;right:10%;top:14%;height:30%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:3}
-.htext .script{font-size:clamp(2.4rem,11vw,3.4rem)}
-.htext .date{font-family:var(--display);font-weight:600;letter-spacing:.24em;font-size:1rem;margin-top:4px}
-.htext .lead{font-size:.92rem}
+/* ============ KARTU & BAGIAN ============ */
+section{position:relative;z-index:10;padding:24px 20px}
+.card{background:rgba(255,249,243,.95);border-radius:24px;padding:24px;border:1px solid rgba(197,155,39,.3);box-shadow:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.orn-line{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin-bottom:16px;font-size:12px}
+.orn-line b{height:1px;width:48px;background:rgba(197,155,39,.5)}
+.bism{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--crimson);text-align:center}
+.salam{font-family:var(--cinzel);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone-500);margin-top:4px;text-align:center}
+.body-t{font-family:var(--serif);color:var(--stone-700);font-size:15px;line-height:1.65;text-align:center;padding:0 4px;margin-top:12px}
+.ayat{margin-top:20px;padding:16px;border-radius:16px;background:rgba(255,251,235,.6);border:1px solid rgba(197,155,39,.3);text-align:center}
+.ayat p{font-family:var(--serif);font-style:italic;color:var(--stone-700);font-size:13.5px;line-height:1.65}
+.ayat .src{font-family:var(--cinzel);font-style:normal;font-size:10px;letter-spacing:.1em;color:var(--crimson);font-weight:600;margin-top:8px}
+.ayat svg{width:22px;height:22px;margin:0 auto 6px;color:var(--gold)}
+.sec-head{text-align:center;margin-bottom:24px}
+.sec-head h2{font-family:var(--cinzel);font-size:12px;text-transform:uppercase;letter-spacing:.25em;color:var(--gold-dark);font-weight:600}
+.sec-head p{font-family:var(--serif);font-style:italic;color:var(--stone-600);font-size:14px}
+.person{display:flex;flex-direction:column;align-items:center;text-align:center}
+.mono{width:80px;height:80px;border-radius:50%;border:2px solid var(--gold);padding:4px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);margin-bottom:12px;background:#fffbeb;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mono span{width:100%;height:100%;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;color:#fef3c7;font-family:var(--cinzel);font-size:24px;font-weight:600}
+.mono img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.person h3{font-family:var(--serif);font-weight:700;font-size:24px;color:var(--crimson);line-height:1.2}
+.person .gala{font-family:var(--serif);font-style:italic;color:var(--gold-dark);font-size:14px;font-weight:600;margin-top:2px}
+.person .songket{width:66%;margin:8px 0}
+.person .ortu{font-size:12px;color:var(--stone-600);line-height:1.6}
+.person .ortu b{color:var(--stone-800);font-weight:600}
+.person .suku{font-size:11px;color:var(--stone-500);font-family:var(--serif);margin-top:4px}
+.ig{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:var(--crimson);font-weight:500;background:#fffbeb;padding:4px 12px;border-radius:999px;border:1px solid rgba(197,155,39,.4);text-decoration:none}
+.ig svg{width:14px;height:14px}
+.amp-div{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 16px;color:var(--gold)}
+.amp-div b{height:1px;width:64px;background:rgba(197,155,39,.5)}
+.amp-div span{font-family:var(--script);font-size:30px;color:var(--crimson)}
+.ev{background:var(--parchment-card);border-radius:24px;padding:24px;border:1px solid rgba(197,155,39,.4);box-shadow:0 4px 6px -1px rgba(0,0,0,.08);text-align:center;margin-bottom:20px;position:relative}
+.ev.main{border:2px solid rgba(197,155,39,.5);box-shadow:0 10px 15px -3px rgba(0,0,0,.1)}
+.ev .tag{display:inline-block;padding:2px 12px;border-radius:999px;background:rgba(139,30,30,.1);color:var(--crimson);font-family:var(--cinzel);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.ev .tag-top{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--gold-dark),var(--gold));color:#fff;font-size:10px;font-family:var(--cinzel);text-transform:uppercase;font-weight:700;letter-spacing:.1em;padding:2px 16px;border-radius:999px;box-shadow:0 1px 3px rgba(0,0,0,.15);white-space:nowrap}
+.ev h4{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--stone-800)}
+.ev .jam{font-family:var(--serif);color:var(--gold-dark);font-size:14px;font-weight:600;margin-bottom:12px}
+.ev .loc{display:flex;align-items:flex-start;justify-content:center;gap:8px;color:var(--stone-600);font-size:12px;margin-bottom:14px;text-align:center}
+.ev .loc svg{width:16px;height:16px;flex:none;color:var(--crimson);margin-top:1px}
+.ev .loc small{display:block;color:var(--stone-500);font-size:11px}
+.b2{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px 16px;border-radius:12px;background:#f5f5f4;border:1px solid #d6d3d1;font-family:var(--cinzel);font-size:12px;color:var(--stone-800);font-weight:600;letter-spacing:.05em;text-decoration:none;cursor:pointer}
+.b2 svg{width:14px;height:14px}
+.b2.crim{background:var(--crimson);color:#fff;border:0;box-shadow:0 1px 3px rgba(0,0,0,.15);font-size:11px}
+.b2.gold{background:rgba(254,243,199,.8);border:1px solid rgba(197,155,39,.6);font-size:11px;color:#1c1917}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.cbox{background:rgba(164,90,56,.08);border:1px solid rgba(197,155,39,.5);border-radius:12px;padding:10px 0 8px;text-align:center}
+.cbox b{display:block;font-family:var(--serif);font-size:28px;font-weight:700;color:var(--crimson);line-height:1.1;font-variant-numeric:tabular-nums}
+.cbox span{font-family:var(--cinzel);font-size:9px;letter-spacing:.12em;color:var(--gold-dark);text-transform:uppercase;font-weight:600}
+.story{position:relative;text-align:left;margin-top:4px}
+.story::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--gold),var(--crimson))}
+.st{position:relative;padding:0 0 18px 32px}
+.st::before{content:"◆";position:absolute;left:2px;top:0;font-size:14px;color:var(--crimson)}
+.st .yr{font-family:var(--cinzel);font-size:11px;letter-spacing:.14em;color:var(--gold-dark);font-weight:700}
+.st h4{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--crimson)}
+.st p{font-family:var(--serif);font-size:14px;color:var(--stone-700);line-height:1.6}
+.form .field{margin-bottom:12px;text-align:left}
+.form label.l{display:block;font-family:var(--cinzel);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--stone-700);margin-bottom:6px}
+.form input,.form select,.form textarea{width:100%;font-family:var(--serif);font-size:16px;color:var(--stone-800);background:#FDFBF7;border:1px solid rgba(197,155,39,.4);border-radius:8px;padding:10px 12px;outline:none}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:var(--crimson);box-shadow:0 0 0 3px rgba(139,30,30,.08)}
+.form textarea{min-height:88px;resize:vertical}
+.chips{display:flex;gap:6px}
+.chips label{flex:1;cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:block;text-align:center;font-size:12px;padding:8px 2px;border-radius:8px;border:1px solid rgba(197,155,39,.5);background:#FDFBF7;transition:all .3s}
+.chips input:checked+span{background:var(--crimson);color:#fef3c7;border-color:var(--crimson)}
+.chips input:checked+span::before{content:"◆ ";font-size:9px}
+.hint{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--stone-500);text-align:center;margin-top:8px}
+.wishes{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.wish{background:var(--parchment-card);border:1px solid rgba(197,155,39,.3);border-radius:14px;padding:10px 14px;font-family:var(--serif);font-size:14px;text-align:left}
+.wish b{color:var(--crimson)}.wish em{font-family:var(--cinzel);font-size:9px;font-style:normal;margin-left:6px;color:var(--gold-dark)}
+.quote{padding:24px;border-radius:16px;background:#F4ECDD;border:1px solid rgba(197,155,39,.3);text-align:center}
+.quote p{font-family:var(--serif);font-style:italic;color:var(--stone-800);font-size:14px;line-height:1.65}
+.quote small{display:block;font-family:var(--cinzel);font-size:10px;color:var(--stone-600);letter-spacing:.1em;margin-top:8px;text-transform:uppercase;font-weight:600}
+.closing{padding:24px 24px 48px;text-align:center;color:var(--stone-600);position:relative;z-index:10}
+.closing .t{font-size:13px;line-height:1.65;font-family:var(--serif)}
+.closing .wass{font-family:var(--cinzel);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--crimson);font-weight:700;margin:16px 0 8px}
+.closing .kami{font-family:var(--serif);font-style:italic;font-size:14px;margin-top:12px;color:var(--stone-700)}
+.closing .nm{font-family:var(--script);font-size:30px;color:var(--crimson);margin-top:4px}
+.closing .fam{font-size:10px;font-family:var(--cinzel);letter-spacing:.1em;color:var(--stone-400);margin-top:24px;text-transform:uppercase}
+.closing-art{position:relative;height:300px;overflow:hidden;margin-top:-10px;-webkit-mask-image:linear-gradient(transparent,#000 35%);mask-image:linear-gradient(transparent,#000 35%)}
+.closing-art .stage{top:auto;bottom:0;height:auto;width:100%;min-width:0}
 
-/* ============ BAGIAN ============ */
-section{position:relative;padding:96px 24px 90px;text-align:center;overflow:hidden}
-section>*{position:relative;z-index:2}
-.band{display:block;width:72%;max-width:300px;margin:-96px auto 30px;filter:drop-shadow(0 4px 4px rgba(90,40,20,.15))}
-.title{font-size:clamp(2.6rem,12vw,3.2rem)}
-.lead{font-style:italic;font-size:1rem;color:var(--ink);max-width:400px;margin:10px auto 0}
-.florals{position:absolute!important;left:0;right:0;bottom:-2px;z-index:1!important;pointer-events:none}
-.florals img{width:100%;transform-origin:50% 100%;animation:bloom 7s ease-in-out infinite}
-section.has-fl{padding-bottom:calc(90px + 30vw);padding-bottom:calc(90px + min(30vw,150px))}
-.corner{position:absolute!important;top:0;width:34%;z-index:1!important;pointer-events:none;opacity:.9}
-.corner img{width:100%}
-.corner.l{left:-6%}.corner.l img{transform-origin:0 0;animation:windL 7s ease-in-out infinite}
-.corner.r{right:-6%}.corner.r img{transform-origin:100% 0;animation:windR 8s ease-in-out infinite}
-.mini-fly{position:absolute!important;z-index:3!important;width:34px;pointer-events:none}
-.card{position:relative;background:var(--card);border-radius:180px 180px 18px 18px;padding:54px 24px 40px;max-width:360px;margin:0 auto;
-  box-shadow:0 18px 40px -26px rgba(90,60,30,.5);outline:1px solid rgba(156,74,50,.35);outline-offset:-10px}
-.verse{font-style:italic;font-size:1rem;line-height:1.75}
-.verse-src{font-weight:600;margin-top:16px;color:var(--terra)}
-.bism{font-family:var(--display);font-size:1.25rem;font-weight:600;margin-bottom:10px}
-.person{margin-top:40px}
-.portrait{width:190px;aspect-ratio:3/4;margin:0 auto 16px;border-radius:999px 999px 12px 12px;overflow:hidden;position:relative;border:6px solid var(--card);outline:1px solid rgba(156,74,50,.4);outline-offset:4px;background:#efe4cc}
-.portrait img{width:100%;height:100%;object-fit:cover}
-.portrait .ph{position:absolute;inset:0;background:url(assets/base.webp) 52% 66%/260% auto}
-.portrait .ini{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--script);font-size:4.2rem;color:var(--terra);background:rgba(248,241,223,.55)}
-.person .script{font-size:2.6rem}
-.person .full{font-family:var(--display);font-weight:600;font-size:1.3rem}
-.person .parent{font-style:italic;color:var(--ink-soft);font-size:.95rem;margin-top:4px}
-.amp{font-family:var(--script);font-size:3.2rem;color:var(--terra);margin:24px 0 -12px}
-.count{display:flex;justify-content:center;gap:10px;margin:26px 0 24px}
-.cbox{width:66px;padding:12px 0 10px;background:var(--card);border-radius:40px 40px 12px 12px;box-shadow:0 10px 20px -14px rgba(90,60,30,.6);outline:1px solid rgba(156,74,50,.25);outline-offset:-5px}
-.cbox b{display:block;font-family:var(--display);font-size:1.9rem;font-weight:600;color:var(--terra);line-height:1.1;font-variant-numeric:tabular-nums}
-.cbox span{font-size:.68rem;letter-spacing:.08em;color:var(--ink-soft)}
-.event{margin-top:24px}
-.event .script{font-size:2.4rem}
-.event .day{font-family:var(--display);font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
-.event .bigdate{font-family:var(--display);font-size:3.4rem;font-weight:600;color:var(--terra);line-height:1}
-.event .time{margin:8px 0 12px}
-.event .place{font-weight:600}
-.event .addr{font-style:italic;color:var(--ink-soft);font-size:.94rem;margin:4px 0 18px}
-.story{position:relative;max-width:360px;margin:30px auto 0;text-align:left}
-.story::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--terra),var(--sage))}
-.st{position:relative;padding:0 0 28px 40px}
-.st::before{content:"";position:absolute;left:5px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--card);border:2px solid var(--terra)}
-.st .yr{font-size:.78rem;letter-spacing:.16em;color:var(--terra);font-weight:600}
-.st h4{font-family:var(--script);font-weight:400;font-size:1.9rem;line-height:1.2}
-.st p{font-size:.96rem;color:var(--ink-soft)}
-.gallery{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:150px;gap:10px;margin-top:26px}
-.gallery figure{position:relative;overflow:hidden;border-radius:10px;background:#efe4cc;border:4px solid var(--card)}
-.gallery figure:nth-child(1){grid-row:span 2;border-radius:999px 999px 10px 10px}
-.gallery img{width:100%;height:100%;object-fit:cover}
-.gallery .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:.7rem;letter-spacing:.2em;color:#a08a6a}
-.form{max-width:380px;margin:24px auto 0;text-align:left;background:var(--card);border-radius:22px;padding:26px 20px;box-shadow:0 18px 40px -26px rgba(90,60,30,.5)}
-.field{margin-bottom:15px}
-.field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#f8f1e2;border:1px solid #e0d2b4;border-radius:10px;padding:11px 13px;outline:none}
-.field textarea{min-height:92px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terra)}
-.seg{display:flex;gap:8px}
-.seg label{flex:1;margin:0;cursor:pointer;font-weight:400}
-.seg input{position:absolute;opacity:0;pointer-events:none}
-.seg span{display:block;text-align:center;font-size:.84rem;padding:9px 4px;border-radius:999px;border:1px solid #e0d2b4;transition:all .3s}
-.seg input:checked+span{background:var(--terra);color:#fff;border-color:var(--terra)}
-.form .btn{width:100%}
-.hint{font-size:.8rem;font-style:italic;color:var(--ink-soft);text-align:center;margin-top:10px}
-.wishes{max-width:380px;margin:16px auto 0;text-align:left;display:flex;flex-direction:column;gap:10px}
-.wish{background:var(--card);border-radius:14px;padding:12px 15px;font-size:.94rem}
-.wish b{color:var(--terra)}.wish em{font-size:.72rem;font-style:normal;margin-left:6px;color:var(--ink-soft)}
-.gifts{display:flex;flex-direction:column;gap:14px;max-width:360px;margin:24px auto 0}
-.bank{position:relative;text-align:left;background:var(--card);border-radius:18px;padding:20px 20px 18px;box-shadow:0 18px 40px -26px rgba(90,60,30,.5);overflow:hidden;outline:1px solid rgba(156,74,50,.2);outline-offset:-6px}
-.bank .blogo{width:76px;height:26px;border-radius:6px;margin-bottom:12px}
-.bank .no{font-size:1.2rem;font-weight:600;letter-spacing:.08em;font-variant-numeric:tabular-nums}
-.bank .an{font-style:italic;color:var(--ink-soft)}
-.copy{margin-top:12px;font:inherit;font-size:.8rem;color:var(--terra);background:transparent;border:1px solid var(--terra);border-radius:999px;padding:7px 16px;cursor:pointer}
-.foot{background:linear-gradient(180deg,#a95238,var(--terra-d));color:#fbecd9;font-size:.72rem;letter-spacing:.16em;text-align:center;padding:12px 10px calc(12px + env(safe-area-inset-bottom))}
-
-/* ============ KONTROL ============ */
-.fixed-ui{position:fixed;left:50%;width:min(100%,var(--col));transform:translateX(-50%);pointer-events:none;z-index:40}
-.top-ui{top:0}.bot-ui{bottom:0}
-.menu-btn{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;width:84px;height:40px;border-radius:999px;border:0;cursor:pointer;background:rgba(255,250,240,.9);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 18px -8px rgba(80,50,20,.45);display:grid;place-items:center;pointer-events:auto;opacity:0;transform:translateY(-14px);transition:opacity .6s,transform .6s}
-.menu-btn svg{width:22px;height:22px;color:var(--terra)}
-.fabs{position:absolute;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));display:flex;gap:8px}
-.fab{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;pointer-events:auto;background:rgba(255,250,240,.94);color:var(--terra);
-  box-shadow:0 6px 18px -8px rgba(80,50,20,.5);opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
-.fab svg{width:19px;height:19px}
-.fab.music.playing svg{animation:pulseIc 1.6s ease-in-out infinite}
-@keyframes pulseIc{50%{transform:scale(1.12)}}
-.show-ui .menu-btn,.show-ui .fab.mail{opacity:1;transform:none}
-.show-music .fab.music{opacity:1;transform:none}
-.guide{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:41;display:flex;flex-direction:column;align-items:center;gap:7px;transform:translate(-50%,150%);opacity:0;pointer-events:none;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .7s}
+/* ============ KONTROL MELAYANG ============ */
+.float{position:fixed;bottom:84px;right:max(16px,calc(50vw - 207px + 16px));z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .6s,transform .6s}
+.show-float .float{opacity:1;transform:none;pointer-events:auto}
+.scatter{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 12px;border-radius:999px;border:1px solid rgba(197,155,39,.6);box-shadow:0 10px 15px -3px rgba(0,0,0,.1);color:var(--crimson);font-family:var(--cinzel);font-size:10px;font-weight:600;letter-spacing:.05em;cursor:pointer}
+.player{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:8px 14px 8px 8px;border-radius:999px;border:1px solid rgba(197,155,39,.5);box-shadow:0 20px 25px -5px rgba(0,0,0,.12)}
+.player button{width:32px;height:32px;border-radius:50%;background:var(--crimson);color:#fff;display:grid;place-items:center;border:0;cursor:pointer}
+.player button svg{width:16px;height:16px}
+.player.on button svg{animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.player .tt{font-family:var(--cinzel);font-size:10px;font-weight:600;color:var(--crimson);letter-spacing:.05em;white-space:nowrap}
+.player .st2{font-size:9px;color:var(--stone-500);font-style:italic;white-space:nowrap}
+.story-mode .scatter,.story-mode .player .meta{display:none}
+.story-mode .player{padding:6px}
+.bar{position:fixed;bottom:0;left:50%;transform:translate(-50%,110%);width:100%;max-width:414px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(231,229,228,.8);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;justify-content:space-around;box-shadow:0 -10px 30px rgba(0,0,0,.12);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.show-bar .bar{transform:translate(-50%,0)}
+.bar button{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--stone-700);background:none;border:0;cursor:pointer}
+.bar button svg{width:20px;height:20px;color:var(--crimson)}
+.bar span{font-family:var(--cinzel);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.bar i{height:24px;width:1px;background:#d6d3d1}
+.show-bar .float{bottom:84px}
+/* tombol gulir bercerita */
+.guide{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:41;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translate(-50%,150%);opacity:0;pointer-events:none;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .7s}
 .guide.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
-.guide-cap{text-align:center;line-height:1.2;padding:5px 14px;border-radius:999px;background:rgba(255,250,240,.92);box-shadow:0 6px 16px -10px rgba(80,50,20,.5)}
-.guide-cap small{display:block;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
-.guide-cap span{display:inline-block;font-family:var(--script);font-size:1.25rem;color:var(--terra)}
+.guide-cap{text-align:center;line-height:1.2;padding:4px 14px;border-radius:999px;background:rgba(255,255,255,.95);border:1px solid rgba(197,155,39,.5);box-shadow:0 6px 16px -10px rgba(0,0,0,.4)}
+.guide-cap small{display:block;font-family:var(--cinzel);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone-500)}
+.guide-cap span{display:inline-block;font-family:var(--script);font-size:19px;color:var(--crimson)}
 .guide-cap span.swap{animation:capSwap .7s cubic-bezier(.2,.8,.2,1)}
 @keyframes capSwap{from{opacity:0;transform:translateY(8px)}}
-.guide-btn{position:relative;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#fff;background:linear-gradient(180deg,#a95238,var(--terra-d));box-shadow:0 10px 24px -10px rgba(110,45,25,.85)}
+.guide-btn{position:relative;width:50px;height:50px;border-radius:50%;border:1px solid rgba(252,211,77,.4);cursor:pointer;display:grid;place-items:center;color:#fef3c7;background:linear-gradient(135deg,var(--crimson-light),var(--crimson-dark));box-shadow:0 10px 24px -10px rgba(110,20,20,.85)}
 .guide-btn:active{transform:scale(.94)}
-.guide-btn .ring{position:absolute;inset:-7px;width:66px;height:66px;transform:rotate(-90deg)}
+.guide-btn .ring{position:absolute;inset:-7px;width:64px;height:64px;transform:rotate(-90deg)}
 .guide-btn .ring circle{fill:none;stroke-width:1.6}
-.guide-btn .ring .track{stroke:rgba(156,74,50,.2)}
-.guide-btn .ring .prog{stroke:var(--terra);stroke-linecap:round;stroke-dasharray:195;stroke-dashoffset:195;transition:stroke-dashoffset .6s}
+.guide-btn .ring .track{stroke:rgba(197,155,39,.25)}
+.guide-btn .ring .prog{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:189;stroke-dashoffset:189;transition:stroke-dashoffset .6s}
 .guide-btn .chev{width:20px;height:20px;animation:nudge 2.2s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
-.guide-btn .step{position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);font-size:.66rem;color:var(--ink-soft);white-space:nowrap}
-.menu{position:fixed;inset:0;z-index:60;display:flex;justify-content:center;pointer-events:none}
-.menu .back{position:absolute;inset:0;background:rgba(50,35,20,.35);opacity:0;transition:opacity .4s}
-.menu .sheet{position:relative;width:min(100%,var(--col));margin-top:auto;background:var(--card);border-radius:26px 26px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
-.menu.open{pointer-events:auto}.menu.open .back{opacity:1}.menu.open .sheet{transform:none}
-.menu .sheet h3{font-family:var(--script);font-weight:400;font-size:2rem;color:var(--terra);text-align:center;margin-bottom:8px}
-.menu .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.menu a{display:block;text-align:center;text-decoration:none;color:var(--ink);font-size:.9rem;padding:11px 6px;border-radius:12px;background:#f5ecd9}
-.toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top));transform:translate(-50%,-30px);opacity:0;z-index:70;background:var(--terra);color:#fff;font-size:.86rem;padding:9px 18px;border-radius:999px;transition:all .4s;pointer-events:none}
+.guide-btn .step{position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);font-family:var(--cinzel);font-size:10px;color:var(--stone-500);white-space:nowrap}
+/* modal kado */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s}
+.modal.open{opacity:1;pointer-events:auto}
+.modal .box{background:var(--parchment);border-radius:24px;width:100%;max-width:384px;max-height:88vh;overflow:auto;padding:24px;border:2px solid var(--gold);box-shadow:0 25px 50px -12px rgba(0,0,0,.4);position:relative;text-align:center;transform:translateY(20px) scale(.97);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.modal.open .box{transform:none}
+.modal .x{position:absolute;top:14px;right:14px;color:var(--stone-400);background:none;border:0;cursor:pointer}
+.modal .x svg{width:20px;height:20px}
+.modal .gift-ic{width:40px;height:40px;margin:0 auto 8px;color:var(--gold)}
+.modal h3{font-family:var(--cinzel);font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--crimson);font-weight:700}
+.modal .sub{font-family:var(--serif);font-size:13px;color:var(--stone-600);margin:4px 0 16px}
+.bank{background:#fff;border-radius:16px;padding:12px;border:1px solid #e7e5e4;text-align:left;margin-bottom:12px}
+.bank .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.bank .blogo{width:64px;height:22px;border-radius:5px}
+.bank .kind{font-size:10px;text-transform:uppercase;font-family:var(--cinzel);color:var(--crimson);font-weight:600}
+.bank .no{font-family:ui-monospace,Menlo,monospace;font-size:15px;letter-spacing:.05em;font-weight:700;color:var(--stone-800)}
+.bank .an{font-size:12px;color:var(--stone-500);font-family:var(--serif)}
+.bank button{margin-top:8px;width:100%;text-align:center;padding:7px;background:#fffbeb;border:1px solid rgba(197,155,39,.4);border-radius:8px;font-size:12px;font-weight:600;color:var(--stone-800);cursor:pointer}
+.modal .thanks{font-family:var(--serif);font-size:11px;color:var(--stone-500)}
+/* partikel */
+#particles{position:fixed;top:0;bottom:0;left:50%;width:100%;max-width:414px;transform:translateX(-50%);pointer-events:none;overflow:hidden;z-index:39}
+.petal{position:absolute;top:-30px;pointer-events:none;animation-timing-function:cubic-bezier(.4,0,.6,1);animation-iteration-count:1;animation-fill-mode:forwards;will-change:transform,opacity}
+@keyframes fallR{0%{transform:translateY(-25px) rotate(0) scale(.9);opacity:0}15%{opacity:.9}50%{transform:translateY(48vh) translateX(24px) rotate(110deg)}80%{opacity:.85;transform:translateY(82vh) translateX(-18px) rotate(210deg) scale(.96)}100%{transform:translateY(105vh) translateX(10px) rotate(290deg) scale(.88);opacity:0}}
+@keyframes fallL{0%{transform:translateY(-25px) rotate(0) scale(.9);opacity:0}18%{opacity:.85}45%{transform:translateY(42vh) translateX(-28px) rotate(-100deg)}75%{transform:translateY(78vh) translateX(18px) rotate(-190deg) scale(.95)}100%{transform:translateY(105vh) translateX(-8px) rotate(-280deg) scale(.88);opacity:0}}
+.bfloat{position:absolute;width:26px;pointer-events:none;animation:bup linear forwards}
+.bfloat img{width:100%;animation:flap .34s ease-in-out infinite alternate}
+@keyframes bup{0%{transform:translateY(102vh) translateX(-20px) rotate(-6deg);opacity:0}15%{opacity:.9}50%{transform:translateY(50vh) translateX(45px) rotate(8deg)}80%{opacity:.85}100%{transform:translateY(-40px) translateX(-15px) rotate(-4deg);opacity:0}}
+.tap-petal{position:fixed;pointer-events:none;z-index:70;width:16px;height:16px;animation:burst 1.6s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1.1) rotate(var(--r));opacity:0}}
+.toast{position:fixed;left:50%;top:calc(20px + env(safe-area-inset-top));transform:translate(-50%,-30px);opacity:0;z-index:80;background:var(--crimson);color:#fef3c7;font-family:var(--cinzel);font-size:11px;letter-spacing:.06em;padding:9px 18px;border-radius:999px;transition:all .4s;pointer-events:none;border:1px solid rgba(252,211,77,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-
-/* ============ MOTION MASUK & KELUAR ============ */
-.rv{opacity:0;transform:translate3d(0,28px,0);transition:opacity .6s ease,transform .7s cubic-bezier(.4,0,1,1)}
-.rv.in{opacity:1;transform:none;transition:opacity 1.4s cubic-bezier(.22,.61,.36,1),transform 1.7s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
-.rv.zoom{transform:translate3d(0,20px,0) scale(.95)}.rv.zoom.in{transform:none}
-.rv.left{transform:translate3d(-30px,0,0)}.rv.right{transform:translate3d(30px,0,0)}.rv.left.in,.rv.right.in{transform:none}
+/* motion masuk & keluar */
+.rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .6s ease,transform .7s cubic-bezier(.4,0,1,1)}
+.rv.in{opacity:1;transform:none;transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.6s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
+.rv.zoom{transform:translate3d(0,18px,0) scale(.96)}.rv.zoom.in{transform:none}
+.hero-top>*,.hero-bottom>*{animation:heroIn 1.6s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px)}}
+@media (max-height:700px){.pill-mini{display:none}.badge{margin-bottom:6px}.date-pill{margin-top:6px}.guest-card .sorry{display:none}}
+@media (max-height:600px){.badge{display:none}.names h1{font-size:40px}.gelar{display:none}.guest-card .to{font-size:10px}.btn-open{padding:11px 20px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .rv{opacity:1;transform:none}.wander,.petal{display:none}
+  .rv{opacity:1;transform:none}.glide{display:none}
 }
 </style>
 </head>
-<body class="locked">
+<body class="locked story-mode">
+<main id="main">
+  <div id="particles" aria-hidden="true"></div>
 
-<!-- ================= SAMPUL ================= -->
-<div class="cover frame" id="cover">
-  <div class="stage" data-stage></div>
-  <div class="ctext">
-    <p class="caps">The Wedding of</p>
-    <h1 class="script" id="coverNames">Rian &amp; Syherli</h1>
-    <svg class="orn" viewBox="0 0 150 14" aria-hidden="true"><path d="M0 7H58M92 7H150" stroke="#9c4a32" stroke-width=".8"/><path d="M75 1l5 6-5 6-5-6z" fill="#9c4a32"/><circle cx="64" cy="7" r="1.6" fill="#5f7a4f"/><circle cx="86" cy="7" r="1.6" fill="#5f7a4f"/></svg>
-    <p class="yth">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-    <p class="guest" id="guestName">Tamu Undangan</p>
-    <button class="btn pulse" id="openBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>Buka Undangan</button>
-  </div>
-</div>
+  <!-- ================= SAMPUL ================= -->
+  <header class="hero" id="cover">
+    <div class="art"><div class="stage pushin" data-stage="hero"></div></div>
+    <div class="mist" aria-hidden="true"></div>
+    <div class="sheen" aria-hidden="true"></div>
+    <span class="spark" style="top:112px;left:24px;font-size:12px">✦</span>
+    <span class="spark" style="top:176px;right:32px;font-size:10px;animation-delay:-3s">✧</span>
+    <span class="spark" style="top:288px;left:40px;font-size:9px;animation-delay:-5s">✦</span>
+    <i class="glide" aria-hidden="true" style="top:112px;left:0"><img src="assets/hb1.webp" alt=""></i>
+    <i class="glide g2" aria-hidden="true" style="top:120px;left:0"><img src="assets/hb6.webp" alt=""></i>
 
-<div class="app paper" id="app">
-  <section class="hero frame" id="home">
-    <div class="stage" data-stage></div>
-    <div class="htext">
-      <p class="caps rv">The Wedding of</p>
-      <h2 class="script rv" style="--d:.2s"><span data-k="groomNick">Rian</span> &amp; <span data-k="brideNick">Syherli</span></h2>
-      <svg class="orn rv" style="--d:.3s" viewBox="0 0 150 14" aria-hidden="true"><path d="M0 7H58M92 7H150" stroke="#9c4a32" stroke-width=".8"/><path d="M75 1l5 6-5 6-5-6z" fill="#9c4a32"/><circle cx="64" cy="7" r="1.6" fill="#5f7a4f"/><circle cx="86" cy="7" r="1.6" fill="#5f7a4f"/></svg>
-      <p class="date rv" style="--d:.4s" id="heroDate">12 · 12 · 2026</p>
+    <div class="hero-top">
+      <div class="badge sh-parch" style="--d:.1s"><i></i><span>Baralek Gadang Minangkabau</span><i></i></div>
+      <div class="pill-mini" style="--d:.2s"><span style="color:var(--gold)">❧</span><span>Panorama &amp; Ritme Syahdu Ranah Minang</span></div>
+      <p class="wed-of sh-parch" style="--d:.3s">The Wedding of</p>
+      <div class="names" style="--d:.45s">
+        <h1 class="sh-crim" data-k="groomNick">Rian</h1>
+        <div class="amp-row"><b></b><span>&amp;</span><b></b></div>
+        <h1 class="sh-crim" data-k="brideNick">Syherli</h1>
+      </div>
+      <p class="gelar sh-parch" id="gelarLine" style="--d:.6s">Ariandi Alnotri &amp; Syherli Afmi Afika</p>
+      <div class="date-pill" id="datePill" style="--d:.7s">Sabtu, 12 Desember 2026</div>
     </div>
-  </section>
+    <div class="spacer"></div>
+    <div class="hero-bottom">
+      <div class="guest-card" style="--d:.85s">
+        <p class="to">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+        <div class="songket"><h3 id="guestName">Nama Tamu Undangan</h3></div>
+        <p class="sorry">Mohon maaf bila ada kesalahan penulisan gelar/nama</p>
+      </div>
+      <button class="btn-open" id="openBtn" style="--d:1s">
+        <span class="seal gold-seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10.5V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2h8"/><path d="M22 7l-10 6L2 7"/><path d="M19 16v6M16 19h6"/></svg></span>
+        <span class="label">Buka Undangan</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </header>
 
-  <section id="verse" class="has-fl">
-    <img class="band rv" src="assets/band.webp" alt="">
+  <!-- ================= SALAM & AYAT ================= -->
+  <section id="greeting">
     <div class="card rv zoom">
+      <div class="orn-line"><b></b><span>✦ &nbsp; ❖ &nbsp; ✦</span><b></b></div>
       <p class="bism">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-      <p class="verse">“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.”</p>
-      <p class="verse-src">Q.S. Ar-Rum : 21</p>
+      <p class="salam">Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
+      <p class="body-t">Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho-Nya, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami:</p>
+      <div class="ayat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.5C10 4.5 6.5 4 3 5v14c3.5-1 7-.5 9 1.5 2-2 5.5-2.5 9-1.5V5c-3.5-1-7-.5-9 1.5z"/><path d="M12 6.5V20"/></svg>
+        <p>“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</p>
+        <p class="src">— QS. AR-RUM : 21 —</p>
+      </div>
     </div>
-    <div class="florals"><img src="assets/florals.webp" alt=""></div>
   </section>
 
+  <!-- ================= MEMPELAI ================= -->
   <section id="couple">
-    <div class="corner l"><img src="assets/treeL.webp" alt=""></div>
-    <div class="corner r"><img src="assets/treeR.webp" alt=""></div>
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Bride &amp; Groom</h2>
-    <p class="lead rv" style="--d:.15s">Dengan segala puji bagi Allah yang telah menciptakan makhluk-Nya berpasang-pasangan, Ya Allah izinkanlah kami merangkaikan cinta yang Engkau berikan dalam ikatan pernikahan.</p>
-    <div class="person rv left" id="groom"></div>
-    <div class="amp rv">&amp;</div>
-    <div class="person rv right" id="bride"></div>
+    <div class="sec-head rv"><h2>Kedua Mempelai</h2><p>Anak Daro jo Marapulai</p></div>
+    <article class="card rv zoom" id="groom" style="margin-bottom:24px"></article>
+    <div class="amp-div rv"><b></b><span>&amp;</span><b></b></div>
+    <article class="card rv zoom" id="bride"></article>
   </section>
 
-  <section id="save" class="has-fl">
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Save the Date</h2>
-    <p class="lead rv" style="--d:.15s">Menuju hari bahagia kami</p>
-    <div class="count rv" style="--d:.25s">
-      <div class="cbox"><b id="cd-d">00</b><span>Hari</span></div><div class="cbox"><b id="cd-h">00</b><span>Jam</span></div>
-      <div class="cbox"><b id="cd-m">00</b><span>Menit</span></div><div class="cbox"><b id="cd-s">00</b><span>Detik</span></div>
-    </div>
-    <a class="btn line rv" style="--d:.35s" id="calBtn" target="_blank" rel="noopener">Simpan ke Kalender</a>
-    <div class="florals"><img src="assets/florals.webp" alt=""></div>
-  </section>
-
+  <!-- ================= ACARA ================= -->
   <section id="event">
-    <div class="corner l"><img src="assets/treeL.webp" alt=""></div>
-    <div class="corner r"><img src="assets/treeR.webp" alt=""></div>
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Wedding Event</h2>
+    <div class="sec-head rv"><h2>Rangkaian Acara</h2><p>Akad Nikah &amp; Resepsi (Baralek Gadang)</p></div>
     <div id="events"></div>
+    <div class="card rv" style="margin-top:4px">
+      <div class="sec-head" style="margin-bottom:12px"><h2>Menuju Hari Bahagia</h2></div>
+      <div class="count">
+        <div class="cbox"><b id="cd-d">00</b><span>Hari</span></div><div class="cbox"><b id="cd-h">00</b><span>Jam</span></div>
+        <div class="cbox"><b id="cd-m">00</b><span>Menit</span></div><div class="cbox"><b id="cd-s">00</b><span>Detik</span></div>
+      </div>
+    </div>
   </section>
 
-  <section id="story" class="has-fl">
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Love Story</h2>
-    <div class="story" id="timeline"></div>
-    <div class="florals"><img src="assets/florals.webp" alt=""></div>
+  <!-- ================= KISAH ================= -->
+  <section id="story">
+    <div class="sec-head rv"><h2>Kisah Kami</h2><p>Dari bangku sekolah hingga pelaminan</p></div>
+    <div class="card rv"><div class="story" id="timeline"></div></div>
   </section>
 
-  <section id="gallery">
-    <div class="corner l"><img src="assets/treeL.webp" alt=""></div>
-    <div class="corner r"><img src="assets/treeR.webp" alt=""></div>
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Our Moments</h2>
-    <div class="gallery" id="galleryGrid"></div>
-  </section>
-
-  <section id="rsvp" class="has-fl">
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">RSVP</h2>
-    <p class="lead rv" style="--d:.15s">Mohon konfirmasi kehadiran Bapak/Ibu/Saudara/i</p>
-    <form class="form rv" style="--d:.25s" id="rsvpForm" novalidate>
-      <div class="field"><label for="fName">Nama</label><input id="fName" placeholder="Nama Anda" autocomplete="name"></div>
-      <div class="field"><label>Kehadiran</label><div class="seg">
+  <!-- ================= RSVP ================= -->
+  <section id="rsvp">
+    <div class="sec-head rv"><h2>Konfirmasi Kehadiran</h2><p>RSVP &amp; Ucapan Doa Restu</p></div>
+    <form class="card form rv" id="rsvpForm" novalidate>
+      <div class="field"><label class="l" for="fName">Nama</label><input id="fName" placeholder="Nama Anda" autocomplete="name"></div>
+      <div class="field"><label class="l">Kehadiran</label><div class="chips">
         <label><input type="radio" name="att" value="Hadir" checked><span>Hadir</span></label>
         <label><input type="radio" name="att" value="Belum Pasti"><span>Belum Pasti</span></label>
-        <label><input type="radio" name="att" value="Tidak Hadir"><span>Tidak Hadir</span></label></div></div>
-      <div class="field"><label for="fCount">Jumlah Tamu</label><select id="fCount"><option>1 orang</option><option>2 orang</option><option>3 orang</option><option>4 orang</option></select></div>
-      <div class="field"><label for="fMsg">Ucapan &amp; Doa</label><textarea id="fMsg" placeholder="Tuliskan ucapan dan doa terbaik…"></textarea></div>
-      <button class="btn" type="submit">Kirim via WhatsApp</button>
+        <label><input type="radio" name="att" value="Tidak Hadir"><span>Berhalangan</span></label></div></div>
+      <div class="field"><label class="l" for="fCount">Jumlah Tamu</label><select id="fCount"><option>1 orang</option><option>2 orang</option><option>3 orang</option><option>4 orang</option></select></div>
+      <div class="field"><label class="l" for="fMsg">Ucapan &amp; Doa</label><textarea id="fMsg" placeholder="Tuliskan ucapan dan doa terbaik…"></textarea></div>
+      <button class="b2 crim" type="submit" style="padding:12px;font-size:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Kirim via WhatsApp</button>
       <p class="hint">Konfirmasi dikirim langsung ke WhatsApp mempelai.</p>
+      <div class="wishes" id="wishes"></div>
     </form>
-    <div class="wishes" id="wishes"></div>
-    <div class="florals"><img src="assets/florals.webp" alt=""></div>
   </section>
 
-  <section id="gift">
-    <div class="corner l"><img src="assets/treeL.webp" alt=""></div>
-    <div class="corner r"><img src="assets/treeR.webp" alt=""></div>
-    <img class="band rv" src="assets/band.webp" alt="">
-    <h2 class="title script rv">Wedding Gift</h2>
-    <p class="lead rv" style="--d:.15s">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Jika ingin memberikan tanda kasih, dapat melalui:</p>
-    <div class="gifts" id="gifts"></div>
-  </section>
-
-  <section class="thanks frame" id="closing">
-    <div class="stage" data-stage></div>
-    <div class="htext">
-      <h2 class="script rv">Terima Kasih</h2>
-      <p class="lead rv" style="--d:.15s">Merupakan suatu kehormatan dan kebahagiaan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir di hari bahagia kami.</p>
-      <p class="script rv zoom" style="--d:.3s;font-size:2.2rem;margin-top:8px" id="closeNames">Rian &amp; Syherli</p>
+  <!-- ================= PEPATAH ================= -->
+  <section id="pepatah">
+    <div class="quote rv">
+      <p>“Anak daro jo marapulai saroman pinang dibalah duo, saiyo sakato mailiakan aia nan janiah, mambangun rumah tanggo nan samawa barakaik sunnah Rasulullah.”</p>
+      <small>— Pepatah Petitih Adat Minangkabau —</small>
     </div>
   </section>
-  <div class="foot" id="foot">RIAN &amp; SYHERLI · 2026</div>
-</div>
 
-<div class="fixed-ui top-ui"><button class="menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button></div>
-<div class="fixed-ui bot-ui"><div class="fabs">
-  <button class="fab mail" id="mailBtn" aria-label="RSVP"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v.3l-10 6.2L2 6.8v-.3zM2 9.2V17.5A2.5 2.5 0 004.5 20h15a2.5 2.5 0 002.5-2.5V9.2l-9.5 5.9a1 1 0 01-1 0L2 9.2z"/></svg></button>
-  <button class="fab music" id="musicBtn" aria-label="Musik"><svg viewBox="0 0 24 24" fill="currentColor" id="musicIc"></svg></button>
-</div></div>
+  <!-- ================= PENUTUP ================= -->
+  <footer class="closing" id="closing">
+    <p class="t rv">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.</p>
+    <p class="wass rv">Wassalamu’alaikum Warahmatullahi Wabarakatuh</p>
+    <p class="kami rv">Kami yang berbahagia,</p>
+    <p class="nm rv zoom" id="closeNames">Rian &amp; Syherli</p>
+    <p class="fam rv">Beserta Keluarga Besar Kedua Mempelai</p>
+  </footer>
+  <div class="closing-art" aria-hidden="true"><div class="stage" data-stage="foot"></div></div>
+</main>
+
+<!-- kontrol melayang -->
+<aside class="float" id="float">
+  <button class="scatter" id="scatterBtn"><span>🌸</span><span>Hamburkan Bunga</span></button>
+  <div class="player" id="player">
+    <button id="musicBtn" aria-label="Putar/hentikan musik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
+    <div class="meta"><p class="tt">Musik Pengiring</p><p class="st2" id="musicState">Ketuk untuk memutar</p></div>
+  </div>
+</aside>
+<nav class="bar" id="bar">
+  <button id="rsvpNav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2h8"/><path d="M22 7l-10 6L2 7"/><path d="M16 19l2 2 4-4"/></svg><span>Konfirmasi RSVP</span></button>
+  <i></i>
+  <button id="giftNav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7M7.5 8a2.5 2.5 0 010-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 010 5"/></svg><span>Kirim Kado / Angpao</span></button>
+</nav>
 <div class="guide" id="guide">
-  <div class="guide-cap"><small id="guideLbl">Selanjutnya</small><span id="guideNext">Ayat Suci</span></div>
+  <div class="guide-cap"><small id="guideLbl">Selanjutnya</small><span id="guideNext">Salam</span></div>
   <button class="guide-btn" id="guideBtn" aria-label="Gulir ke bagian berikutnya">
-    <svg class="ring" viewBox="0 0 66 66" aria-hidden="true"><circle class="track" cx="33" cy="33" r="31"/><circle class="prog" id="guideProg" cx="33" cy="33" r="31"/></svg>
+    <svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle class="track" cx="32" cy="32" r="30"/><circle class="prog" id="guideProg" cx="32" cy="32" r="30"/></svg>
     <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-    <span class="step" id="guideStep">1/10</span>
+    <span class="step" id="guideStep">1/8</span>
   </button>
 </div>
-<div class="menu" id="menu"><div class="back" data-close></div><div class="sheet"><h3>Menu</h3><div class="grid" id="menuGrid"></div></div></div>
+<div class="modal" id="giftModal">
+  <div class="box">
+    <button class="x" data-close aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <svg class="gift-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7M7.5 8a2.5 2.5 0 010-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 010 5"/></svg>
+    <h3>Amplop Digital &amp; Kado</h3>
+    <p class="sub">Doa restu Anda adalah karunia terindah bagi kami.</p>
+    <div id="gifts"></div>
+    <p class="thanks">Jazakumullah Khairan Katsiran atas kebaikan dan doa restu Anda.</p>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
 /* =====================================================================
    DATA UNDANGAN — [DUMMY] = data sementara, ganti dengan data asli.
+   Kosongkan (''), maka barisnya tidak ditampilkan.
    Nama tamu: index.html?to=Nama%20Tamu  atau  index.html#Nama-Tamu
    ===================================================================== */
 const WEDDING = {
-  groom: { nick:'Rian', full:'Ariandi Alnotri', parent:'Putra dari Bapak [Nama Ayah] & Ibu [Nama Ibu]', photo:'' },
-  bride: { nick:'Syherli', full:'Syherli Afmi Afika', parent:'Putri dari Bapak [Nama Ayah] & Ibu [Nama Ibu]', photo:'' },
+  groom: { nick:'Rian', full:'Ariandi Alnotri', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'' },
+  bride: { nick:'Syherli', full:'Syherli Afmi Afika', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'' },
   date: '2026-12-12T08:00:00+07:00',
+  city: '',                                   // mis. 'Padang' (tampil di pil tanggal sampul)
   events: [
-    { name:'Akad Nikah', start:'2026-12-12T08:00:00+07:00', end:'2026-12-12T10:00:00+07:00', time:'08.00 – 10.00 WIB',
+    { name:'Akad Nikah', start:'2026-12-12T08:00:00+07:00', end:'2026-12-12T10:00:00+07:00', time:'Pukul 08.00 - 10.00 WIB',
       place:'[Nama Tempat Akad]', addr:'[Alamat lengkap tempat akad]', maps:'https://maps.google.com/' },
-    { name:'Resepsi', start:'2026-12-12T11:00:00+07:00', end:'2026-12-12T14:00:00+07:00', time:'11.00 – 14.00 WIB',
+    { name:'Baralek Gadang', start:'2026-12-12T11:00:00+07:00', end:'2026-12-12T17:00:00+07:00', time:'Pukul 11.00 - 17.00 WIB',
       place:'[Nama Gedung Resepsi]', addr:'[Alamat lengkap tempat resepsi]', maps:'https://maps.google.com/' }
   ],
   story: [
@@ -373,7 +441,6 @@ const WEDDING = {
     { yr:'IPB', title:'Melangkah Bersama', text:'Kami melanjutkan perjalanan hingga jenjang kuliah di IPB. Saling menemani, saling menguatkan, dan saling mendoakan.' },
     { yr:'12 · 12 · 2026', title:'Menuju Halal', text:'Dengan restu kedua keluarga, kami memantapkan hati memulai babak baru sebagai suami dan istri. Bismillah.' }
   ],
-  gallery: ['', '', '', '', ''],
   gifts: [
     { bank:'BCA', no:'0000000000', name:'Ariandi Alnotri' },
     { bank:'BRI', no:'000000000000000', name:'Ariandi Alnotri' },
@@ -389,72 +456,116 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const wib = iso => { const d = new Date(new Date(iso).getTime() + 7*3600e3); return { d:d.getUTCDate(), m:d.getUTCMonth(), y:d.getUTCFullYear(), w:d.getUTCDay() }; };
+const tgl = iso => { const d = wib(iso); return `${HARI[d.w]}, ${d.d} ${BULAN[d.m]} ${d.y}`; };
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),2300); }
+const IC = {
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  nav:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>',
+  map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>',
+  ig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>'
+};
 
-/* ===================== PANGGUNG ILUSTRASI HIDUP ===================== */
-// koordinat dari ilustrasi asli 768x1376 (dibuat oleh tools/layers.py)
-const ART = { W:768, H:1376,
-  layers: { treeL:[0,0,320,760], treeR:[500,0,268,980], flL:[0,850,350,526], flM:[210,1010,370,366], flR:[450,880,318,496] },
-  sprites: { hb1:[250,135,70,65], bf2:[474,152,68,62], bf3:[165,265,77,75], bd4:[555,405,60,55], hb5:[85,590,80,75], hb6:[598,545,87,80],
-             bf7:[100,710,65,60], bf8:[30,735,75,65], bf9:[636,690,40,50], bf11:[560,995,45,40], hb13:[410,1022,105,68], bf14:[540,325,25,35] } };
+/* ===================== ILUSTRASI HIDUP ===================== */
+const ART = { W:768, H:1376, sprites:{ hb1:[250,135,70,65], bf2:[474,152,68,62], bf3:[165,265,77,75], bd4:[555,405,60,55], hb5:[85,590,80,75],
+  hb6:[598,545,87,80], bf7:[100,710,65,60], bf9:[636,690,40,50], hb13:[410,1022,105,56] } };
 const pos = ([x,y,w]) => `left:${(x/ART.W*100).toFixed(3)}%;top:${(y/ART.H*100).toFixed(3)}%;width:${(w/ART.W*100).toFixed(3)}%`;
-const LAYER_ANIM = { treeL:'--dur:7s', treeR:'--dur:8.2s;--del:-2s', flL:'--dur:5.4s', flM:'--dur:6.4s;--del:-1.6s', flR:'--dur:5.9s;--del:-3s' };
-const PETALS = ['#e7a3b1','#d4687e','#f2c9cf','#c96a4f','#9db187','#e9b98f'];
-function stageHTML(){
-  let h = `<img class="base" src="assets/base.webp" alt="">`;
-  for (const k in ART.layers) h += `<img class="lay ${k.startsWith('fl')?'fl':k}" src="assets/${k}.webp" alt="" style="${pos(ART.layers[k])};${LAYER_ANIM[k]}">`;
-  let i = 0;
-  for (const k in ART.sprites){
+function stageHTML(withSprites){
+  let h = `<img class="base" src="assets/base.webp" alt="Ilustrasi vintage Minangkabau: rumah gadang, pepohonan, anggrek dan pita songket"><canvas></canvas>`;
+  if (!withSprites) return h;
+  let i=0; for (const k in ART.sprites){
     const kind = k.startsWith('hb') ? '' : k.startsWith('bd') ? 'bird' : 'bf';
-    h += `<i class="fly ${kind}" style="${pos(ART.sprites[k])};--dur:${(kind==='bf'?8:3.6)+(i%4)*1.3}s;--del:-${(i*1.7).toFixed(1)}s;--flap:${(.26+(i%3)*.05).toFixed(2)}s"><img src="assets/${k}.webp" alt=""></i>`; i++;
-  }
-  [['bf2','2%','46%','24s','-3s'],['bf7','-6%','74%','30s','-14s'],['bf11','4%','30%','27s','-21s']].forEach(([k,l,t,d,dl])=>{
-    h += `<i class="wander" style="left:${l};top:${t};width:7%;--dur:${d};--del:${dl}"><img src="assets/${k}.webp" alt=""></i>`; });
-  for (let p=0;p<10;p++) h += `<i class="petal" style="left:${(5+p*9.3)%96}%;background:${PETALS[p%PETALS.length]};--dur:${11+p%4*2.5}s;--del:-${p*1.9}s;--x1:${p%2?36:-30}px;--x2:${p%2?-18:26}px"></i>`;
+    h += `<i class="fly ${kind}" style="${pos(ART.sprites[k])};--dur:${(kind==='bf'?9:3.8)+(i%4)*1.3}s;--del:-${(i*1.7).toFixed(1)}s;--flap:${(.3+(i%3)*.05).toFixed(2)}s"><img src="assets/${k}.webp" alt=""></i>`; i++; }
   return h;
 }
-document.querySelectorAll('[data-stage]').forEach(el => el.innerHTML = stageHTML());
-[['#couple','right:10%;top:150px','bf3'],['#event','left:8%;top:200px','bf8'],['#gift','right:12%;top:180px','bf2'],['#story','left:10%;top:160px','bf9']].forEach(([s,st,k],i)=>{
-  const d=document.createElement('i'); d.className='mini-fly fly bf'; d.style.cssText=`${st};--dur:${9+i}s;--del:-${i*2}s`; d.innerHTML=`<img src="assets/${k}.webp" alt="">`; $(s).appendChild(d); });
+document.querySelectorAll('[data-stage]').forEach(el => el.innerHTML = stageHTML(el.dataset.stage==='hero'));
+
+// WebGL: pohon & bunga bergoyang dengan melenturkan gambar utuh (tanpa potongan)
+function liveArt(stage){
+  const canvas = stage.querySelector('canvas'), baseImg = stage.querySelector('.base');
+  const gl = canvas.getContext('webgl', {alpha:false, antialias:false, premultipliedAlpha:false});
+  if (!gl || reduce) return;
+  const vs = `attribute vec2 p; varying vec2 v; void main(){ v = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
+  const fs = `precision mediump float; uniform sampler2D img, wind; uniform float t; varying vec2 v;
+    void main(){
+      vec4 m = texture2D(wind, v);
+      // pohon: ayunan lambat dahan + getar daun
+      float sw = sin(t*.85 + v.y*3.2 + v.x*2.) * .65 + sin(t*1.6 + v.x*9. + v.y*7.) * .35;
+      float lf = sin(v.x*95. + t*3.9) * sin(v.y*83. - t*3.1);
+      vec2 dT = vec2(sw*.0050 + lf*.0011, sw*.0014 + lf*.0010) * m.r * smoothstep(.0,.25, abs(v.x-.5)*2. - .2 + .25);
+      // bunga: bergoyang dari pangkal (bawah diam, atas bergerak)
+      float fw = sin(t*1.15 + v.x*13.) * .7 + sin(t*2.2 + v.x*29. + v.y*11.) * .3;
+      float fl = sin(v.x*120. + t*4.6) * sin(v.y*101. + t*3.4);
+      float root = smoothstep(1.0, .80, v.y);
+      vec2 dF = vec2(fw*.0058 + fl*.0010, fl*.0009 - abs(fw)*.0012) * m.g * root;
+      gl_FragColor = vec4(texture2D(img, v - dT - dF).rgb, 1.);
+    }`;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+  gl.useProgram(pr);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const tex = (unit, image) => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0+unit); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image); };
+  const windImg = new Image(); windImg.src = 'assets/wind.png';
+  const ready = Promise.all([baseImg.decode ? baseImg.decode().catch(()=>{}) : 0, new Promise(r=>{ windImg.onload=r; windImg.onerror=r; })]);
+  ready.then(()=>{
+    try { tex(0, baseImg); tex(1, windImg); } catch(e){ return; }      // gagal (mis. dibuka dari file://) → gambar diam
+    gl.uniform1i(gl.getUniformLocation(pr,'img'),0); gl.uniform1i(gl.getUniformLocation(pr,'wind'),1);
+    const uT = gl.getUniformLocation(pr,'t');
+    let visible = true, raf = 0, t0 = performance.now();
+    const size = () => { const r = canvas.getBoundingClientRect(), d = Math.min(2, devicePixelRatio||1);
+      canvas.width = Math.max(1, Math.round(r.width*d)); canvas.height = Math.max(1, Math.round(r.height*d)); gl.viewport(0,0,canvas.width,canvas.height); };
+    size(); addEventListener('resize', size);
+    const frame = now => { gl.uniform1f(uT, (now-t0)/1000); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); if (!canvas.classList.contains('ready')) canvas.classList.add('ready'); raf = visible ? requestAnimationFrame(frame) : 0; };
+    new IntersectionObserver(es=>{ visible = es[0].isIntersecting; if (visible && !raf) raf = requestAnimationFrame(frame); }).observe(stage);
+    raf = requestAnimationFrame(frame);
+  });
+}
+document.querySelectorAll('[data-stage]').forEach(liveArt);
 
 /* ===================== ISI ===================== */
-const G = WEDDING.groom, B = WEDDING.bride, D0 = wib(WEDDING.date);
+const G = WEDDING.groom, B = WEDDING.bride;
 document.querySelectorAll('[data-k=groomNick]').forEach(e=>e.textContent=G.nick);
 document.querySelectorAll('[data-k=brideNick]').forEach(e=>e.textContent=B.nick);
-$('#coverNames').textContent = `${G.nick} & ${B.nick}`;
+$('#gelarLine').textContent = `${G.full} & ${B.full}`;
+$('#datePill').textContent = tgl(WEDDING.date) + (WEDDING.city ? ` • ${WEDDING.city}` : '');
 $('#closeNames').textContent = `${G.nick} & ${B.nick}`;
-$('#heroDate').textContent = `${String(D0.d).padStart(2,'0')} · ${String(D0.m+1).padStart(2,'0')} · ${D0.y}`;
-$('#foot').textContent = `${G.nick} & ${B.nick} · ${D0.y}`.toUpperCase();
-document.title = `Undangan Pernikahan ${G.nick} & ${B.nick}`;
+document.title = `The Wedding of ${G.nick} & ${B.nick} - Undangan Pernikahan Minangkabau`;
 (()=>{ let n=''; try{ n = new URLSearchParams(location.search).get('to') || ''; }catch(e){}
   if(!n){ try{ n = decodeURIComponent(location.hash.slice(1)).replace(/[-_+]/g,' '); }catch(e){} }
-  n = n.trim(); if (n && !/^(home|verse|couple|save|event|story|gallery|rsvp|gift|closing)$/i.test(n)) { $('#guestName').textContent = n; $('#fName').value = n; } })();
-function person(p, el){
-  el.innerHTML = `<div class="portrait">${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.full)}">` : `<div class="ph"></div><div class="ini">${esc(p.nick[0])}</div>`}</div>
-    <div class="script">${esc(p.nick)}</div><div class="full">${esc(p.full)}</div><div class="parent">${esc(p.parent)}</div>`;
+  n = n.trim(); if (n && !/^(cover|greeting|couple|event|story|rsvp|pepatah|closing)$/i.test(n)) { $('#guestName').textContent = n; $('#fName').value = n; } })();
+function person(p, el, putra){
+  el.innerHTML = `<div class="person"><div class="mono">${p.photo?`<img src="${esc(p.photo)}" alt="${esc(p.full)}">`:`<span>${esc(p.nick[0])}</span>`}</div>
+    <h3>${esc(p.full)}</h3>${p.gala?`<p class="gala">${esc(p.gala)}</p>`:''}<div class="songket"></div>
+    <p class="ortu">${putra?'Putra':'Putri'} tercinta dari: <br><b>${esc(p.father)}</b> &amp; <b>${esc(p.mother)}</b></p>
+    ${p.suku?`<p class="suku">${esc(p.suku)}</p>`:''}${p.ig?`<a class="ig" href="https://instagram.com/${esc(p.ig)}" target="_blank" rel="noopener">${IC.ig}<span>@${esc(p.ig)}</span></a>`:''}</div>`;
 }
-person(G, $('#groom')); person(B, $('#bride'));
-const ORN = `<svg class="orn" viewBox="0 0 150 14" aria-hidden="true"><path d="M0 7H58M92 7H150" stroke="#9c4a32" stroke-width=".8"/><path d="M75 1l5 6-5 6-5-6z" fill="#9c4a32"/><circle cx="64" cy="7" r="1.6" fill="#5f7a4f"/><circle cx="86" cy="7" r="1.6" fill="#5f7a4f"/></svg>`;
-$('#events').innerHTML = WEDDING.events.map((e,i)=>{ const d = wib(e.start);
-  return `<div class="card event rv zoom" style="--d:${.1+i*.15}s"><div class="script">${esc(e.name)}</div><div class="day">${HARI[d.w]}</div>
-    <div class="bigdate">${String(d.d).padStart(2,'0')}</div><div>${BULAN[d.m]} ${d.y}</div>${ORN}
-    <div class="time">${esc(e.time)}</div><div class="place">${esc(e.place)}</div><div class="addr">${esc(e.addr)}</div>
-    <a class="btn" href="${esc(e.maps)}" target="_blank" rel="noopener">Lihat Lokasi</a></div>`; }).join('');
-$('#timeline').innerHTML = WEDDING.story.map((s,i)=>`<div class="st rv" style="--d:${i*.08}s"><div class="yr">${esc(s.yr)}</div><h4>${esc(s.title)}</h4><p>${esc(s.text)}</p></div>`).join('');
-$('#galleryGrid').innerHTML = WEDDING.gallery.map((src,i)=>`<figure class="rv zoom" style="--d:${(i%2)*.1}s">${src?`<img src="${esc(src)}" alt="Galeri ${i+1}" loading="lazy">`:`<div class="ph">FOTO ${i+1}</div>`}</figure>`).join('');
+person(G, $('#groom'), true); person(B, $('#bride'), false);
+const calUrl = e => { const f = s => new Date(s).toISOString().replace(/[-:]|\.\d{3}/g,'');
+  return 'https://calendar.google.com/calendar/render?' + new URLSearchParams({ action:'TEMPLATE', text:`${e.name} — ${G.nick} & ${B.nick}`, dates:`${f(e.start)}/${f(e.end)}`, details:`${e.time} — ${e.place}`, location:e.addr }); };
+$('#events').innerHTML = WEDDING.events.map((e,i)=> i===0
+  ? `<div class="ev rv zoom"><div class="tag">${esc(e.name)}</div><h4>${tgl(e.start)}</h4><p class="jam">${esc(e.time)}</p>
+     <div class="loc">${IC.pin}<span>${esc(e.place)}<small>${esc(e.addr)}</small></span></div>
+     <a class="b2" href="${esc(e.maps)}" target="_blank" rel="noopener">${IC.nav}Petunjuk Arah (Maps)</a></div>`
+  : `<div class="ev main rv zoom" style="margin-top:28px"><div class="tag-top">${esc(e.name)}</div><h4 style="margin-top:4px">${tgl(e.start)}</h4><p class="jam">${esc(e.time)}</p>
+     <div class="loc">${IC.pin}<span>${esc(e.place)}<small>${esc(e.addr)}</small></span></div>
+     <div class="grid2"><a class="b2 crim" href="${calUrl(e)}" target="_blank" rel="noopener">${IC.cal}Simpan Kalender</a><a class="b2 gold" href="${esc(e.maps)}" target="_blank" rel="noopener">${IC.map}Lihat Lokasi</a></div></div>`
+).join('');
+$('#timeline').innerHTML = WEDDING.story.map(s=>`<div class="st"><div class="yr">${esc(s.yr)}</div><h4>${esc(s.title)}</h4><p>${esc(s.text)}</p></div>`).join('');
 const BANK_LOGO = {
   BCA:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BCA"><rect width="120" height="40" rx="8" fill="#0060AF"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-style="italic" font-size="25" fill="#fff" letter-spacing="1">BCA</text></svg>`,
   BRI:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BRI"><rect width="120" height="40" rx="8" fill="#00529C"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="25" fill="#fff" letter-spacing="3">BRI</text></svg>`
 };
-$('#gifts').innerHTML = WEDDING.gifts.map((g,i)=>`<div class="bank rv zoom" style="--d:${i*.1}s">${BANK_LOGO[g.bank]||esc(g.bank)}
-  <div class="no">${esc(g.no.replace(/(\d{4})(?=\d)/g,'$1 '))}</div><div class="an">a.n. ${esc(g.name)}</div><button class="copy" data-copy="${esc(g.no)}">Salin No. Rekening</button></div>`).join('');
+$('#gifts').innerHTML = WEDDING.gifts.map(g=>`<div class="bank"><div class="top">${BANK_LOGO[g.bank]||`<b>${esc(g.bank)}</b>`}<span class="kind">Transfer Bank</span></div>
+  <p class="no">${esc(g.no.replace(/(\d{4})(?=\d)/g,'$1-'))}</p><p class="an">a.n. ${esc(g.name)}</p><button data-copy="${esc(g.no)}">Salin Nomor Rekening</button></div>`).join('');
 document.addEventListener('click', async e=>{ const b=e.target.closest('[data-copy]'); if(!b) return;
-  try{ await navigator.clipboard.writeText(b.dataset.copy); toast('Nomor rekening disalin'); }catch{ toast('Salin manual: '+b.dataset.copy); } });
-(()=>{ const e = WEDDING.events, f = s => new Date(s).toISOString().replace(/[-:]|\.\d{3}/g,'');
-  $('#calBtn').href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({ action:'TEMPLATE', text:`Pernikahan ${G.nick} & ${B.nick}`,
-    dates:`${f(e[0].start)}/${f(e.at(-1).end)}`, details:e.map(x=>`${x.name}: ${x.time} — ${x.place}`).join('\n'), location:e[0].addr }); })();
+  try{ await navigator.clipboard.writeText(b.dataset.copy); toast('Nomor rekening berhasil disalin'); }catch{ toast('Salin manual: '+b.dataset.copy); } });
 const target = new Date(WEDDING.date).getTime();
-function tick(){ const t = Math.max(0, target-Date.now())/1000, v={d:Math.floor(t/86400),h:Math.floor(t%86400/3600),m:Math.floor(t%3600/60),s:Math.floor(t%60)};
+function tick(){ const t=Math.max(0,target-Date.now())/1000, v={d:Math.floor(t/86400),h:Math.floor(t%86400/3600),m:Math.floor(t%3600/60),s:Math.floor(t%60)};
   for (const k in v) $('#cd-'+k).textContent = String(v[k]).padStart(2,'0'); }
 tick(); setInterval(tick,1000);
 const wishes = $('#wishes');
@@ -468,10 +579,28 @@ $('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
   const link=document.createElement('a'); link.href=`https://wa.me/${WEDDING.whatsapp}?text=${encodeURIComponent(text)}`; link.target='_blank'; link.rel='noopener'; document.body.appendChild(link); link.click(); link.remove();
   toast('Membuka WhatsApp…'); });
 
+/* ===================== PARTIKEL: kelopak & kupu-kupu ===================== */
+const PCOL = ['#8B1E1E','#A62E2E','#D95368','#B84A62','#C59B27','#E892A2'], parts = $('#particles');
+function petal(burst){
+  if (reduce) return; const p=document.createElement('div'), dur=burst?9+Math.random()*5:11+Math.random()*5, del=burst?Math.random()*2:Math.random()*2.5, sz=11+Math.random()*12;
+  p.className='petal'; p.style.cssText=`left:${Math.random()*95}%;width:${sz}px;height:${sz}px;animation-name:${Math.random()>.5?'fallR':'fallL'};animation-duration:${dur}s;animation-delay:${del}s`;
+  p.innerHTML=`<svg viewBox="0 0 24 24" fill="${PCOL[Math.random()*PCOL.length|0]}" style="width:100%;height:100%;opacity:${(.7+Math.random()*.25).toFixed(2)};filter:drop-shadow(0 2px 4px rgba(139,30,30,.12))"><path d="M12 2C9.5 5 5 9.5 5 14c0 3.87 3.13 7 7 7s7-3.13 7-7c0-4.5-4.5-9-7-12z"/></svg>`;
+  parts.appendChild(p); setTimeout(()=>p.remove(), (dur+del)*1000);
+}
+const BF = ['bf2','bf3','bf7','bf9'];
+function butterfly(){ if (reduce) return; const b=document.createElement('div'), dur=18+Math.random()*8; b.className='bfloat';
+  b.style.cssText=`left:${12+Math.random()*76}%;animation-duration:${dur}s`; b.innerHTML=`<img src="assets/${BF[Math.random()*BF.length|0]}.webp" alt="">`;
+  parts.appendChild(b); setTimeout(()=>b.remove(), dur*1000); }
+let ambient = 0;
+function startAmbient(){ if (ambient || reduce) return; for(let i=0;i<5;i++) petal(); butterfly();
+  ambient = setInterval(()=>{ if (!document.hidden){ petal(); if (Math.random()<.18) butterfly(); } }, 2600); }
+function burstAt(x,y,n=14){ if (reduce) return; for(let i=0;i<n;i++){ const s=document.createElement('div'), a=Math.random()*Math.PI*2, r=40+Math.random()*70;
+  s.className='tap-petal'; s.style.cssText=`left:${x}px;top:${y}px;--tx:${Math.cos(a)*r}px;--ty:${Math.sin(a)*r-20}px;--r:${(Math.random()*240-120)|0}deg`;
+  s.innerHTML=`<svg viewBox="0 0 24 24" fill="${PCOL[i%PCOL.length]}" style="width:100%;height:100%"><path d="M12 2C9.5 5 5 9.5 5 14c0 3.87 3.13 7 7 7s7-3.13 7-7c0-4.5-4.5-9-7-12z"/></svg>`;
+  document.body.appendChild(s); setTimeout(()=>s.remove(),1700); } }
+$('#scatterBtn').addEventListener('click', e=>{ const r=e.currentTarget.getBoundingClientRect(); burstAt(r.left+r.width/2, r.top); for(let i=0;i<16;i++) petal(true); });
+
 /* ===================== MUSIK (kotak musik dibuat di browser) ===================== */
-const IC_ON = '<path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a7 7 0 010 13.4v2.1a9 9 0 000-17.6z"/>';
-const IC_OFF = '<path d="M4 9v6h4l5 4V5L8 9H4zm12.6 3l2.4-2.4-1.4-1.4L15.2 10.6 12.8 8.2 11.4 9.6 13.8 12l-2.4 2.4 1.4 1.4 2.4-2.4 2.4 2.4 1.4-1.4z" transform="translate(2 0)"/>';
-$('#musicIc').innerHTML = IC_OFF;
 const Music = { ctx:null, on:false, timer:null, bar:0, chords:[[60,64,67,72],[57,60,64,69],[53,57,60,65],[55,59,62,67]],
   note(m,t,d,v){ const c=this.ctx, o=c.createOscillator(), o2=c.createOscillator(), g=c.createGain(), g2=c.createGain(), f=440*Math.pow(2,(m-69)/12);
     o.type='sine'; o2.type='triangle'; o.frequency.value=f; o2.frequency.value=f*2; g2.gain.value=.18;
@@ -484,68 +613,62 @@ const Music = { ctx:null, on:false, timer:null, bar:0, chords:[[60,64,67,72],[57
         const dl=this.ctx.createDelay(); dl.delayTime.value=.33; const fb=this.ctx.createGain(); fb.gain.value=.32;
         this.out.connect(this.ctx.destination); this.out.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(this.ctx.destination); }
       this.ctx.resume(); this.on=true; this.schedule(); this.timer=setInterval(()=>this.schedule(), 8*420);
-      $('#musicBtn').classList.add('playing'); $('#musicIc').innerHTML=IC_ON; }catch(e){} },
-  stop(){ this.on=false; clearInterval(this.timer); try{ this.ctx && this.ctx.suspend(); }catch(e){} $('#musicBtn').classList.remove('playing'); $('#musicIc').innerHTML=IC_OFF; } };
+      $('#player').classList.add('on'); $('#musicState').textContent='Sedang diputar'; }catch(e){} },
+  stop(){ this.on=false; clearInterval(this.timer); try{ this.ctx && this.ctx.suspend(); }catch(e){} $('#player').classList.remove('on'); $('#musicState').textContent='Dijeda'; } };
 $('#musicBtn').addEventListener('click', ()=> Music.on ? Music.stop() : Music.start());
 
-/* ===================== MENU, GULIR BERCERITA, MOTION ===================== */
-const CHAPTERS = [['home','Pembuka'],['verse','Ayat Suci'],['couple','Mempelai'],['save','Save the Date'],['event','Acara'],
-  ['story','Love Story'],['gallery','Galeri'],['rsvp','RSVP'],['gift','Wedding Gift'],['closing','Penutup']].map(([id,name])=>({id, el:document.getElementById(id), name}));
-$('#menuGrid').innerHTML = CHAPTERS.map(c=>`<a href="#${c.id}" data-go="${c.id}">${c.name}</a>`).join('');
-const menu = $('#menu');
-$('#menuBtn').addEventListener('click', ()=>menu.classList.add('open'));
-menu.addEventListener('click', e=>{ const go=e.target.closest('[data-go]'); if(go){ e.preventDefault(); menu.classList.remove('open'); glide(document.getElementById(go.dataset.go).offsetTop); }
-  else if(e.target.closest('[data-close]')) menu.classList.remove('open'); });
-$('#mailBtn').addEventListener('click', ()=>glide($('#rsvp').offsetTop));
+/* ===================== MODAL, NAVIGASI, GULIR BERCERITA ===================== */
+const modal = $('#giftModal');
+$('#giftNav').addEventListener('click', ()=>modal.classList.add('open'));
+modal.addEventListener('click', e=>{ if (e.target===modal || e.target.closest('[data-close]')) modal.classList.remove('open'); });
+$('#rsvpNav').addEventListener('click', ()=>glide($('#rsvp').offsetTop - 10));
 
 const io = new IntersectionObserver(es=>es.forEach(en=>{
   if (en.isIntersecting) en.target.classList.add('in'); else if (en.boundingClientRect.top > innerHeight*.5) en.target.classList.remove('in');
 }),{threshold:.12, rootMargin:'0px 0px -6% 0px'});
-const RV = [...document.querySelectorAll('.app .rv')];
+const RV = [...document.querySelectorAll('.rv')];
 function observe(){ RV.forEach(el=>io.observe(el)); }
 let rvTick=false;
 addEventListener('scroll', ()=>{ if(rvTick) return; rvTick=true; requestAnimationFrame(()=>{ rvTick=false;
   RV.forEach(el=>{ if(el.classList.contains('in') && el.getBoundingClientRect().top > innerHeight) el.classList.remove('in'); }); }); }, {passive:true});
-// jeda animasi panggung yang tidak terlihat (hemat baterai)
-const stageIO = new IntersectionObserver(es=>es.forEach(en=>en.target.querySelectorAll('*').forEach(x=>x.style.animationPlayState = en.isIntersecting?'running':'paused')));
-document.querySelectorAll('.app [data-stage]').forEach(s=>stageIO.observe(s));
 
+const CHAPTERS = [['cover','Sampul'],['greeting','Salam'],['couple','Kedua Mempelai'],['event','Rangkaian Acara'],['story','Kisah Kami'],
+  ['rsvp','Konfirmasi Kehadiran'],['pepatah','Pepatah Adat'],['closing','Penutup']].map(([id,name])=>({id, el:document.getElementById(id), name}));
 const guide=$('#guide'), gNext=$('#guideNext'), gLbl=$('#guideLbl'), gProg=$('#guideProg'), gStep=$('#guideStep');
 let storyOpen=false, storyDone=false, scrolling=false;
 const GUIDE_H = 150;
 function chapterNow(){ let i=0; CHAPTERS.forEach((c,k)=>{ if (c.el.getBoundingClientRect().top <= innerHeight*.35) i=k; }); return i; }
-const contentBottom = i => { const el=CHAPTERS[i].el; if (el.classList.contains('frame')) return el.getBoundingClientRect().bottom - innerHeight*.2;
-  const kids=[...el.children].filter(k=>!/florals|corner|mini-fly/.test(k.className)); return Math.max(...kids.map(k=>k.getBoundingClientRect().bottom)); };
+const contentBottom = i => CHAPTERS[i].el.getBoundingClientRect().bottom - 20;
 function moreInside(i){ return contentBottom(i) > innerHeight - GUIDE_H + 24; }
-function atEnd(){ return scrollY + innerHeight >= document.documentElement.scrollHeight - 30 || CHAPTERS.at(-1).el.getBoundingClientRect().top < innerHeight*.5; }
+function atEnd(){ return scrollY + innerHeight >= document.documentElement.scrollHeight - 40 || CHAPTERS.at(-1).el.getBoundingClientRect().top < innerHeight*.55; }
 function setCap(l,t){ gLbl.textContent=l; if(gNext.textContent!==t){ gNext.textContent=t; gNext.classList.remove('swap'); void gNext.offsetWidth; gNext.classList.add('swap'); } }
 function updateGuide(){
   if (!storyOpen) return;
   const i = chapterNow(), max = document.documentElement.scrollHeight - innerHeight;
-  gProg.style.strokeDashoffset = 195 * (1 - Math.min(1, scrollY/Math.max(1,max)));
+  gProg.style.strokeDashoffset = 189 * (1 - Math.min(1, scrollY/Math.max(1,max)));
   gStep.textContent = `${i+1}/${CHAPTERS.length}`;
   if (moreInside(i)) setCap('Lanjutkan', CHAPTERS[i].name); else if (i < CHAPTERS.length-1) setCap('Selanjutnya', CHAPTERS[i+1].name);
-  if (!storyDone && atEnd()){ storyDone=true; guide.classList.remove('show'); setTimeout(()=>document.body.classList.add('show-ui'), 450); }
+  if (!storyDone && atEnd()){ storyDone=true; guide.classList.remove('show'); document.body.classList.remove('story-mode'); setTimeout(()=>document.body.classList.add('show-bar'), 450); }
 }
 addEventListener('scroll', updateGuide, {passive:true}); addEventListener('resize', updateGuide);
 function glide(to){
   to = Math.max(0, Math.min(to, document.documentElement.scrollHeight - innerHeight));
   if (reduce){ scrollTo(0,to); return; }
-  const from=scrollY, dist=to-from, dur=Math.min(1600, Math.max(800, Math.abs(dist)*.8)), t0=performance.now(), ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const from=scrollY, dist=to-from, dur=Math.min(1700, Math.max(850, Math.abs(dist)*.8)), t0=performance.now(), ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   scrolling=true; (function step(now){ const t=Math.min(1,(now-t0)/dur); scrollTo(0, from+dist*ease(t)); if(t<1) requestAnimationFrame(step); else scrolling=false; })(t0);
 }
 $('#guideBtn').addEventListener('click', ()=>{ if(scrolling) return; const i=chapterNow();
   if (moreInside(i)) glide(scrollY + Math.min(contentBottom(i) - (innerHeight-GUIDE_H) + 40, innerHeight*.66));
-  else if (i < CHAPTERS.length-1) glide(scrollY + CHAPTERS[i+1].el.getBoundingClientRect().top); });
+  else if (i < CHAPTERS.length-1) glide(scrollY + CHAPTERS[i+1].el.getBoundingClientRect().top - 8); });
 
-$('#openBtn').addEventListener('click', ()=>{
-  const c=$('#cover'); $('#openBtn').disabled=true;
-  history.replaceState(null,'',location.pathname+location.search); scrollTo(0,0);
-  Music.start(); document.body.classList.add('show-music');
-  c.classList.add('opening');                      // teks naik memudar, kamera mendekat ke rumah gadang
-  const T = reduce ? [100,600] : [2500,4100];
-  setTimeout(()=>{ c.classList.add('fade'); document.body.classList.remove('locked'); observe(); }, T[0]);
-  setTimeout(()=>{ c.classList.add('gone'); storyOpen=true; guide.classList.add('show'); updateGuide(); }, T[1]);
+/* buka undangan: kelopak memancar, musik mulai, lalu meluncur ke salam */
+$('#openBtn').addEventListener('click', e=>{
+  const r = e.currentTarget.getBoundingClientRect(); burstAt(r.left+r.width/2, r.top+r.height/2, 18);
+  history.replaceState(null,'',location.pathname+location.search);
+  Music.start(); startAmbient();
+  document.body.classList.remove('locked'); document.body.classList.add('show-float'); observe();
+  e.currentTarget.querySelector('.label').textContent = 'Undangan Dibuka';
+  setTimeout(()=>{ glide($('#greeting').offsetTop - 8); storyOpen = true; setTimeout(()=>{ guide.classList.add('show'); updateGuide(); }, 900); }, 500);
 });
 </script>
 </body>

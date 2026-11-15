@@ -1,48 +1,67 @@
+"""Pecah ilustrasi menjadi: base.webp (burung/kupu dihapus), wind.png (peta angin R=pohon, G=bunga), sprite *.webp beralpha bersih."""
 import sys, json, numpy as np, cv2
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image
 src, out = sys.argv[1], sys.argv[2]
-im = np.array(Image.open(src).convert('RGB'))
-H, W = im.shape[:2]
+im = np.array(Image.open(src).convert('RGB')); H, W = im.shape[:2]
+f = im.astype(np.float32)
 SPR = {'hb1':(250,135,320,200),'bf2':(474,152,542,214),'bf3':(165,265,242,340),'bd4':(555,405,615,460),'hb5':(85,590,165,665),
-       'hb6':(598,545,685,625),'bf7':(100,710,165,770),'bf8':(30,735,105,800),'bf9':(636,690,676,740),'bf11':(560,995,605,1035),
-       'hb13':(410,1022,515,1090),'bf14':(540,325,565,360)}
-inpaint_mask = np.zeros((H,W),np.uint8); meta = {'W':W,'H':H,'sprites':{},'layers':{}}
+       'hb6':(598,545,685,625),'bf7':(100,710,165,770),'bf8':(30,735,105,792),'bf9':(636,690,676,740),'bf11':(560,995,605,1035),
+       'hb13':(410,1022,515,1078),'bf14':(540,325,565,360)}
+# sprite yang menempel ke dedaunan dibiarkan diam di latar (tidak dipisah)
+for k in ('bf8','bf11','bf14'): SPR.pop(k)
+# area di dalam kotak sprite yang bukan bagian tubuh burung/kupu (daun, ranting) — koordinat lokal
+EXCL = {'hb1':[[(0,0),(14,0),(14,65),(0,65)]], 'hb5':[[(0,38),(30,75),(0,75)],[(0,0),(16,0),(16,10),(0,10)]], 'hb13':[[(0,49),(105,49),(105,56),(0,56)]],
+        'bf7':[[(0,52),(65,52),(65,60),(0,60)]]}
+STRICT = {'bf7':55,'bf3':45}
+inpaint = np.zeros((H,W),np.uint8); meta = {'W':W,'H':H,'sprites':{}}
 for k,(x0,y0,x1,y1) in SPR.items():
-    c = im[y0:y1, x0:x1]
-    hsv = cv2.cvtColor(c, cv2.COLOR_RGB2HSV); L = cv2.cvtColor(c, cv2.COLOR_RGB2GRAY).astype(int)
-    border = np.concatenate([L[0],L[-1],L[:,0],L[:,-1]]); bgL = np.percentile(border,70)
-    m = ((L < bgL-38) | ((hsv[...,1]>70) & (L<225))).astype(np.uint8)
-    m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((5,5),np.uint8))
-    cs,_ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    c = f[y0:y1,x0:x1]; c8 = im[y0:y1,x0:x1]
+    L = cv2.cvtColor(c8, cv2.COLOR_RGB2GRAY).astype(np.float32); hsv = cv2.cvtColor(c8, cv2.COLOR_RGB2HSV)
+    border = np.concatenate([c[0],c[-1],c[:,0],c[:,-1]]); paper = np.median(border,axis=0)
+    bgL = np.percentile(np.concatenate([L[0],L[-1],L[:,0],L[:,-1]]),70)
+    core = ((L < bgL-STRICT.get(k,38)) | ((hsv[...,1]>70) & (L<225))).astype(np.uint8)
+    core = cv2.morphologyEx(core, cv2.MORPH_CLOSE, np.ones((5,5),np.uint8))
+    cs,_ = cv2.findContours(core, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    sil = np.zeros_like(core)
     if cs:
         cs = sorted(cs, key=cv2.contourArea, reverse=True); big = cv2.contourArea(cs[0])
-        m = np.zeros_like(m); cv2.drawContours(m, [q for q in cs if cv2.contourArea(q) > big*.08], -1, 1, -1)
-    m = cv2.dilate(m, np.ones((3,3),np.uint8))
-    full = np.zeros((H,W),np.uint8); full[y0:y1,x0:x1] = m
-    inpaint_mask |= cv2.dilate(full, np.ones((7,7),np.uint8))
-    a = cv2.GaussianBlur(m.astype(np.float32)*255,(3,3),0).clip(0,255).astype(np.uint8)
-    rgba = np.dstack([im[y0:y1,x0:x1], a])
-    Image.fromarray(rgba,'RGBA').save(f'{out}/{k}.webp', quality=90)
+        cv2.drawContours(sil, [q for q in cs if cv2.contourArea(q) > big*.08], -1, 1, -1)
+    for poly in EXCL.get(k,[]): cv2.fillPoly(sil, [np.array(poly,np.int32)], 0)
+    n_, lab_, st_, _ = cv2.connectedComponentsWithStats(sil)
+    if n_>1: sil = (lab_==1+np.argmax(st_[1:,cv2.CC_STAT_AREA])).astype(np.uint8)
+    sil_d = cv2.dilate(sil, np.ones((3,3),np.uint8)).astype(np.float32)
+    # alpha lembut: jarak warna dari kertas, dibatasi siluet; bagian dalam siluet tetap penuh
+    d = np.sqrt(((c-paper)**2).sum(-1))
+    soft = np.clip((d-14)/36,0,1)
+    inner = cv2.erode(sil, np.ones((5,5),np.uint8)).astype(np.float32)
+    a = np.maximum(soft, inner) * sil_d
+    a = cv2.GaussianBlur(a,(3,3),0)
+    # hilangkan halo krem: un-premultiply terhadap warna kertas
+    aa = np.maximum(a,1e-3)[...,None]
+    col = np.clip((c - (1-aa)*paper)/aa, 0, 255)
+    col = np.where(a[...,None]>0.02, col, c)
+    rgba = np.dstack([col, a*255]).astype(np.uint8)
+    # 2x untuk ketajaman
+    img = Image.fromarray(rgba,'RGBA').resize(((x1-x0)*2,(y1-y0)*2), Image.LANCZOS)
+    img.save(f'{out}/{k}.webp', quality=92)
     meta['sprites'][k] = [x0,y0,x1-x0,y1-y0]
-clean = cv2.inpaint(cv2.cvtColor(im,cv2.COLOR_RGB2BGR), inpaint_mask, 6, cv2.INPAINT_TELEA)
-clean = cv2.cvtColor(clean, cv2.COLOR_BGR2RGB)
-Image.fromarray(clean).save(f'{out}/base.webp', quality=82)
-LAY = {
- 'treeL':[(0,0),(232,0),(300,160),(270,330),(230,560),(210,720),(0,740)],
- 'treeR':[(548,0),(768,0),(768,960),(690,960),(630,720),(560,520),(520,260),(530,120)],
- 'flL':[(0,870),(300,960),(330,1376),(0,1376)],
- 'flM':[(230,1030),(560,1030),(560,1376),(230,1376)],
- 'flR':[(470,930),(768,900),(768,1376),(470,1376)],
-}
-for k,poly in LAY.items():
-    mask = Image.new('L',(W,H),0); ImageDraw.Draw(mask).polygon(poly, fill=255)
-    mask = mask.filter(ImageFilter.GaussianBlur(14))
-    xs=[p[0] for p in poly]; ys=[p[1] for p in poly]
-    x0,y0,x1,y1 = max(0,min(xs)-20),max(0,min(ys)-20),min(W,max(xs)+20),min(H,max(ys)+20)
-    rgba = Image.fromarray(clean).convert('RGBA'); rgba.putalpha(mask)
-    rgba.crop((x0,y0,x1,y1)).save(f'{out}/{k}.webp', quality=82)
-    meta['layers'][k] = [x0,y0,x1-x0,y1-y0]
-# pita songket untuk kepala bagian
-Image.fromarray(clean).crop((232,0,560,142)).save(f'{out}/band.webp', quality=85)
-json.dump(meta, open(f'{out}/meta.json','w'))
-print(json.dumps(meta))
+    full = np.zeros((H,W),np.uint8); full[y0:y1,x0:x1] = sil
+    inpaint |= cv2.dilate(full, np.ones((9,9),np.uint8))
+clean = cv2.cvtColor(cv2.inpaint(cv2.cvtColor(im,cv2.COLOR_RGB2BGR), inpaint, 7, cv2.INPAINT_TELEA), cv2.COLOR_BGR2RGB)
+Image.fromarray(clean).save(f'{out}/base.webp', quality=88)
+# ---- peta angin ----
+cf = clean.astype(np.float32)
+paper = np.array([249,242,224],np.float32)
+nonpaper = (np.sqrt(((cf-paper)**2).sum(-1)) > 22).astype(np.float32)
+yy, xx = np.mgrid[0:H,0:W]
+def smooth(v,a,b): t=np.clip((v-a)/(b-a),0,1); return t*t*(3-2*t)
+tree = np.maximum(smooth(-xx,-330,-250)*smooth(-yy,-800,-700), smooth(xx,470,540)*smooth(-yy,-1010,-900))
+tree *= smooth(yy,100,170) + (1-smooth(xx,40,90)) * (1-smooth(yy,100,170))  # pita songket diam, kecuali tepi kiri yg tertutup pohon
+tree *= (1 - smooth(xx,700,740)*(1-smooth(yy,100,170))*0)  # (placeholder, tidak mengubah)
+house = smooth(xx,140,190)*(1-smooth(xx,630,680))*smooth(yy,560,600)*(1-smooth(yy,960,1000))
+flower = smooth(yy,880,960)
+R = nonpaper*tree*(1-house); G = nonpaper*flower*(1-house*.7)
+R = cv2.GaussianBlur(R,(0,0),7); G = cv2.GaussianBlur(G,(0,0),7)
+wind = np.dstack([R*255, G*255, np.zeros_like(R)]).clip(0,255).astype(np.uint8)
+Image.fromarray(wind).resize((W//2,H//2), Image.BILINEAR).save(f'{out}/wind.png')
+json.dump(meta, open(f'{out}/meta.json','w')); print(json.dumps(meta))
