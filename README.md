@@ -13,7 +13,7 @@ Tampilan mengikuti rancangan "Pusaka Marawa" (Stitch): krem perkamen, merah mara
   lalu di WebGL masing-masing berayun kiri-kanan pelan dari pangkalnya dengan ritme berbeda, ditambah hembusan angin yang lewat
 - Latar halaman isi: ilustrasi rumah gadang (`base.webp`) yang dipudarkan, tetap di tempat saat digulir dan bergerak sangat pelan
 - Sudut atas setiap kartu dihiasi rangkaian 3 bunga bertangkai & berdaun (tangkai SVG + bunga dari `assets/flowers/`); tangkai terselip di belakang kartu, tumbuh saat kartu muncul, lalu berayun dari pangkalnya dengan kepala bunga yang sedikit tertinggal. Ukurannya menyesuaikan ruang kosong agar tidak menutupi teks
-- Musik: `assets/akad.mp3` (tidak disertakan di repo — lihat catatan hak cipta)
+- Musik: `assets/akad.mp3` — "Akad", Payung Teduh (hak cipta milik pencipta & label; dipakai atas keputusan pemilik undangan)
 - Burung = siluet vektor hitam (SVG) dengan kepak sayap, terbang melintasi langit
 - `assets/bf*.webp` — kupu-kupu (latar transparan) yang hanya melayang pelan di area bunga
 Efek WebGL butuh halaman dibuka lewat http(s); bila dibuka sebagai file, ilustrasi tampil diam.
