@@ -8,18 +8,19 @@ burung kolibri, kupu-kupu, dan bunga tropis (anggrek, heliconia, lili).
 Tampilan mengikuti rancangan "Pusaka Marawa" (Stitch): krem perkamen, merah marawa, emas songket; font Cinzel, Cormorant Garamond, Pinyon Script, Plus Jakarta Sans.
 - `assets/base.webp` — ilustrasi utuh; semua burung & kupu-kupu bawaan dihapus (inpaint) oleh `tools/layers.py`
 - `assets/wind.png` — peta angin (merah = pohon, hijau = bunga); gambar dilenturkan di WebGL sehingga pohon & bunga bergoyang tanpa dipotong
-- `assets/flowers/*.png` — 16 bunga lepas (anggrek, lili, heliconia, mawar, jahe merah, dll.) berlatar transparan,
-  dipotong satu-satu oleh `tools/flowers.py` (posisi asli di `flowers.json`). Pembuka menyusun ~70 bunga ini menjadi tirai;
-  tiap bunga bergoyang sendiri, dan saat "Buka Undangan" ditekan setiap bunga terbang menyibak ke samping memperlihatkan rumah gadang
+- `assets/flowers/*.png` — 16 bunga lepas berlatar transparan (dipotong satu-satu oleh `tools/flowers.py`, posisi di `flowers.json`)
+- `assets/flowermap.png` — peta gerak per bunga (`tools/flowermap.py`): tiap bunga + tangkainya punya wilayah dan titik pangkal sendiri,
+  lalu di WebGL masing-masing berayun kiri-kanan pelan dari pangkalnya dengan ritme berbeda, ditambah hembusan angin yang lewat
 - Burung = siluet vektor hitam (SVG) dengan kepak sayap, terbang melintasi langit
 - `assets/bf*.webp` — kupu-kupu (latar transparan) yang hanya melayang pelan di area bunga
 Efek WebGL butuh halaman dibuka lewat http(s); bila dibuka sebagai file, ilustrasi tampil diam.
 
 Regenerasi: `pip install opencv-python-headless pillow numpy`, lalu
-`python3 tools/layers.py sumber.png assets` dan `python3 tools/flowers.py sumber.png assets/flowers`.
+`python3 tools/layers.py sumber.png assets`, `python3 tools/flowers.py sumber.png assets/flowers`, lalu
+`python3 tools/flowermap.py assets/base.webp assets/flowers assets/flowermap.png`.
 
 ## Fitur
-- Sampul dengan tirai bunga; nama tamu dari link (`?to=Nama` / `#Nama-Tamu`) otomatis mengisi kolom nama RSVP
+- Sampul ilustrasi hidup; nama tamu dari link (`?to=Nama` / `#Nama-Tamu`) otomatis mengisi kolom nama RSVP
 - Musik kotak musik (dibuat di browser) dengan tombol on/off
 - Tombol gulir bercerita; menu ☰ dan tombol RSVP muncul setelah cerita selesai
 - Konten muncul halus saat digulir dan memudar turun saat digulir ke atas
