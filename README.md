@@ -11,8 +11,9 @@ Tampilan mengikuti rancangan "Pusaka Marawa" (Stitch): krem perkamen, merah mara
 - `assets/flowers/*.png` — 16 bunga lepas berlatar transparan (dipotong satu-satu oleh `tools/flowers.py`, posisi di `flowers.json`)
 - `assets/flowermap.png` — peta gerak per bunga (`tools/flowermap.py`): tiap bunga + tangkainya punya wilayah dan titik pangkal sendiri,
   lalu di WebGL masing-masing berayun kiri-kanan pelan dari pangkalnya dengan ritme berbeda, ditambah hembusan angin yang lewat
-- `assets/branchL|branchR.webp` — ranting pohon dari ilustrasi (`tools/branches.py`) yang mengintip di tepi tiap halaman dan bergoyang pelan
-- Sudut setiap kartu dihiasi rangkaian 3 bunga dari `assets/flowers/`; tiap bunga mekar masuk saat kartu muncul lalu bergoyang dengan ritmenya sendiri
+- Latar halaman isi: ilustrasi rumah gadang (`base.webp`) yang dipudarkan, tetap di tempat saat digulir dan bergerak sangat pelan
+- Sudut atas setiap kartu dihiasi rangkaian 3 bunga bertangkai & berdaun (tangkai SVG + bunga dari `assets/flowers/`); tangkai terselip di belakang kartu, tumbuh saat kartu muncul, lalu berayun dari pangkalnya dengan kepala bunga yang sedikit tertinggal. Ukurannya menyesuaikan ruang kosong agar tidak menutupi teks
+- Musik: `assets/akad.mp3` (tidak disertakan di repo — lihat catatan hak cipta)
 - Burung = siluet vektor hitam (SVG) dengan kepak sayap, terbang melintasi langit
 - `assets/bf*.webp` — kupu-kupu (latar transparan) yang hanya melayang pelan di area bunga
 Efek WebGL butuh halaman dibuka lewat http(s); bila dibuka sebagai file, ilustrasi tampil diam.

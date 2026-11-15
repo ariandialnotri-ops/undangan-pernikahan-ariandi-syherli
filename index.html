@@ -95,7 +95,7 @@ main{width:100%;max-width:414px;background:var(--parchment);min-height:100vh;pos
 
 /* ============ KARTU & BAGIAN ============ */
 section{position:relative;z-index:10;padding:24px 20px;overflow:hidden}
-section>*:not(.edge){position:relative;z-index:1}
+section>*:not(.posy){position:relative}
 .card{background:rgba(255,249,243,.95);border-radius:24px;padding:24px;border:1px solid rgba(197,155,39,.3);box-shadow:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);position:relative;overflow:visible}
 .orn-line{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin-bottom:16px;font-size:12px}
 .orn-line b{height:1px;width:48px;background:rgba(197,155,39,.5)}
@@ -245,6 +245,15 @@ section>*:not(.edge){position:relative;z-index:1}
 @keyframes burst{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1.1) rotate(var(--r));opacity:0}}
 .toast{position:fixed;left:50%;top:calc(20px + env(safe-area-inset-top));transform:translate(-50%,-30px);opacity:0;z-index:80;background:var(--crimson);color:#fef3c7;font-family:var(--cinzel);font-size:11px;letter-spacing:.06em;padding:9px 18px;border-radius:999px;transition:all .4s;pointer-events:none;border:1px solid rgba(252,211,77,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+/* ============ LATAR HALAMAN ISI: rumah gadang yang dipudarkan ============ */
+.page-art{position:fixed;top:0;bottom:0;left:50%;width:min(100%,414px);transform:translateX(-50%);z-index:0;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 1.6s ease}
+.page-art.on{opacity:1}
+.page-art img{position:absolute;left:50%;top:50%;height:100%;min-width:100%;aspect-ratio:768/1376;translate:-50% -50%;filter:saturate(.8) sepia(.08);animation:artDrift 40s ease-in-out infinite alternate}
+.page-art::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(70% 40% at 50% 48%,rgba(251,246,238,.62),rgba(251,246,238,.7) 60%,rgba(251,246,238,.78)),
+  linear-gradient(180deg,rgba(251,246,238,.5),rgba(251,246,238,0) 22%,rgba(251,246,238,0) 58%,rgba(251,246,238,.75) 78%,rgba(251,246,238,.9))}
+@keyframes artDrift{from{scale:1;translate:-50% -50%}to{scale:1.06;translate:-50% -48.5%}}
+.hero,.closing-art{position:relative;z-index:2;background:var(--parchment)}
 /* ============ HIASAN POHON & BUNGA DI TEPI HALAMAN DAN KARTU ============ */
 .edge{position:absolute;z-index:0;pointer-events:none;width:42%;max-width:170px;opacity:0;transition:opacity 1.8s ease,transform 2.2s cubic-bezier(.16,1,.3,1)}
 .edge img{width:100%;display:block}
@@ -254,14 +263,19 @@ section>*:not(.edge){position:relative;z-index:1}
 .edge.on{opacity:.55;transform:none}
 @keyframes edgeL{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(2deg) skewY(-.6deg)}}
 @keyframes edgeR{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(-2deg) skewY(.6deg)}}
-.posy{position:absolute;z-index:3;pointer-events:none;width:118px;height:96px}
-.posy.tr{top:-46px;right:-22px;transform-origin:100% 0}.posy.bl{bottom:-50px;left:-24px;transform-origin:0 100%}.posy.tl{top:-46px;left:-22px;transform-origin:0 0}.posy.br{bottom:-50px;right:-24px;transform-origin:100% 100%}
-.posy{transform:scale(.86)}.posy.mini{transform:scale(.6)}
-.posy i{position:absolute;display:block;opacity:0;transform:translateY(14px) scale(.6) rotate(var(--r0,0deg));transition:opacity 1.2s ease var(--in,0s),transform 1.6s cubic-bezier(.34,1.4,.64,1) var(--in,0s)}
-.posy i img{width:100%;display:block;transform-origin:50% 92%;animation:bloomSway var(--sd,7s) ease-in-out infinite;animation-delay:var(--sdl,0s);filter:drop-shadow(0 3px 3px rgba(90,40,20,.16))}
-.rv.in .posy i,.posy.on i{opacity:1;transform:rotate(var(--r0,0deg))}
-@keyframes bloomSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3.5deg)}}
-@media (prefers-reduced-motion:reduce){.edge,.posy i{opacity:1;transform:none}}
+.posy{position:absolute;pointer-events:none;width:120px;height:160px;scale:.74;transform-origin:50% 100%}
+.posy.tl{transform:scaleX(-1)}.posy.mini{scale:.56}
+.stalk{position:absolute;bottom:0;transform-origin:50% 100%;scale:1 0;opacity:0;
+  transition:scale 1.5s cubic-bezier(.22,1,.36,1) var(--in,0s),opacity .9s ease var(--in,0s)}
+.stalk .sw{position:absolute;inset:0;transform-origin:50% 100%;animation:stalkSway var(--sd,7s) cubic-bezier(.45,.05,.55,.95) infinite;animation-delay:var(--sdl,0s)}
+.stalk svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.stalk .head{position:absolute;left:0;width:100%;transform-origin:50% 85%;animation:headNod var(--sd,7s) cubic-bezier(.45,.05,.55,.95) infinite;animation-delay:calc(var(--sdl,0s) + .8s)}
+.stalk .head img{width:100%;display:block;opacity:0;scale:.35;transition:scale 1.3s cubic-bezier(.34,1.45,.64,1) calc(var(--in,0s) + .75s),opacity .9s ease calc(var(--in,0s) + .7s);filter:drop-shadow(0 3px 3px rgba(90,40,20,.18))}
+.rv.in .stalk,.posy.on .stalk{scale:1 1;opacity:1}
+.rv.in .stalk .head img,.posy.on .stalk .head img{opacity:1;scale:1}
+@keyframes stalkSway{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.8deg)}}
+@keyframes headNod{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(4.5deg)}}
+@media (prefers-reduced-motion:reduce){.edge,.stalk,.stalk .head img{opacity:1;scale:1;transform:none}}
 /* motion masuk & keluar */
 .rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .6s ease,transform .7s cubic-bezier(.4,0,1,1)}
 .rv.in{opacity:1;transform:none;transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.6s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
@@ -278,6 +292,7 @@ section>*:not(.edge){position:relative;z-index:1}
 </head>
 <body class="locked story-mode">
 <main id="main">
+  <div class="page-art" id="pageArt" aria-hidden="true"><img src="assets/base.webp" alt=""></div>
   <div id="particles" aria-hidden="true"></div>
 
   <!-- ================= SAMPUL ================= -->
@@ -394,7 +409,8 @@ section>*:not(.edge){position:relative;z-index:1}
   <button class="scatter" id="scatterBtn"><span>🌸</span><span>Hamburkan Bunga</span></button>
   <div class="player" id="player">
     <button id="musicBtn" aria-label="Putar/hentikan musik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
-    <div class="meta"><p class="tt">Musik Pengiring</p><p class="st2" id="musicState">Ketuk untuk memutar</p></div>
+    <div class="meta"><p class="tt">Akad — Payung Teduh</p><p class="st2" id="musicState">Ketuk untuk memutar</p></div>
+    <audio id="bgm" src="assets/akad.mp3" loop preload="none"></audio>
   </div>
 </aside>
 <nav class="bar" id="bar">
@@ -622,45 +638,59 @@ $('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
 
 /* ===================== HIASAN TEPI: ranting pohon & rangkaian bunga ===================== */
 (function decorate(){
-  // ranting pohon bergantian kiri/kanan di setiap halaman
-  const secs = ['greeting','couple','event','story','rsvp','pepatah'].map(id=>document.getElementById(id));
-  secs.forEach((sec,i)=>{
-    const side = i%2 ? 'r' : 'l', e = document.createElement('div');
-    e.className = `edge ${side}`; e.style.top = (i%3===1 ? '28%' : '-10px'); e.setAttribute('aria-hidden','true');
-    e.innerHTML = `<img src="assets/branch${side==='l'?'L':'R'}.webp" alt="" style="animation-delay:-${i*1.7}s">`;
-    sec.prepend(e);
-    // ranting kedua di sisi seberang, lebih kecil, di bagian bawah halaman panjang
-    if (['couple','event','rsvp'].includes(sec.id)){
-      const o = side==='l' ? 'r' : 'l', e2 = document.createElement('div');
-      e2.className = `edge ${o}`; e2.style.cssText = 'bottom:4%;width:30%;max-width:120px'; e2.setAttribute('aria-hidden','true');
-      e2.innerHTML = `<img src="assets/branch${o==='l'?'L':'R'}.webp" alt="" style="animation-delay:-${i*2.3+1}s">`;
-      sec.prepend(e2);
-    }
-  });
   const edgeIO = new IntersectionObserver(es=>es.forEach(en=>en.target.classList.toggle('on', en.isIntersecting)),{rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.edge').forEach(el=>edgeIO.observe(el));
   // rangkaian bunga di sudut kartu: tiap bunga diletakkan sendiri & bergoyang sendiri
   const P = 'assets/flowers/';
+  // [bunga, lebar kepala, panjang tangkai, sudut condong, posisi pangkal x]
   const SETS = [
-    [['lili-pink-1',0,10,62,-14],['anggrek-1',44,0,50,12],['kuncup-anggrek',86,30,28,24]],
-    [['mawar-liar',8,18,58,-8],['heliconia-2',62,0,34,18],['anggrek-merah',40,38,44,4]],
-    [['anggrek-2',0,16,64,-10],['mawar-merah-1',52,4,46,14],['terompet',84,40,30,28]],
-    [['lili-putih',4,12,66,-12],['mawar-pink',56,26,46,10],['jahe-merah',90,0,22,22]],
-    [['anggrek-3',0,14,64,-8],['lili-pink-2',50,6,52,16],['kuncup-anggrek',10,52,26,-30]],
-    [['mawar-merah-2',6,14,54,-10],['heliconia-1',58,0,30,20],['anggrek-1',38,40,44,6]],
+    [['lili-pink-1',50,112,-14,46],['anggrek-1',42,84,6,66],['kuncup-anggrek',22,62,22,84]],
+    [['mawar-liar',48,100,-12,48],['heliconia-2',30,122,3,68],['anggrek-merah',40,74,20,84]],
+    [['anggrek-2',50,108,-13,46],['mawar-merah-1',40,84,7,66],['terompet',28,60,24,86]],
+    [['lili-putih',52,104,-11,46],['mawar-pink',40,80,8,66],['jahe-merah',20,100,18,86]],
+    [['anggrek-3',50,106,-14,46],['lili-pink-2',42,84,6,66],['kuncup-anggrek',22,58,24,86]],
+    [['mawar-merah-2',46,102,-11,48],['heliconia-1',28,120,4,68],['anggrek-1',38,72,20,84]],
   ];
-  const CORNERS = ['tr','br','tl','bl'];   // kartu berurutan tidak berbagi sudut yang berdekatan
+  const leaf = (x,y,rot,s) => `<path d="M0 0 C5 -6 15 -7 21 -2 C15 3 5 4 0 0Z" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" fill="url(#lf)" stroke="#4f5e40" stroke-width=".5"/><path d="M1 0 L18 -2" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" stroke="#e8ecdc" stroke-width=".5" opacity=".7"/>`;
+  const stalkHTML = ([id,w,L,a,x],j,k) => {
+    const cx = w/2, top = w*.42, b = (j%2 ? 1 : -1) * (4 + (k%3));
+    const stem = `M${cx} ${L} C${cx+b} ${L*.68} ${cx-b} ${L*.36} ${cx} ${top}`;
+    const leaves = leaf(cx+.5, L*.62, j%2 ? -40 : -140, .9) + (L > 80 ? leaf(cx-.5, L*.38, j%2 ? -150 : -30, .75) : '');
+    const sd = (6.4 + j*1.15 + (k%3)*.6).toFixed(2), sdl = -(k*1.3 + j*2.1).toFixed(2), inn = (.2 + j*.22).toFixed(2);
+    return `<i class="stalk" style="left:${x - w/2}px;width:${w}px;height:${L}px;rotate:${a}deg;--in:${inn}s;--sd:${sd}s;--sdl:${sdl}s"><span class="sw">`+
+      `<svg viewBox="0 0 ${w} ${L}"><defs><linearGradient id="lf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aab7d"/><stop offset="1" stop-color="#5d6e4a"/></linearGradient></defs>`+
+      `<path d="${stem}" fill="none" stroke="#4f5e40" stroke-width="3.2" stroke-linecap="round"/><path d="${stem}" fill="none" stroke="#7f9264" stroke-width="1.8" stroke-linecap="round"/>${leaves}</svg>`+
+      `<span class="head" style="top:${-w*.5}px"><img src="${P}${id}.png" alt=""></span></span></i>`;
+  };
+  // rangkaian bunga di sudut ATAS kartu: diletakkan sebelum kartu di DOM sehingga tangkainya terselip di belakang kartu
+  const CORNERS = ['tr','tl'];
+  const place = [];
   document.querySelectorAll('section .card, section .ev, section .quote').forEach((card,k)=>{
-    const set = SETS[k % SETS.length], corner = CORNERS[k % CORNERS.length], mirror = corner==='tl' || corner==='bl';
-    const box = document.createElement('div'); box.className = `posy ${corner}${card.classList.contains('quote')?' mini':''}`; box.setAttribute('aria-hidden','true');
-    box.innerHTML = set.map(([id,x,y,w,r],j)=>{
-      const left = mirror ? 118 - x - w : x;
-      return `<i style="left:${left}px;top:${y}px;width:${w}px;--r0:${mirror?-r:r}deg;--in:${(.25+j*.18).toFixed(2)}s"><img src="${P}${id}.png" alt="" style="--sd:${(6+j*1.3+k%3*.7).toFixed(1)}s;--sdl:-${(k*1.1+j*2).toFixed(1)}s"></i>`;
-    }).join('');
-    card.appendChild(box);
-    if (!card.classList.contains('rv')) edgeIO.observe(box);
+    const set = SETS[k % SETS.length], corner = CORNERS[k % 2], mini = card.classList.contains('quote');
+    const box = document.createElement('div'); box.className = `posy ${corner}${mini?' mini':''}`; box.setAttribute('aria-hidden','true');
+    box.innerHTML = set.map((f,j)=>stalkHTML(f,j,k)).join('');
+    card.before(box);
+    const pos = () => {
+      // ruang kosong di atas sudut kartu: dibatasi teks/tombol/kartu lain di pita horizontal sudut itu
+      const cr = card.getBoundingClientRect(), x0 = corner==='tr' ? cr.right-74 : cr.left-20, x1 = corner==='tr' ? cr.right+20 : cr.left+74;
+      let limit = cr.top - 150;
+      document.querySelectorAll('main section h2, main section p, main section h3, main section h4, .tag-top, .card, .ev, .quote, .cbox, main section a, main section button, .amp-div span').forEach(el=>{
+        if (el===card || card.contains(el) || el.closest('.posy')) return;
+        const rs = /^(H2|H3|H4|P|SPAN)$/.test(el.tagName) ? (()=>{ const r=document.createRange(); r.selectNodeContents(el); return [...r.getClientRects()]; })() : [el.getBoundingClientRect()];
+        rs.forEach(r=>{ if (r.bottom <= cr.top + 2 && r.right > x0 && r.left < x1) limit = Math.max(limit, r.bottom); });
+      });
+      const sink = mini ? 18 : 30, free = cr.top - limit - 4, sc = Math.min(mini ? .56 : .74, (free + sink) / 160);
+      box.style.display = sc < .5 ? 'none' : ''; box.style.scale = sc.toFixed(3);
+      box.style.top = (card.offsetTop + sink - 160) + 'px';
+      box.style.left = (corner==='tr' ? card.offsetLeft + card.offsetWidth - 120 + 30*sc + 6 : card.offsetLeft - 30*sc - 6) + 'px'; };
+    place.push(pos); pos();
+    edgeIO.observe(box);
   });
+  const relayout = () => place.forEach(f=>f());
+  addEventListener('resize', relayout); addEventListener('load', relayout); document.fonts && document.fonts.ready.then(relayout);
+  setTimeout(relayout, 1500);
 })();
+
+new IntersectionObserver(es=>$('#pageArt').classList.toggle('on', !es[0].isIntersecting || es[0].intersectionRatio < .35),{threshold:[0,.35,1]}).observe($('#cover'));
 
 /* ===================== PARTIKEL: kelopak & kupu-kupu ===================== */
 const PCOL = ['#8B1E1E','#A62E2E','#D95368','#B84A62','#C59B27','#E892A2'], parts = $('#particles');
@@ -682,21 +712,17 @@ function burstAt(x,y,n=14){ if (reduce) return; for(let i=0;i<n;i++){ const s=do
   document.body.appendChild(s); setTimeout(()=>s.remove(),1700); } }
 $('#scatterBtn').addEventListener('click', e=>{ const r=e.currentTarget.getBoundingClientRect(); burstAt(r.left+r.width/2, r.top); for(let i=0;i<16;i++) petal(true); });
 
-/* ===================== MUSIK (kotak musik dibuat di browser) ===================== */
-const Music = { ctx:null, on:false, timer:null, bar:0, chords:[[60,64,67,72],[57,60,64,69],[53,57,60,65],[55,59,62,67]],
-  note(m,t,d,v){ const c=this.ctx, o=c.createOscillator(), o2=c.createOscillator(), g=c.createGain(), g2=c.createGain(), f=440*Math.pow(2,(m-69)/12);
-    o.type='sine'; o2.type='triangle'; o.frequency.value=f; o2.frequency.value=f*2; g2.gain.value=.18;
-    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v,t+.01); g.gain.exponentialRampToValueAtTime(.0001,t+d);
-    o.connect(g); o2.connect(g2); g2.connect(g); g.connect(this.out); o.start(t); o2.start(t); o.stop(t+d+.05); o2.stop(t+d+.05); },
-  schedule(){ const t0=this.ctx.currentTime+.05, beat=.42, ch=this.chords[this.bar%4];
-    [0,1,2,3,2,1,2,3].forEach((p,i)=>this.note(ch[p]+12, t0+i*beat, 1.6, .09)); this.note(ch[0]-12, t0, 3.2, .07);
-    if (this.bar%2===0) this.note(ch[3]+12+(this.bar%4?2:0), t0+beat*6, 1.8, .05); this.bar++; },
-  start(){ try{ if(!this.ctx){ const C=window.AudioContext||window.webkitAudioContext; this.ctx=new C(); this.out=this.ctx.createGain(); this.out.gain.value=.8;
-        const dl=this.ctx.createDelay(); dl.delayTime.value=.33; const fb=this.ctx.createGain(); fb.gain.value=.32;
-        this.out.connect(this.ctx.destination); this.out.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(this.ctx.destination); }
-      this.ctx.resume(); this.on=true; this.schedule(); this.timer=setInterval(()=>this.schedule(), 8*420);
-      $('#player').classList.add('on'); $('#musicState').textContent='Sedang diputar'; }catch(e){} },
-  stop(){ this.on=false; clearInterval(this.timer); try{ this.ctx && this.ctx.suspend(); }catch(e){} $('#player').classList.remove('on'); $('#musicState').textContent='Dijeda'; } };
+/* ===================== MUSIK: "Akad" — Payung Teduh (assets/akad.mp3) ===================== */
+const Music = { el: $('#bgm'), on:false, fadeT:0,
+  fade(to, ms, done){ const a=this.el, from=a.volume, t0=performance.now(); cancelAnimationFrame(this.fadeT);
+    const step = now => { const k=Math.min(1,(now-t0)/ms); a.volume = from + (to-from)*k*k*(3-2*k); if (k<1) this.fadeT=requestAnimationFrame(step); else done && done(); };
+    this.fadeT=requestAnimationFrame(step); },
+  start(){ const a=this.el; a.volume = 0; const p = a.play();
+    const ok = () => { this.on=true; this.fade(.85, 2500); $('#player').classList.add('on'); $('#musicState').textContent='Sedang diputar'; };
+    if (p && p.then) p.then(ok).catch(()=>{ $('#musicState').textContent='Ketuk untuk memutar'; }); else ok(); },
+  stop(){ this.on=false; this.fade(0, 900, ()=>this.el.pause()); $('#player').classList.remove('on'); $('#musicState').textContent='Dijeda'; } };
+// jeda saat tab disembunyikan, lanjut saat kembali
+document.addEventListener('visibilitychange', ()=>{ if (!Music.on) return; document.hidden ? Music.el.pause() : Music.el.play().catch(()=>{}); });
 $('#musicBtn').addEventListener('click', ()=> Music.on ? Music.stop() : Music.start());
 
 /* ===================== MODAL, NAVIGASI, GULIR BERCERITA ===================== */
