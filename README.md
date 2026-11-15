@@ -12,7 +12,7 @@ Tampilan mengikuti rancangan "Pusaka Marawa" (Stitch): krem perkamen, merah mara
 - `assets/flowermap.png` — peta gerak per bunga (`tools/flowermap.py`): tiap bunga + tangkainya punya wilayah dan titik pangkal sendiri,
   lalu di WebGL masing-masing berayun kiri-kanan pelan dari pangkalnya dengan ritme berbeda, ditambah hembusan angin yang lewat
 - Latar halaman isi: ilustrasi rumah gadang (`base.webp`) yang dipudarkan, tetap di tempat saat digulir dan bergerak sangat pelan
-- Sudut atas kartu dihiasi buket kecil: 2 bunga dari `assets/flowers/` + 1 kuncup SVG, tangkai & daun SVG yang bertemu di satu titik dan diikat pita emas. Tangkai tumbuh saat kartu muncul, lalu berayun dari ikatan dengan kepala bunga sedikit tertinggal. Ukuran menyesuaikan ruang kosong agar tidak menutupi teks
+- Buket bunga (2 bunga dari `assets/flowers/` + kuncup + ranting berdaun SVG) menyembul dari BALIK sudut atas kartu; sudut seberangnya dihiasi rumpun ranting berdaun. Tangkai tersembunyi di belakang kartu, tumbuh saat kartu muncul, lalu berayun pelan. Ukuran menyesuaikan ruang kosong agar tidak menutupi teks
 - Kawanan burung siluet hitam terbang bersamaan di latar halaman isi dan penutup
 - Penutup menampilkan ilustrasi rumah gadang utuh (atap tidak terpotong)
 - Musik: `assets/akad.mp3` — "Akad", Payung Teduh (hak cipta milik pencipta & label; dipakai atas keputusan pemilik undangan)
