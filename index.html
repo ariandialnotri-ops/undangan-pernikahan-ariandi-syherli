@@ -9,7 +9,7 @@
 <meta property="og:title" content="The Wedding of Rian &amp; Syherli">
 <meta property="og:description" content="Sabtu, 12 Desember 2026 — dengan hormat kami mengundang Bapak/Ibu/Saudara/i.">
 <meta property="og:type" content="website">
-<link rel="preload" as="image" href="assets/base.webp">
+<link rel="preload" as="image" href="assets/house.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Pinyon+Script&display=swap" rel="stylesheet">
@@ -47,10 +47,22 @@ main{width:100%;max-width:var(--col);background:var(--parchment);min-height:100v
 .hero{position:relative;z-index:2;width:100%;height:max(100vh,520px);height:max(100svh,520px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--parchment)}
 .art{position:absolute;inset:0;overflow:hidden;transform-origin:50% 60%;transition:transform 3s cubic-bezier(.45,0,.2,1)}
 .stage{position:absolute;top:0;left:50%;height:100%;min-width:100%;aspect-ratio:768/1376;transform:translateX(-50%);transform-origin:50% 65%}
-.stage.pushin{animation:pushin 20s cubic-bezier(.45,.05,.55,.95) infinite}
-@keyframes pushin{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06) translateY(-8px)}}
-.stage .base,.stage canvas{position:absolute;inset:0;width:100%;height:100%}
-.stage canvas{opacity:0;transition:opacity .8s}.stage canvas.ready{opacity:1}
+/* lapisan: rumah gadang (latar), pohon kiri/kanan, bunga — masuk lalu berayun halus */
+.stage>*{position:absolute;display:block}
+.stage .bg{inset:0;width:100%;height:100%;opacity:0;transform:scale(.86);transform-origin:50% 60%;transition:opacity 1.6s ease,transform 3s cubic-bezier(.16,1,.3,1)}
+.stage .ly{opacity:0;transition:opacity 1.2s ease var(--dl,0s),transform 2.2s cubic-bezier(.2,1.25,.35,1) var(--dl,0s)}
+.stage .ly img{width:100%;display:block;animation:var(--sway) var(--sd,8s) ease-in-out infinite alternate}
+.stage .tl{left:0;top:0;width:42.97%;transform:translateX(-75%) rotate(-10deg);transform-origin:0 100%;--dl:.5s}
+.stage .tl img{transform-origin:0% 100%;--sway:swayL;--sd:7.5s}
+.stage .tr{left:62.5%;top:0;width:37.5%;transform:translateX(75%) rotate(10deg);transform-origin:100% 100%;--dl:.7s}
+.stage .tr img{transform-origin:100% 100%;--sway:swayR;--sd:8.5s}
+.stage .fl{left:-2%;top:60.32%;width:104%;transform:translateY(70%);--dl:1s}
+.stage .fl img{transform-origin:50% 100%;--sway:swayF;--sd:6.5s}
+.stage.show .bg{opacity:1;transform:none}
+.stage.show .ly{opacity:1;transform:none}
+@keyframes swayL{from{transform:rotate(-.9deg)}to{transform:rotate(1.5deg)}}
+@keyframes swayR{from{transform:rotate(.9deg)}to{transform:rotate(-1.5deg)}}
+@keyframes swayF{from{transform:rotate(-.8deg) translateX(-.6%)}to{transform:rotate(.8deg) translateX(.6%)}}
 .sheen{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(251,246,238,.5),rgba(251,246,238,.08) 42%,rgba(251,246,238,0) 70%,rgba(251,246,238,.35))}
 .bloom{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(60% 34% at 50% 60%,rgba(255,244,214,.95),rgba(255,240,205,.5) 55%,rgba(255,240,205,0));transition:opacity 2.4s ease}
 .life{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
@@ -82,7 +94,7 @@ main{width:100%;max-width:var(--col);background:var(--parchment);min-height:100v
 .btn-open:active{transform:scale(.96)}
 .btn-open .seal{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 35% 35%,#F0D78C,#C59B27 60%,#8A640F);box-shadow:inset 0 1px 1px rgba(255,255,255,.6)}
 .btn-open svg{width:14px;height:14px}
-.hero-top>*,.hero-bottom>*{animation:heroIn 1.6s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0s)}
+.hero-top>*,.hero-bottom>*{animation:heroIn 1.6s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0s) + 1.6s)}
 @keyframes heroIn{from{opacity:0;transform:translateY(18px)}}
 /* momen buka: teks melembut, kamera mendekat ke rumah gadang, cahaya hangat */
 .entering .art{transform:scale(1.2)}
@@ -132,9 +144,13 @@ section{position:relative;z-index:10;padding:44px 20px 10px;overflow:hidden}
 .ayat p{font-style:italic;color:var(--ink-2);font-size:15px;line-height:1.65}
 .ayat .src{font-family:var(--cinzel);font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--crimson);font-weight:700;margin-top:10px}
 .person{display:flex;flex-direction:column;align-items:center;text-align:center}
-.mono{width:92px;height:92px;border-radius:50%;border:1.5px solid var(--gold);padding:5px;margin-bottom:12px;background:#fffaf0;box-shadow:0 8px 18px -10px rgba(74,40,20,.5)}
+.mono{width:132px;height:132px;border-radius:50%;border:1.5px solid var(--gold);padding:5px;margin-bottom:12px;background:#fffaf0;box-shadow:0 8px 18px -10px rgba(74,40,20,.5)}
 .mono span{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--crimson-light),var(--crimson-dark));display:grid;place-items:center;color:#fef3c7;font-family:var(--script);font-size:44px;line-height:1}
-.mono img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.mono img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 30%}
+.frame{position:relative;z-index:2;margin:26px auto 0;width:86%;padding:8px;background:var(--card);border:1px solid var(--gold-soft);border-radius:999px 999px 18px 18px;box-shadow:0 18px 40px -22px rgba(40,20,10,.7)}
+.frame img{width:100%;aspect-ratio:5/7;object-fit:cover;border-radius:999px 999px 12px 12px}
+.frame.sq{width:74%;border-radius:18px;margin-top:22px}.frame.sq img{aspect-ratio:5/6;border-radius:12px}
+.frame::after{content:"";position:absolute;inset:3px;border:1px solid rgba(197,155,39,.35);border-radius:inherit;pointer-events:none}
 .person .role{font-family:var(--cinzel);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dark);font-weight:700}
 .person h3{font-weight:700;font-size:26px;color:var(--crimson);line-height:1.2;margin-top:2px}
 .person .gala{font-style:italic;color:var(--gold-dark);font-size:15px;font-weight:600}
@@ -283,7 +299,7 @@ section{position:relative;z-index:10;padding:44px 20px 10px;overflow:hidden}
 
   <!-- ================= SAMPUL ================= -->
   <header class="hero" id="cover">
-    <div class="art"><div class="stage pushin" data-stage></div></div>
+    <div class="art"><div class="stage" data-stage></div></div>
     <div class="sheen" aria-hidden="true"></div><div class="bloom" aria-hidden="true"></div>
     <div class="life" id="heroLife" aria-hidden="true"></div>
     <div class="hero-top">
@@ -348,6 +364,12 @@ section{position:relative;z-index:10;padding:44px 20px 10px;overflow:hidden}
   <section id="story">
     <div class="sec-head rv"><small class="halo">Dari bangku sekolah hingga pelaminan</small><h2 class="halo">Kisah Kami</h2><div class="orn"><b></b><i class="s"></i><i></i><i class="s"></i><b></b></div></div>
     <div class="deco rv" data-deco="r"><div class="card"><div class="story" id="timeline"></div></div></div>
+  </section>
+
+  <!-- ================= POTRET ================= -->
+  <section id="gallery">
+    <div class="sec-head rv"><small class="halo">Sapasang Palaminan</small><h2 class="halo">Potret Kami</h2><div class="orn"><b></b><i class="s"></i><i></i><i class="s"></i><b></b></div></div>
+    <div id="galleryBox"></div>
   </section>
 
   <!-- ================= RSVP ================= -->
@@ -421,8 +443,8 @@ section{position:relative;z-index:10;padding:44px 20px 10px;overflow:hidden}
    Nama tamu: index.html?to=Nama%20Tamu  atau  index.html#Nama-Tamu
    ===================================================================== */
 const WEDDING = {
-  groom: { nick:'Rian', full:'Ariandi Alnotri', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'' },
-  bride: { nick:'Syherli', full:'Syherli Afmi Afika', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'' },
+  groom: { nick:'Rian', full:'Ariandi Alnotri', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'assets/photos/groom.webp' },
+  bride: { nick:'Syherli', full:'Syherli Afmi Afika', gala:'', father:'Bapak [Nama Ayah]', mother:'Ibu [Nama Ibu]', suku:'', ig:'', photo:'assets/photos/bride.webp' },
   date: '2026-12-12T08:00:00+07:00',
   city: '',
   events: [
@@ -437,6 +459,7 @@ const WEDDING = {
     { yr:'IPB', title:'Melangkah Bersama', text:'Kami melanjutkan perjalanan hingga jenjang kuliah di IPB. Saling menemani, saling menguatkan, dan saling mendoakan.' },
     { yr:'12 · 12 · 2026', title:'Menuju Halal', text:'Dengan restu kedua keluarga, kami memantapkan hati memulai babak baru sebagai suami dan istri. Bismillah.' }
   ],
+  gallery: ['assets/photos/couple-1.webp','assets/photos/couple-2.webp'],
   gifts: [
     { bank:'BCA', no:'0000000000', name:'Ariandi Alnotri' },
     { bank:'BRI', no:'000000000000000', name:'Ariandi Alnotri' },
@@ -461,10 +484,13 @@ const IC = {
   ig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>'
 };
 // pemuat: hilang setelah halaman & gambar utama siap (maks 6 detik)
-(()=>{ const done = () => $('#loader').classList.add('done'); addEventListener('load', ()=>setTimeout(done, 350)); setTimeout(done, 6000); })();
+(()=>{ const done = () => { $('#loader').classList.add('done'); setTimeout(()=>$('#cover .stage').classList.add('show'), 250); }; addEventListener('load', ()=>setTimeout(done, 350)); setTimeout(done, 6000); })();
 
 /* ===================== ILUSTRASI HIDUP ===================== */
-document.querySelectorAll('[data-stage]').forEach(el => el.innerHTML = `<img class="base" src="assets/base.webp" alt="Ilustrasi vintage Minangkabau: rumah gadang, pepohonan, dan bunga tropis"><canvas></canvas>`);
+document.querySelectorAll('[data-stage]').forEach(el => { el.innerHTML = `<img class="bg" src="assets/house.webp" alt="Ilustrasi rumah gadang">
+  <i class="ly tl"><img src="assets/treeL.webp" alt=""></i><i class="ly tr"><img src="assets/treeR.webp" alt=""></i><i class="ly fl"><img src="assets/flowers.webp" alt=""></i>`; });
+// penutup: lapisan masuk saat terlihat (sampul: setelah pemuat selesai)
+new IntersectionObserver(es=>es.forEach(en=>en.target.classList.toggle('show', en.isIntersecting)),{threshold:.25}).observe($('.closing-art .stage'));
 
 // burung siluet hitam (kepak sayap) & kupu-kupu yang melayang pelan di area bunga
 const WING = ['M0 6 C7 1 13 3 20 11 C27 3 33 1 40 6 C33 5 27 8 20 14 C13 8 7 5 0 6Z','M0 10 C7 8 13 9 20 11 C27 9 33 8 40 10 C33 10 27 11 20 14 C13 11 7 10 0 10Z','M0 17 C7 15 13 12 20 11 C27 12 33 15 40 17 C33 14 27 12 20 14 C13 12 7 14 0 17Z'];
@@ -501,55 +527,6 @@ life($('#pageLife'), [...flock(.15,32,1,0,5,20), ...flock(.30,40,-1,.52,3,16)].m
 life($('#footLife'), [...flock(.10,32,1,.3,3,20), ...flock(.20,44,-1,.7,1,15)],
   [ {img:'bf3',size:28,cx:.22,cy:.72,ax:.12,ay:.08,w1:.14,w2:.2,ph:3,flap:.8}, {img:'bf2',size:24,cx:.78,cy:.78,ax:.1,ay:.07,w1:.12,w2:.22,ph:5,flap:.75} ]);
 
-// WebGL: gambar utuh dilenturkan — pohon berayun, tiap bunga + tangkainya bergoyang dari pangkalnya sendiri
-function liveArt(stage){
-  const canvas = stage.querySelector('canvas'), baseImg = stage.querySelector('.base');
-  const gl = canvas.getContext('webgl', {alpha:false, antialias:false, premultipliedAlpha:false});
-  if (!gl || reduce) return;
-  const vs = `attribute vec2 p; varying vec2 v; void main(){ v = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
-  const fs = `precision mediump float; uniform sampler2D img, wind, flw; uniform float t; varying vec2 v;
-    void main(){
-      vec4 m = texture2D(wind, v);
-      float sw = sin(t*.85 + v.y*3.2 + v.x*2.) * .65 + sin(t*1.6 + v.x*9. + v.y*7.) * .35;
-      float lf = sin(v.x*95. + t*3.9) * sin(v.y*83. - t*3.1);
-      vec2 dT = vec2(sw*.0050 + lf*.0011, sw*.0014 + lf*.0010) * m.r * smoothstep(.0,.25, abs(v.x-.5)*2. - .2 + .25);
-      vec4 f = texture2D(flw, v);
-      float w = f.g; vec2 root = vec2(f.r, 1.); float id = f.b * 40.;
-      float gust = sin(t*.55 - v.x*2.4) * .6 + sin(t*.23 + 1.3) * .4;
-      float own  = sin(t*(.62 + fract(id*.37)*.38) + id*2.1);
-      float th = (.55*gust + .45*own) * .030 * w;
-      vec2 dF = vec2(th*(root.y - v.y)*1.7917, th*(v.x - root.x)*.5581);
-      float fl = sin(v.x*120. + t*2.6) * sin(v.y*101. + t*2.1);
-      vec2 dL = vec2(sin(t*.9 + v.x*13.)*.0016 + fl*.0005, fl*.0004) * m.g * (1. - w) * smoothstep(1.0, .85, v.y);
-      gl_FragColor = vec4(texture2D(img, v - dT - dF - dL).rgb, 1.);
-    }`;
-  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
-  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
-  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
-  gl.useProgram(pr);
-  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-  const tex = (unit, image, nearest) => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0+unit); gl.bindTexture(gl.TEXTURE_2D, t);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    const fl = nearest ? gl.NEAREST : gl.LINEAR; gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, fl); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, fl);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image); };
-  const load = src => new Promise(r=>{ const i = new Image(); i.onload = ()=>r(i); i.onerror = ()=>r(null); i.src = src; });
-  Promise.all([baseImg.decode ? baseImg.decode().catch(()=>{}) : 0, load('assets/wind.png'), load('assets/flowermap.png')]).then(([_, windImg, flwImg])=>{
-    if (!windImg || !flwImg) return;
-    try { tex(0, baseImg); tex(1, windImg); tex(2, flwImg, true); } catch(e){ return; }   // gagal (mis. file://) → gambar diam
-    gl.uniform1i(gl.getUniformLocation(pr,'img'),0); gl.uniform1i(gl.getUniformLocation(pr,'wind'),1); gl.uniform1i(gl.getUniformLocation(pr,'flw'),2);
-    const uT = gl.getUniformLocation(pr,'t');
-    let visible = true, raf = 0, t0 = performance.now();
-    const size = () => { const r = canvas.getBoundingClientRect(), d = Math.min(2, devicePixelRatio||1);
-      canvas.width = Math.max(1, Math.round(canvas.offsetWidth*d)); canvas.height = Math.max(1, Math.round(canvas.offsetHeight*d)); gl.viewport(0,0,canvas.width,canvas.height); };
-    size(); addEventListener('resize', size);
-    const frame = now => { gl.uniform1f(uT, (now-t0)/1000); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); canvas.classList.add('ready'); raf = visible ? requestAnimationFrame(frame) : 0; };
-    new IntersectionObserver(es=>{ visible = es[0].isIntersecting; if (visible && !raf) raf = requestAnimationFrame(frame); }).observe(stage);
-    raf = requestAnimationFrame(frame);
-  });
-}
-document.querySelectorAll('[data-stage]').forEach(liveArt);
-
 /* ===================== ISI ===================== */
 const G = WEDDING.groom, B = WEDDING.bride;
 document.querySelectorAll('[data-k=groomNick]').forEach(e=>e.textContent=G.nick);
@@ -561,7 +538,7 @@ $('#loader .ring').textContent = `${G.nick[0]} & ${B.nick[0]}`;
 document.title = `The Wedding of ${G.nick} & ${B.nick}`;
 (()=>{ let n=''; try{ n = new URLSearchParams(location.search).get('to') || ''; }catch(e){}
   if(!n){ try{ n = decodeURIComponent(location.hash.slice(1)).replace(/[-_+]/g,' '); }catch(e){} }
-  n = n.trim(); if (!n || /^(cover|greeting|couple|event|story|rsvp|pepatah|closing)$/i.test(n)) return;
+  n = n.trim(); if (!n || /^(cover|greeting|couple|event|story|gallery|rsvp|pepatah|closing)$/i.test(n)) return;
   $('#guestName').textContent = n; $('#guestLine').hidden = false; $('#fName').value = n; })();
 function person(p, el, putra){
   el.innerHTML = `<div class="person"><div class="mono">${p.photo?`<img src="${esc(p.photo)}" alt="${esc(p.full)}">`:`<span>${esc(p.nick[0])}</span>`}</div>
@@ -580,6 +557,8 @@ $('#events').innerHTML = WEDDING.events.map((e,i)=>{ const d = wib(e.start);
     <div class="loc">${IC.pin}<span>${esc(e.place)}<small>${esc(e.addr)}</small></span></div>
     <div class="grid2"><a class="b2 crim" href="${calUrl(e)}" target="_blank" rel="noopener">${IC.cal}Kalender</a><a class="b2" href="${esc(e.maps)}" target="_blank" rel="noopener">${IC.map}Lokasi</a></div></div></div>`; }).join('');
 $('#timeline').innerHTML = WEDDING.story.map(s=>`<div class="st"><div class="yr">${esc(s.yr)}</div><h4>${esc(s.title)}</h4><p>${esc(s.text)}</p></div>`).join('');
+$('#galleryBox').innerHTML = (WEDDING.gallery||[]).map((src,i)=>`<div class="frame rv${i?' sq':''}"><img src="${esc(src)}" alt="Potret ${esc(G.nick)} & ${esc(B.nick)}" loading="lazy"></div>`).join('');
+if (!(WEDDING.gallery||[]).length) $('#gallery').remove();
 const BANK_LOGO = {
   BCA:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BCA"><rect width="120" height="40" rx="8" fill="#0060AF"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-style="italic" font-size="25" fill="#fff" letter-spacing="1">BCA</text></svg>`,
   BRI:`<svg class="blogo" viewBox="0 0 120 40" role="img" aria-label="BRI"><rect width="120" height="40" rx="8" fill="#00529C"/><text x="60" y="29" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="25" fill="#fff" letter-spacing="3">BRI</text></svg>`
@@ -680,7 +659,7 @@ addEventListener('scroll', ()=>{ if(rvTick) return; rvTick=true; requestAnimatio
   RV.forEach(el=>{ if(el.classList.contains('in') && el.getBoundingClientRect().top > innerHeight) el.classList.remove('in'); }); }); }, {passive:true});
 new IntersectionObserver(es=>$('#pageArt').classList.toggle('on', es[0].intersectionRatio < .4),{threshold:[0,.4,1]}).observe($('#cover'));
 
-const CHAPTERS = [['cover','Sampul'],['greeting','Salam'],['couple','Kedua Mempelai'],['event','Rangkaian Acara'],['story','Kisah Kami'],
+const CHAPTERS = [['cover','Sampul'],['greeting','Salam'],['couple','Kedua Mempelai'],['event','Rangkaian Acara'],['story','Kisah Kami'],['gallery','Potret Kami'],
   ['rsvp','Konfirmasi Kehadiran'],['pepatah','Pepatah Adat'],['closing','Penutup']].map(([id,name])=>({el:document.getElementById(id), name}));
 const guide=$('#guide'), gNext=$('#guideNext'), gLbl=$('#guideLbl'), gProg=$('#guideProg');
 let storyOpen=false, storyDone=false, scrolling=false;

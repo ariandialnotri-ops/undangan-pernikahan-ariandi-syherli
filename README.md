@@ -7,19 +7,17 @@ Font: Cinzel, Cormorant Garamond, Pinyon Script.
 ## Alur
 1. **Sampul** — ilustrasi hidup, nama mempelai, tanggal, nama tamu (bila ada di link), tombol Buka Undangan.
 2. **Buka** — kelopak memancar, musik mulai, kamera mendekat ke rumah gadang dengan cahaya hangat, lalu halaman meluncur ke Salam.
-3. **Isi** — Salam & ayat, Kedua Mempelai, Rangkaian Acara + hitung mundur, Kisah Kami, RSVP (WhatsApp), Pepatah, Penutup.
+3. **Isi** — Salam & ayat, Kedua Mempelai, Rangkaian Acara + hitung mundur, Kisah Kami, Potret Kami, RSVP (WhatsApp), Pepatah, Penutup.
 4. Tombol **gulir bercerita** (pil di bawah) membawa tamu bab demi bab; setelah selesai muncul bilah RSVP / Kado.
 
 ## Ilustrasi & gerak
-- `assets/base.webp` — ilustrasi utuh (burung & kupu-kupu bawaan dihapus oleh `tools/layers.py`).
-- `assets/wind.png`, `assets/flowermap.png` — peta angin & peta per-bunga; di WebGL pohon berayun dan tiap bunga + tangkainya
-  bergoyang dari pangkalnya sendiri (`tools/flowermap.py`).
+- `tools/layers.py` → `assets/base.webp` (ilustrasi utuh tanpa burung/kupu bawaan; dipakai sebagai latar halaman isi).
+- `tools/scene.py` → lapisan pembuka: `house.webp` (rumah gadang), `treeL.webp`, `treeR.webp`, `flowers.webp` (transparan).
+  Saat halaman dibuka: rumah gadang masuk dengan zoom, pohon muncul dari kiri & kanan, bunga naik dari bawah,
+  lalu semuanya berayun halus kiri-kanan (CSS, tanpa efek getar). Penutup memakai lapisan yang sama.
 - Burung = siluet vektor hitam dengan kepak sayap, terbang berkelompok. Kupu-kupu (`assets/bf*.webp`) melayang pelan di area bunga.
-- Latar halaman isi = ilustrasi yang sama, dipudarkan, diam saat digulir.
-- `assets/flowers/*.webp` — bunga lepas bertepi bersih (`tools/flowers.py`). Di balik sudut atas tiap kartu ada buket
-  (2 bunga + kuncup + ranting berdaun) dan di sudut seberangnya rumpun ranting; tangkai tersembunyi di belakang kartu,
-  tumbuh saat kartu muncul, lalu berayun pelan.
-- Efek WebGL butuh http(s); bila file dibuka langsung, ilustrasi tampil diam. `prefers-reduced-motion` dihormati.
+- `assets/flowers/*.webp` — bunga lepas bertepi bersih (`tools/flowers.py`) untuk buket di balik sudut kartu.
+- `assets/photos/` — foto mempelai (potret bulat di kartu mempelai, dua foto di bagian "Potret Kami").
 
 ## Musik
 `assets/akad.mp3` — "Akad", Payung Teduh (hak cipta milik pencipta & label; dipakai atas keputusan pemilik undangan).
@@ -30,4 +28,4 @@ Semua data ada di objek `WEDDING` di bagian bawah `index.html`. Isian `[..]` mas
 
 ## Membuat ulang aset
 `pip install opencv-python-headless pillow numpy`, lalu
-`python3 tools/layers.py sumber.png assets`, `python3 tools/flowers.py sumber.png assets/flowers`.
+`python3 tools/layers.py sumber.png assets`, `python3 tools/scene.py assets/base.webp assets`, `python3 tools/flowers.py sumber.png assets/flowers`.
