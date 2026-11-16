@@ -32,9 +32,11 @@ Semua data ada di objek `WEDDING` di bagian bawah `index.html`. Isian `[..]` mas
 `python3 tools/layers.py sumber.png assets`, `python3 tools/scene.py assets/base.webp assets`, `python3 tools/flowers.py sumber.png assets/flowers`.
 
 ## Versi 2 — "Noir" (`v2/`)
-Rancangan kedua yang berdiri sendiri: nuansa studio gelap mengikuti foto mempelai (hitam, abu, putih, emas, aksen merah),
-gaya editorial dengan huruf Bodoni Moda, Jost, dan Monsieur La Doulaise.
-- Sampul foto penuh dengan sorot lampu & bingkai tipis; saat dibuka, sampul terangkat seperti tirai.
-- Pembuka foto dengan paralaks dan debu emas di sorot lampu; judul muncul dari balik garis; foto tersingkap dari hitam-putih ke warna.
-- Mempelai, tanggal besar + hitung mundur, acara, kisah, RSVP (WhatsApp), amplop digital, penutup. Garis progres merah-emas di atas.
-- Data di objek `WEDDING` dalam `v2/index.html`; foto di `v2/assets/`; musik memakai `assets/akad.mp3`.
+Rancangan kedua yang berdiri sendiri: studio gelap mengikuti foto mempelai (hitam, abu, putih, emas, aksen merah);
+huruf Bodoni Moda, Jost, Monsieur La Doulaise.
+- Satu layar per bagian. Di belakangnya latar foto redup yang berganti dengan memudar (foto detail dari folder "pelengkap"),
+  potret mempelai tampil penuh, isi masuk saat digulir dan keluar saat ditinggalkan.
+- Sampul foto + sorot lampu; saat dibuka, sampul memudar sambil mendekat. Menu ☰ layar penuh, tombol musik, garis progres.
+- Bagian: Pembuka (monogram + ayat), Mempelai Pria, Mempelai Wanita, Kisah Kami, Hari Bahagia (hitung mundur),
+  Rangkaian Acara (Akad & Resepsi), Galeri (12 foto, ketuk untuk memperbesar), RSVP WhatsApp, Tanda Kasih, Penutup.
+- Data di objek `WEDDING` dalam `v2/index.html`; foto di `v2/assets/` (galeri di `v2/assets/g/`); musik `assets/akad.mp3`.
