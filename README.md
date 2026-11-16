@@ -29,3 +29,11 @@ Semua data ada di objek `WEDDING` di bagian bawah `index.html`. Isian `[..]` mas
 ## Membuat ulang aset
 `pip install opencv-python-headless pillow numpy`, lalu
 `python3 tools/layers.py sumber.png assets`, `python3 tools/scene.py assets/base.webp assets`, `python3 tools/flowers.py sumber.png assets/flowers`.
+
+## Versi 2 — "Noir" (`v2/`)
+Rancangan kedua yang berdiri sendiri: nuansa studio gelap mengikuti foto mempelai (hitam, abu, putih, emas, aksen merah),
+gaya editorial dengan huruf Bodoni Moda, Jost, dan Monsieur La Doulaise.
+- Sampul foto penuh dengan sorot lampu & bingkai tipis; saat dibuka, sampul terangkat seperti tirai.
+- Pembuka foto dengan paralaks dan debu emas di sorot lampu; judul muncul dari balik garis; foto tersingkap dari hitam-putih ke warna.
+- Mempelai, tanggal besar + hitung mundur, acara, kisah, RSVP (WhatsApp), amplop digital, penutup. Garis progres merah-emas di atas.
+- Data di objek `WEDDING` dalam `v2/index.html`; foto di `v2/assets/`; musik memakai `assets/akad.mp3`.
