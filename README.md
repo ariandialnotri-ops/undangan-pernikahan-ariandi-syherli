@@ -1,7 +1,8 @@
 # Undangan Pernikahan Digital — Rian & Syherli
 
 Undangan pernikahan berbasis website (`index.html` + `assets/`), dirancang untuk HP; di layar lebar tampil sebagai kolom HP.
-Gaya "Pusaka Marawa": perkamen, merah marawa, emas songket, ilustrasi vintage rumah gadang.
+Palet: putih, hitam, emas, dengan bunga merah. Ornamen Minangkabau: rumah gadang & pepohonan bergaya ukiran tinta, pita songket emas.
+`tools/recolor.py assets` mewarnai ulang semua aset ilustrasi ke palet ini (jalankan setelah `scene.py`/`flowers.py`).
 Font: Cinzel, Cormorant Garamond, Pinyon Script.
 
 ## Alur
