@@ -104,11 +104,11 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .marawa{height:3px;background:linear-gradient(90deg,#000 0 33.3%,var(--red) 33.3% 66.6%,var(--gold) 66.6%)}
 
 /* monogram */
-.monogram{position:relative;width:216px;height:150px;margin:0 auto 22px;font-family:var(--display);color:var(--white)}
+.monogram{position:relative;width:178px;height:150px;margin:0 auto 22px;font-family:var(--display);color:var(--white)}
 .monogram b{position:absolute;font-weight:400;font-size:92px;line-height:1}
 .monogram b:first-child{left:8px;top:0}
 .monogram b:last-child{right:8px;bottom:0}
-.monogram i{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);font-family:var(--display);font-style:normal;font-size:40px;color:var(--gold-hi)}
+.monogram i{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);font-family:var(--display);font-style:normal;font-size:46px;color:var(--gold-hi)}
 .intro{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 .intro blockquote{font-family:var(--display);font-style:normal;font-size:clamp(15px,4.4vw,17px);line-height:1.65;color:var(--white);max-width:360px;margin:0 auto}
 .intro cite{display:block;margin-top:18px;font-style:normal}
@@ -163,7 +163,8 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 
 /* galeri: dua baris foto digeser manual; judul menempel pada foto pertama */
 .gallery{padding:calc(96px + env(safe-area-inset-top)) 0 110px;background:var(--black);justify-content:center}
-.mrow+.mrow{margin-top:12px}
+.mrow{position:relative}
+.mrow+.mrow{margin-top:40px}
 .mview{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .mview::-webkit-scrollbar{display:none}
 .mtrack{position:relative;display:flex;width:max-content;padding:0 20px}
@@ -171,9 +172,9 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .mtrack figure:last-of-type{margin-right:0}
 .mtrack img{height:100%;object-fit:cover}
 .gcap{position:absolute;z-index:2;pointer-events:none;color:var(--white)}
-.gcap.l{left:32px;bottom:14px;font-family:var(--display);font-size:clamp(22px,6.6vw,28px);line-height:.98;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.gcap.l{left:32px;top:14px;font-family:var(--display);font-size:clamp(22px,6.6vw,28px);line-height:.98;text-shadow:0 2px 14px rgba(0,0,0,.8)}
 .gcap.l span{display:block}.gcap.l span+span{padding-left:.6em}
-.gcap.rt{left:30px;top:14px;width:clamp(170px,48vw,224px);filter:drop-shadow(0 2px 8px rgba(0,0,0,.85))}
+.gcap.rt{right:16px;bottom:12px;width:clamp(180px,54vw,240px);filter:drop-shadow(0 2px 8px rgba(0,0,0,.85))}
 .light{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .4s;padding:16px}
 .light.open{opacity:1;pointer-events:auto}
 .light img{max-width:100%;max-height:90vh;width:auto;object-fit:contain;transform:scale(.94);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
@@ -219,13 +220,14 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 #gifts{display:none;margin-top:22px}#gifts.open{display:block;animation:fadeUp .8s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
 
-.closing{justify-content:flex-start;padding-top:calc(60px + env(safe-area-inset-top));padding-bottom:0;min-height:auto}
+.closing{justify-content:flex-start;padding-top:calc(56px + env(safe-area-inset-top));padding-bottom:0;height:100vh;height:100svh;min-height:0}
 .closing h2{font-size:clamp(36px,10.6vw,52px);line-height:1;white-space:nowrap}
 .closing p.body{font-size:13.5px;margin-top:14px;max-width:330px}
 .cnames{font-size:clamp(46px,14vw,60px);color:var(--white);margin:16px auto 0;width:78%}
-.cphoto{margin:22px -30px 0;position:relative}
+.cphoto{margin:14px -30px 0;position:relative;flex:1 1 auto;min-height:0;overflow:hidden}
 .cphoto::before{content:"";position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(#000,rgba(0,0,0,0));z-index:1}
-.cphoto img{width:100%;height:auto}
+.cphoto img{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
+@media (max-height:720px){.closing{padding-top:calc(40px + env(safe-area-inset-top))}.closing h2{font-size:34px}.closing p.body{font-size:12.5px;margin-top:8px}.cnames{font-size:42px;margin-top:8px;width:64%}.cphoto{margin-top:6px}}
 footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background:#000;padding:20px 20px calc(24px + env(safe-area-inset-bottom));text-align:center;font-size:9px;letter-spacing:.38em;color:#66666b;text-transform:uppercase}
 
 /* ============ KONTROL ============ */
@@ -311,7 +313,7 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
   <!-- 1 · PEMBUKA -->
   <section class="slide center intro" id="home" data-bg="hands" data-name="Pembuka">
     <div class="monogram rv"><b id="mA">R</b><i>&amp;</i><b id="mB">S</b></div>
-    <p class="eyebrow rv" style="--d:.4s">Assalamu’alaikum Wr. Wb.</p>
+    <p class="eyebrow rv" style="--d:.4s;margin-bottom:26px">Assalamu’alaikum Wr. Wb.</p>
     
     <blockquote class="rv" style="--d:.55s">“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</blockquote>
     <cite class="eyebrow rv" style="--d:.7s">QS. Ar-Rum : 21</cite>
@@ -352,9 +354,9 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
   <!-- 6 · GALERI -->
   <section class="slide gallery" id="gallery" data-bg="" data-name="Galeri">
     <div class="mrow rv"><div class="mview"><div class="mtrack" id="track1">
-      <h2 class="gcap l"><span class="mask"><span style="--d:.4s">Moments</span></span><span class="mask"><span style="--d:.55s">in Time</span></span></h2></div></div></div>
+      </div></div><h2 class="gcap l"><span class="mask"><span style="--d:.4s">Moments</span></span><span class="mask"><span style="--d:.55s">in Time</span></span></h2></div>
     <div class="mrow rv" style="--d:.3s"><div class="mview"><div class="mtrack" id="track2">
-      <p class="gcap rt hw" data-hw="The universe brought us|together, love made us stay">The universe brought us together, love made us stay</p></div></div></div>
+      </div></div><p class="gcap rt hw" data-hw="The universe brought us|together, love made us stay" data-align="right">The universe brought us together, love made us stay</p></div>
   </section>
 
   <!-- 7 · RSVP -->
@@ -542,11 +544,11 @@ function buildHW(el){
       if(part==='&'){ sp.setAttribute('style',"font-family:'Orange Avenue',serif;font-size:70px"); sp.setAttribute('dx','10'); sp.setAttribute('dy','-4'); } // '&' tidak ada di font Amsterdam
       t.appendChild(sp); });
     svg.appendChild(t); el.appendChild(svg); return {svg,t}; });
-  const bbs = rows.map(r=>r.t.getBBox()), W = Math.max(...bbs.map(b=>b.width)) + 12;
-  rows.forEach((r,i)=>{ const b=bbs[i]; r.svg.setAttribute('viewBox',`${b.x-6} ${b.y-6} ${b.width+12} ${b.height+12}`);
-    r.svg.style.width = ((b.width+12)/W*100).toFixed(3)+'%';
+  const PX=44, PY=22, bbs = rows.map(r=>r.t.getBBox()), W = Math.max(...bbs.map(b=>b.width)) + 2*PX;
+  rows.forEach((r,i)=>{ const b=bbs[i]; r.svg.setAttribute('viewBox',`${b.x-PX} ${b.y-PY} ${b.width+2*PX} ${b.height+2*PY}`);
+    r.svg.style.width = ((b.width+2*PX)/W*100).toFixed(3)+'%';
     if (right) r.svg.style.marginLeft='auto';
-    if (i) r.svg.style.marginTop = (-(b.height+12-122)/W*100).toFixed(3)+'%'; });   // jarak antarbaris ±1,2 tinggi huruf
+    if (i) r.svg.style.marginTop = (-(b.height+2*PY-122)/W*100).toFixed(3)+'%'; });   // jarak antarbaris ±1,2 tinggi huruf
   el.hw = { play(){ el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); }, reset(){ el.classList.remove('play'); } };
 }
 const HW = [...document.querySelectorAll('.hw')];
