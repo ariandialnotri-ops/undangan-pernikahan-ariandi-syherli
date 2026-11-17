@@ -619,9 +619,21 @@ addEventListener('scroll', ()=>{ if (!tk){ tk = true; requestAnimationFrame(onSc
     P=Array.from({length:34},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.3,vx:(Math.random()-.3)*.1,vy:Math.random()*.14+.03,t:Math.random()*6.28,s:Math.random()*.02+.006})); };
   const loop=()=>{ if (!document.hidden){ cx.clearRect(0,0,W,H);
     for(const p of P){ p.x+=p.vx; p.y+=p.vy; p.t+=p.s; if(p.y>H+6){p.y=-6;p.x=Math.random()*W;} if(p.x>W+6)p.x=-6;
-      cx.fillStyle=`rgba(236,217,164,${(((Math.sin(p.t)+1)/2*.5+.1)).toFixed(3)})`; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,6.283); cx.fill(); } }
+      cx.fillStyle=`rgba(236,217,164,${(((Math.sin(p.t)+1)/2*.5+.1)).toFixed(3)})`; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,6.283); cx.fill(); }
+    /* hari bahagia: debu emas tambahan jatuh dari atas ke arah payung (tanpa kilau) */
+    fallMix += ((dateOn ? 1 : 0) - fallMix) * .03;
+    if (fallMix > .01){ const tx=W*.56, ty=H*.74;
+      for(const q of F){ q.y+=q.vy; q.t+=.02; q.x += (tx + q.ox - q.x) * q.pull + Math.sin(q.t)*.12;
+        const near = Math.max(0, Math.min(1, (ty - q.y) / 140)), born = Math.min(1, q.y / 60 + .2);
+        if (q.y > ty + 10) spawn(q, false);
+        cx.fillStyle=`rgba(236,217,164,${(q.a*near*born*fallMix).toFixed(3)})`; cx.beginPath(); cx.arc(q.x,q.y,q.r,0,6.283); cx.fill(); } } }
     requestAnimationFrame(loop); };
-  size(); addEventListener('resize', size); requestAnimationFrame(loop); })();
+  let F=[], fallMix=0, dateOn=false;
+  const spawn=(q,first)=>{ q.x=Math.random()*W; q.y=first ? Math.random()*H*.7 : -8-Math.random()*40; q.r=Math.random()*1.1+.35; q.vy=Math.random()*.35+.28;
+    q.ox=(Math.random()-.5)*W*.42; q.pull=Math.random()*.004+.0015; q.a=Math.random()*.4+.26; q.t=Math.random()*6.28; return q; };
+  const sizeF=()=>{ F=Array.from({length:72},()=>spawn({},true)); };
+  new IntersectionObserver(es=>{ dateOn = es[0].isIntersecting; },{threshold:.35}).observe(document.getElementById('date'));
+  size(); sizeF(); addEventListener('resize', ()=>{ size(); sizeF(); }); requestAnimationFrame(loop); })();
 
 /* ---------- buka undangan: sampul memudar sambil mendekat, lalu pembuka muncul ---------- */
 let opened=false;
