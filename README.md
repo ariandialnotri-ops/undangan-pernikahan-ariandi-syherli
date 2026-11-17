@@ -37,6 +37,9 @@ huruf Bodoni Moda, Jost, Monsieur La Doulaise.
 - Satu layar per bagian. Di belakangnya latar foto redup yang berganti dengan memudar (foto detail dari folder "pelengkap"),
   potret mempelai tampil penuh, isi masuk saat digulir dan keluar saat ditinggalkan.
 - Sampul foto + sorot lampu; saat dibuka, sampul memudar sambil mendekat. Menu ☰ layar penuh, tombol musik, garis progres.
-- Bagian: Pembuka (monogram + ayat), Mempelai Pria, Mempelai Wanita, Kisah Kami, Hari Bahagia (hitung mundur),
-  Rangkaian Acara (Akad & Resepsi), Galeri (12 foto, ketuk untuk memperbesar), RSVP WhatsApp, Tanda Kasih, Penutup.
+- Bagian: Pembuka (monogram + ayat), Mempelai Pria, Mempelai Wanita, Kisah Kami ("A Beautiful Coincidence"), Hari Bahagia,
+  Rangkaian Acara (Akad & Resepsi di Bung Hatta Convention Hall), Galeri (12 foto), RSVP WhatsApp, Buku Tamu (tabel glass), Tanda Kasih, Penutup.
+- Semua ikon & tombol bergaya glassmorphism; ikon scroll vertikal putih di layar pembuka.
+- Buku tamu: halaman statis tidak bisa menyimpan ucapan bersama. Tabel menampilkan isi `WEDDING.wishes` (salin dari WhatsApp)
+  ditambah ucapan yang dikirim dari perangkat tamu itu sendiri.
 - Data di objek `WEDDING` dalam `v2/index.html`; foto di `v2/assets/` (galeri di `v2/assets/g/`); musik `assets/akad.mp3`.
