@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0a0b">
+<title>Kirim Undangan — Rian &amp; Syherli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Orange Avenue';src:url(assets/fonts/orange-avenue.woff2) format('woff2');font-display:swap}
+:root{--bg:#0a0a0b;--card:#141416;--line:rgba(255,255,255,.12);--white:#f5f3ee;--silver:#cfcfd4;--grey:#8d8d93;--gold:#c8a45a;--gold-hi:#ecd9a4;--red:#b3151f;--green:#1f9d55}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',system-ui,sans-serif;font-weight:300;background:var(--bg);color:var(--silver);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top)) 18px calc(40px + env(safe-area-inset-bottom))}
+h1{font-family:'Orange Avenue',serif;font-weight:400;color:var(--white);font-size:clamp(30px,8vw,40px);line-height:1.05}
+.eyebrow{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-hi)}
+.lead{font-size:14px;margin-top:8px;color:var(--grey)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:18px}
+.card h2{font-family:'Orange Avenue',serif;font-weight:400;font-size:21px;color:var(--white);margin-bottom:4px}
+.card p.s{font-size:12.5px;color:var(--grey);margin-bottom:12px}
+label{display:block;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:12px 0 6px}
+input,textarea{width:100%;font:inherit;font-size:15px;font-weight:400;color:var(--white);background:#0d0d0f;border:1px solid var(--line);border-radius:12px;padding:11px 13px;outline:none}
+input:focus,textarea:focus{border-color:rgba(236,217,164,.55)}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button,.b{font:inherit;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:11px 16px;cursor:pointer;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--white);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;-webkit-tap-highlight-color:transparent}
+button:active,.b:active{transform:scale(.97)}
+.pri{background:var(--white);color:#000;border-color:var(--white)}
+.wa{background:var(--green);border-color:var(--green)}
+.ghost{background:none}
+.danger{color:#f0a3a8;border-color:rgba(217,43,54,.45);background:none}
+.stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.stats div{flex:1;min-width:90px;background:#0d0d0f;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.stats b{display:block;font-family:'Orange Avenue',serif;font-weight:400;font-size:24px;color:var(--white);line-height:1.1}
+.stats span{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
+.tools{display:flex;gap:8px;margin-top:14px;align-items:center}
+.tools input{flex:1}
+.list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.g{background:#0d0d0f;border:1px solid var(--line);border-radius:14px;padding:13px 14px}
+.g.sent{border-color:rgba(31,157,85,.45)}
+.g .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.g .nm{font-size:16px;font-weight:500;color:var(--white);line-height:1.3;word-break:break-word}
+.g .ph{font-size:12px;color:var(--grey)}
+.g .st{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--grey);white-space:nowrap}
+.g.sent .st{color:#7fe0a8;border-color:rgba(31,157,85,.5)}
+.g .ln{font-size:12px;color:var(--gold-hi);word-break:break-all;margin-top:6px}
+.g .row{margin-top:10px}
+.g .row button,.g .row .b{padding:9px 12px;font-size:10px}
+.empty{text-align:center;color:var(--grey);padding:26px 10px;font-size:13.5px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:var(--white);color:#000;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 18px;border-radius:999px;transition:all .35s;pointer-events:none;white-space:nowrap;z-index:9}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+details summary{cursor:pointer;color:var(--white);font-size:14px;font-weight:400}
+details[open] summary{margin-bottom:6px}
+.hint{font-size:12px;color:var(--grey);margin-top:6px}
+code{font-family:ui-monospace,monospace;color:var(--gold-hi);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Khusus mempelai</p>
+  <h1>Kirim Undangan</h1>
+  <p class="lead">Buat link undangan bernama untuk setiap tamu, lalu kirim lewat WhatsApp. Nama tamu akan tampil di sampul undangan (“Kepada Yth.”). Daftar tamu tersimpan di perangkat ini.</p>
+
+  <div class="card">
+    <h2>Tambah Tamu</h2>
+    <p class="s">Satu tamu per baris. Nomor WhatsApp boleh ditambahkan setelah tanda koma.</p>
+    <textarea id="bulk" placeholder="Bapak Budi Santoso, 081234567890&#10;Ibu Rina &amp; Keluarga&#10;Keluarga Besar Bapak Ahmad, 0812 9876 5432"></textarea>
+    <div class="row"><button class="pri" id="addBtn">Tambahkan</button></div>
+  </div>
+
+  <div class="card">
+    <h2>Daftar Tamu</h2>
+    <div class="stats"><div><b id="sTotal">0</b><span>Tamu</span></div><div><b id="sSent">0</b><span>Terkirim</span></div><div><b id="sLeft">0</b><span>Belum</span></div></div>
+    <div class="tools"><input id="q" placeholder="Cari nama…" type="search"></div>
+    <div class="list" id="list"></div>
+    <div class="row" style="margin-top:16px"><button class="ghost" id="csvBtn">Unduh CSV</button><button class="danger" id="clearBtn">Hapus Semua</button></div>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>Pengaturan pesan &amp; alamat undangan</summary>
+      <label for="base">Alamat undangan</label>
+      <input id="base" inputmode="url">
+      <label for="tpl">Pesan WhatsApp</label>
+      <textarea id="tpl" style="min-height:260px"></textarea>
+      <p class="hint">Gunakan <code>{nama}</code> untuk nama tamu dan <code>{link}</code> untuk link undangan. Teks di antara <code>*</code> tampil tebal di WhatsApp.</p>
+      <div class="row"><button class="ghost" id="resetTpl">Kembalikan pesan awal</button></div>
+    </details>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_TPL = `Assalamu'alaikum Wr. Wb.
+
+Kepada Yth.
+Bapak/Ibu/Saudara/i *{nama}*
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami:
+
+*Rian & Syherli*
+Sabtu, 12 Desember 2026
+Bung Hatta Convention Hall, Padang
+
+Info lengkap acara dapat dilihat melalui link undangan berikut:
+{link}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+
+Wassalamu'alaikum Wr. Wb.
+
+Kami yang berbahagia,
+Rian & Syherli`;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const KEY='tamu_undangan_v1', CFG='tamu_undangan_cfg_v1';
+let guests = []; try{ guests = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){}
+let cfg = {}; try{ cfg = JSON.parse(localStorage.getItem(CFG)||'{}'); }catch(e){}
+const defBase = location.origin + location.pathname.replace(/kirim(\.html)?$/,'');
+$('#base').value = cfg.base || defBase;
+$('#tpl').value = cfg.tpl || DEFAULT_TPL;
+const saveCfg = () => { cfg = { base: $('#base').value.trim(), tpl: $('#tpl').value }; localStorage.setItem(CFG, JSON.stringify(cfg)); };
+['#base','#tpl'].forEach(s=>$(s).addEventListener('input', ()=>{ saveCfg(); render(); }));
+$('#resetTpl').addEventListener('click', ()=>{ $('#tpl').value = DEFAULT_TPL; saveCfg(); toast('Pesan dikembalikan'); });
+const save = () => localStorage.setItem(KEY, JSON.stringify(guests));
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),2000); }
+
+const phone = p => { let d = String(p||'').replace(/\D/g,''); if (d.startsWith('0')) d = '62'+d.slice(1); else if (d.startsWith('8')) d = '62'+d; return d; };
+const linkFor = g => { const b = ($('#base').value.trim() || defBase); return b + (b.includes('?') ? '&' : '?') + 'to=' + encodeURIComponent(g.name).replace(/%20/g,'+'); };
+const msgFor = g => ($('#tpl').value || DEFAULT_TPL).replaceAll('{nama}', g.name).replaceAll('{link}', linkFor(g));
+const waFor = g => `https://wa.me/${g.phone ? phone(g.phone) : ''}?text=${encodeURIComponent(msgFor(g))}`;
+
+$('#addBtn').addEventListener('click', ()=>{
+  const lines = $('#bulk').value.split('\n').map(l=>l.trim()).filter(Boolean); let n = 0;
+  lines.forEach(l=>{ const m = l.match(/^(.*?)[,;\t]\s*([+\d][\d\s\-]{6,})\s*$/); const name = (m ? m[1] : l).trim(), ph = m ? m[2].trim() : '';
+    if (!name) return; if (guests.some(g=>g.name.toLowerCase()===name.toLowerCase())) return;
+    guests.push({ id: Date.now().toString(36)+Math.random().toString(36).slice(2,6), name, phone: ph, sent: false }); n++; });
+  save(); render(); $('#bulk').value=''; toast(n ? `${n} tamu ditambahkan` : 'Tidak ada tamu baru');
+});
+
+async function copy(text, msg){ try{ await navigator.clipboard.writeText(text); toast(msg); }catch(e){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast(msg); } }
+
+function render(){
+  const q = $('#q').value.trim().toLowerCase(), sent = guests.filter(g=>g.sent).length;
+  $('#sTotal').textContent = guests.length; $('#sSent').textContent = sent; $('#sLeft').textContent = guests.length - sent;
+  const rows = guests.filter(g=>!q || g.name.toLowerCase().includes(q));
+  $('#list').innerHTML = rows.length ? rows.map(g=>`<div class="g${g.sent?' sent':''}" data-id="${g.id}">
+    <div class="top"><div><p class="nm">${esc(g.name)}</p>${g.phone?`<p class="ph">${esc(g.phone)}</p>`:''}</div><span class="st">${g.sent?'Terkirim':'Belum'}</span></div>
+    <p class="ln">${esc(linkFor(g))}</p>
+    <div class="row"><a class="b wa" data-act="wa" href="${esc(waFor(g))}" target="_blank" rel="noopener">WhatsApp</a>
+      <button data-act="link">Salin Link</button><button data-act="msg">Salin Pesan</button>${navigator.share?'<button data-act="share">Bagikan</button>':''}
+      <a class="b ghost" href="${esc(linkFor(g))}" target="_blank" rel="noopener">Lihat</a>
+      <button class="ghost" data-act="toggle">${g.sent?'Tandai belum':'Tandai terkirim'}</button><button class="danger" data-act="del">Hapus</button></div></div>`).join('')
+    : `<p class="empty">${guests.length ? 'Tidak ada nama yang cocok.' : 'Belum ada tamu. Tambahkan nama di atas.'}</p>`;
+}
+$('#q').addEventListener('input', render);
+$('#list').addEventListener('click', e=>{
+  const el = e.target.closest('[data-act]'); if (!el) return; const g = guests.find(x=>x.id===el.closest('.g').dataset.id); if (!g) return;
+  const act = el.dataset.act;
+  if (act==='wa'){ g.sent = true; save(); setTimeout(render, 300); return; }
+  if (act==='link') copy(linkFor(g), 'Link disalin');
+  if (act==='msg'){ copy(msgFor(g), 'Pesan disalin'); g.sent = true; }
+  if (act==='share'){ navigator.share({ title:'Undangan Rian & Syherli', text: msgFor(g) }).then(()=>{ g.sent=true; save(); render(); }).catch(()=>{}); }
+  if (act==='toggle') g.sent = !g.sent;
+  if (act==='del'){ if (!confirm(`Hapus ${g.name} dari daftar?`)) return; guests = guests.filter(x=>x!==g); }
+  save(); render();
+});
+$('#csvBtn').addEventListener('click', ()=>{
+  const q = v => `"${String(v).replace(/"/g,'""')}"`;
+  const csv = 'Nama,Nomor WA,Link,Status\n' + guests.map(g=>[g.name,g.phone,linkFor(g),g.sent?'Terkirim':'Belum'].map(q).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = 'daftar-tamu-undangan.csv'; a.click();
+});
+$('#clearBtn').addEventListener('click', ()=>{ if (guests.length && confirm('Hapus semua tamu dari daftar?')){ guests = []; save(); render(); } });
+render();
+</script>
+</body>
+</html>

@@ -6,8 +6,12 @@
 <meta name="theme-color" content="#0a0a0b">
 <title>Rian &amp; Syherli — 12.12.2026</title>
 <meta name="description" content="Undangan pernikahan Rian &amp; Syherli — Sabtu, 12 Desember 2026">
-<meta property="og:title" content="Rian &amp; Syherli — 12.12.2026">
-<meta property="og:description" content="Dengan hormat kami mengundang Bapak/Ibu/Saudara/i.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Wedding of Rian &amp; Syherli">
+<meta property="og:description" content="Sabtu, 12 Desember 2026 · Bung Hatta Convention Hall, Padang. Dengan hormat kami mengundang Bapak/Ibu/Saudara/i.">
+<meta property="og:image" content="https://undangan-rian-syherli.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preload" as="image" href="assets/cover.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +54,7 @@ main{position:relative;z-index:2;max-width:var(--col);margin:0 auto}
 
 /* ============ LATAR FOTO YANG BERGANTI ============ */
 .bgs{position:fixed;top:0;bottom:0;left:50%;width:min(100%,var(--col));transform:translateX(-50%);z-index:1;overflow:hidden;background:var(--black)}
-.bgs img{position:absolute;left:0;top:var(--t,0);width:100%;height:var(--h,100%);object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;filter:brightness(var(--br,.34)) saturate(var(--sat,.9));transform:scale(1.14);transition:opacity 1.6s ease,transform 9s cubic-bezier(.2,.5,.2,1)}
+.bgs img{position:absolute;will-change:opacity,transform;left:0;top:var(--t,0);width:100%;height:var(--h,100%);object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;filter:brightness(var(--br,.34)) saturate(var(--sat,.9));transform:scale(1.14);transition:opacity 2.2s ease,transform 9s cubic-bezier(.2,.5,.2,1)}
 .bgs img.on{opacity:1;transform:scale(1)}
 .bgs img.fadeb{-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
 .bgs::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 40%,rgba(0,0,0,0),rgba(0,0,0,.5))}
@@ -66,10 +70,10 @@ main{position:relative;z-index:2;max-width:var(--col);margin:0 auto}
 .ready .beam{opacity:1;transform:rotate(0deg);animation:beam 9s ease-in-out 4s infinite alternate}
 @keyframes beam{from{transform:rotate(0)}to{transform:rotate(5deg)}}
 .cover .top{position:absolute;left:0;right:0;top:calc(clamp(30px,6.4vh,64px) + env(safe-area-inset-top));text-align:center;padding:0 22px}
-.cover h1{font-size:clamp(46px,14vw,64px);line-height:.92;margin-top:12px;position:relative;display:inline-block;text-align:center;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.cover h1{font-size:clamp(46px,14vw,64px);line-height:.92;margin-top:12px;position:relative;display:inline-block;text-align:left;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .cover h1 span{display:block}
-.cover h1 span{position:relative;z-index:1}
-.cover h1 em{position:absolute;left:50%;transform:translateX(-50%);top:-.02em;font-style:normal;font-size:2.1em;line-height:1;color:rgba(255,255,255,.22);font-family:var(--display);pointer-events:none}
+.cover h1 span+span{padding-left:.5em}
+.cover h1 em{position:absolute;right:-.34em;top:.02em;font-style:normal;font-size:2.1em;line-height:1;color:rgba(255,255,255,.22);font-family:var(--display);pointer-events:none}
 .cover .date{font-size:10px;letter-spacing:.4em;color:var(--white);margin-top:14px;text-transform:uppercase}
 .cover .bot{position:absolute;left:0;right:0;bottom:calc(clamp(30px,6vh,54px) + env(safe-area-inset-bottom));text-align:center;padding:0 34px}
 .cover .to{font-family:var(--display);font-style:normal;font-size:23px;color:var(--white);margin-bottom:6px}
@@ -157,20 +161,19 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .ev .place{margin-top:12px;color:var(--white);font-size:15px;font-weight:400}
 .ev .addr{font-size:13px;color:var(--silver);line-height:1.55;margin-bottom:14px}
 
-/* galeri: dua baris foto berjalan ke kanan, judul diam di atasnya */
+/* galeri: dua baris foto digeser manual; judul menempel pada foto pertama */
 .gallery{padding:calc(96px + env(safe-area-inset-top)) 0 110px;background:var(--black);justify-content:center}
-.mrow{position:relative}
-.mrow+.mrow{margin-top:78px}
-.mview{overflow:hidden}
-.mtrack{display:flex;width:max-content;animation:marq var(--sp,46s) linear infinite;will-change:transform}
-.mtrack figure{flex:none;height:clamp(176px,50vw,250px);aspect-ratio:4/5;margin-right:7px;overflow:hidden;cursor:pointer;background:#151516}
+.mrow+.mrow{margin-top:12px}
+.mview{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.mview::-webkit-scrollbar{display:none}
+.mtrack{position:relative;display:flex;width:max-content;padding:0 20px}
+.mtrack figure{flex:none;height:clamp(200px,58vw,280px);aspect-ratio:4/5;margin-right:8px;overflow:hidden;cursor:pointer;background:#151516;scroll-snap-align:start;scroll-margin-left:20px}
+.mtrack figure:last-of-type{margin-right:0}
 .mtrack img{height:100%;object-fit:cover}
-@keyframes marq{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
-.gallery:not(.live) .mtrack{animation-play-state:paused}
 .gcap{position:absolute;z-index:2;pointer-events:none;color:var(--white)}
-.gcap.l{left:22px;bottom:-.5em;font-family:var(--display);font-size:clamp(30px,9vw,40px);line-height:.95;text-shadow:0 3px 18px rgba(0,0,0,.75)}
+.gcap.l{left:32px;bottom:14px;font-family:var(--display);font-size:clamp(22px,6.6vw,28px);line-height:.98;text-shadow:0 2px 14px rgba(0,0,0,.8)}
 .gcap.l span{display:block}.gcap.l span+span{padding-left:.6em}
-.gcap.rt{right:16px;top:-58px;width:72%;filter:drop-shadow(0 2px 10px rgba(0,0,0,.7))}
+.gcap.rt{left:30px;top:14px;width:clamp(170px,48vw,224px);filter:drop-shadow(0 2px 8px rgba(0,0,0,.85))}
 .light{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .4s;padding:16px}
 .light.open{opacity:1;pointer-events:auto}
 .light img{max-width:100%;max-height:90vh;width:auto;object-fit:contain;transform:scale(.94);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
@@ -264,11 +267,11 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
 @keyframes hwWipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
 /* ============ MOTION ============ */
 .rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .5s ease,transform .6s cubic-bezier(.4,0,1,1)}
-.rv.in{opacity:1;transform:none;transition:opacity 1.5s cubic-bezier(.22,.61,.36,1) var(--d,.25s),transform 1.8s cubic-bezier(.16,1,.3,1) var(--d,.25s)}
+.rv.in{opacity:1;transform:none;transition:opacity 1.9s cubic-bezier(.25,.46,.45,.94) var(--d,.35s),transform 2.3s cubic-bezier(.22,1,.36,1) var(--d,.35s)}
 .rule.rv{opacity:1;transform:scaleX(0)}.rule.rv.in{transform:scaleX(1);transition:transform 1.6s cubic-bezier(.7,0,.2,1) .5s}
 .mask{display:block;overflow:hidden;padding:.16em 0 .08em;margin-top:-.16em}
 .mask>span,.mask>em{display:block;transform:translateY(108%);transition:transform .5s ease}
-.in.mask>em,.in .mask>em,.in.mask>span,.in .mask>span{transform:none;transition:transform 1.4s cubic-bezier(.16,1,.3,1) var(--d,.3s)}
+.in.mask>em,.in .mask>em,.in.mask>span,.in .mask>span{transform:none;transition:transform 1.9s cubic-bezier(.22,1,.36,1) var(--d,.4s)}
 @media (max-height:620px){.monogram{transform:scale(.78);margin:-16px auto 6px}.intro{padding-top:56px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -348,10 +351,10 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
 
   <!-- 6 · GALERI -->
   <section class="slide gallery" id="gallery" data-bg="" data-name="Galeri">
-    <div class="mrow rv"><div class="mview"><div class="mtrack" id="track1" style="--sp:48s"></div></div>
-      <h2 class="gcap l"><span class="mask"><span style="--d:.4s">Moments</span></span><span class="mask"><span style="--d:.55s">in Time</span></span></h2></div>
-    <div class="mrow rv" style="--d:.3s"><div class="mview"><div class="mtrack" id="track2" style="--sp:40s"></div></div>
-      <p class="gcap rt hw" data-hw="The universe brought us|together, love made us stay" data-align="right">The universe brought us together, love made us stay</p></div>
+    <div class="mrow rv"><div class="mview"><div class="mtrack" id="track1">
+      <h2 class="gcap l"><span class="mask"><span style="--d:.4s">Moments</span></span><span class="mask"><span style="--d:.55s">in Time</span></span></h2></div></div></div>
+    <div class="mrow rv" style="--d:.3s"><div class="mview"><div class="mtrack" id="track2">
+      <p class="gcap rt hw" data-hw="The universe brought us|together, love made us stay">The universe brought us together, love made us stay</p></div></div></div>
   </section>
 
   <!-- 7 · RSVP -->
@@ -400,7 +403,6 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
     <h2 class="display rv"><span class="mask"><span>Terima Kasih</span></span></h2>
     <p class="body rv" style="--d:.5s">Suatu kehormatan dan kebahagiaan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir di hari bahagia kami.</p>
     <p class="cnames hw" id="closeNames" data-hw="Rian & Syherli">Rian &amp; Syherli</p>
-    <p class="eyebrow rv" style="--d:.4s;color:var(--silver);margin-top:2px">Beserta keluarga besar</p>
     <figure class="cphoto rv" style="--d:.5s"><img src="assets/bg-closing.webp" alt="${G.nick} & ${B.nick}" loading="lazy" id="closePhoto"></figure>
   </section>
 </main>
@@ -491,12 +493,11 @@ $('#events').innerHTML = WEDDING.events.map((e,i)=>`<div class="ev rv" style="--
   <p class="place">${esc(e.place)}</p>${e.addr?`<p class="addr">${esc(e.addr)}</p>`:'<div style="height:14px"></div>'}<a class="btn sm" href="${esc(e.maps)}" target="_blank" rel="noopener">${PIN}Lihat Lokasi</a></div>`).join('');
 $('#storyText').innerHTML = `<p class="lead rv" style="--d:.3s">${esc(WEDDING.story.lead)}</p>` + WEDDING.story.paragraphs.map((t,i)=>`<p class="rv" style="--d:${(.35+i*.06).toFixed(2)}s">${esc(t)}</p>`).join('');
 $('#storyClose').innerHTML = `<p>“${esc(WEDDING.story.closing)}”</p><span class="by">— ${esc(G.nick)} &amp; ${esc(B.nick)}</span>`;
-/* galeri: dua baris foto berjalan terus ke kanan (isi digandakan agar mulus) */
+/* galeri: dua baris foto, digeser manual ke kanan-kiri */
 const half = Math.ceil(WEDDING.gallery/2);
 const fill = (el, from, to) => { let h=''; for (let i=from;i<=to;i++) h += `<figure data-full="assets/g/${p2(i)}.webp"><img src="assets/g/${p2(i)}.webp" alt="Potret ${esc(G.nick)} & ${esc(B.nick)} ${i}" loading="lazy"></figure>`;
-  el.innerHTML = h + h.replace(/<figure /g,'<figure aria-hidden="true" '); };
+  el.insertAdjacentHTML('afterbegin', h); };
 fill($('#track1'), 1, half); fill($('#track2'), half+1, WEDDING.gallery);
-new IntersectionObserver(es=>$('#gallery').classList.toggle('live', es[0].isIntersecting)).observe($('#gallery'));
 $('#gifts').innerHTML = WEDDING.gifts.map(g=>`<div class="bank"><div><p class="bn">${esc(g.bank)}</p><p class="num">${esc(g.no)}</p><p class="an">a.n. ${esc(g.name)}</p></div><button data-copy="${esc(g.no.replace(/\D/g,''))}" data-msg="Nomor rekening disalin">Salin</button></div>`).join('')
   + (WEDDING.giftAddress ? `<div class="bank"><div><p class="bn">Kirim Kado</p><p class="num" style="font-size:16px;letter-spacing:.01em;line-height:1.45;white-space:normal">${esc(WEDDING.giftAddress)}</p></div><button data-copy="${esc(WEDDING.giftAddress)}" data-msg="Alamat disalin">Salin</button></div>` : '');
 $('#giftBtn').addEventListener('click', e=>{ $('#gifts').classList.add('open'); e.currentTarget.parentElement.style.display='none'; });
@@ -575,7 +576,7 @@ const slides = [...document.querySelectorAll('.slide')];
 $('#menuList').innerHTML = slides.map((s,i)=>`<a href="#${s.id}" data-go="${s.id}" style="--d:${(.08+i*.05).toFixed(2)}s"><small>${p2(i+1)}</small>${esc(s.dataset.name)}</a>`).join('');
 const menu = $('#menu');
 $('#burger').addEventListener('click', ()=>menu.classList.add('open'));
-menu.addEventListener('click', e=>{ const a=e.target.closest('[data-go]'); if (a){ e.preventDefault(); menu.classList.remove('open'); document.getElementById(a.dataset.go).scrollIntoView({behavior: reduce?'auto':'smooth'}); }
+menu.addEventListener('click', e=>{ const a=e.target.closest('[data-go]'); if (a){ e.preventDefault(); menu.classList.remove('open'); smoothTo(document.getElementById(a.dataset.go).getBoundingClientRect().top + scrollY); }
   else if (e.target.closest('[data-close]')) menu.classList.remove('open'); });
 const light = $('#light');
 document.addEventListener('click', e=>{ const fg=e.target.closest('figure[data-full]'); if (fg){ $('#lightImg').src = fg.dataset.full; light.classList.add('open'); } else if (e.target.closest('#light')) light.classList.remove('open'); });
@@ -586,7 +587,16 @@ function nextStop(){ const y=scrollY, vh=innerHeight;
     if (top > y+4) return top;
     if (bottom > y+vh+8) return Math.min(y+Math.round(vh*.85), bottom-vh); }
   return null; }
-$('#nextBtn').addEventListener('click', ()=>{ const t=nextStop(); scrollTo({top: t===null ? 0 : t, behavior: reduce?'auto':'smooth'}); });
+/* gulir halus: kurva ease-in-out, durasi menyesuaikan jarak; berhenti bila tamu menyentuh layar */
+let glide = 0;
+function smoothTo(y){ cancelAnimationFrame(glide); y = Math.max(0, Math.min(y, document.documentElement.scrollHeight - innerHeight));
+  const from = scrollY, d = y - from; if (reduce || Math.abs(d) < 2){ scrollTo(0,y); return; }
+  const dur = Math.min(2400, Math.max(1300, Math.abs(d)*1.15)), t0 = performance.now();
+  const ease = k => k<.5 ? 4*k*k*k : 1 - Math.pow(-2*k+2,3)/2;
+  const step = now => { const k = Math.min(1,(now-t0)/dur); scrollTo(0, from + d*ease(k)); if (k<1) glide = requestAnimationFrame(step); };
+  glide = requestAnimationFrame(step); }
+['touchstart','wheel'].forEach(ev=>addEventListener(ev, ()=>cancelAnimationFrame(glide), {passive:true}));
+$('#nextBtn').addEventListener('click', ()=>{ const t=nextStop(); smoothTo(t===null ? 0 : t); });
 
 /* ---------- gulir: latar berganti, isi masuk & keluar, progres ---------- */
 const bgs = [...document.querySelectorAll('#bgs img')];
