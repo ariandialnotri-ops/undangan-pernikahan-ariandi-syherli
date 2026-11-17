@@ -50,6 +50,16 @@ button:active,.b:active{transform:scale(.97)}
 .g .row{margin-top:10px}
 .g .row button,.g .row .b{padding:9px 12px;font-size:10px}
 .empty{text-align:center;color:var(--grey);padding:26px 10px;font-size:13.5px}
+.tabs{display:flex;gap:6px;margin-top:18px;background:#0d0d0f;border:1px solid var(--line);border-radius:999px;padding:4px}
+.tabs button{flex:1;border:0;background:none;padding:10px 6px}
+.tabs button.on{background:var(--white);color:#000}
+.sync{font-size:11px;color:var(--grey);margin-top:8px;text-align:right}
+.sync.err{color:#f0a3a8}
+.g .msg{font-size:14px;color:var(--silver);margin-top:6px;white-space:pre-wrap;word-break:break-word}
+.g .when{font-size:11px;color:var(--grey)}
+.g.hid{opacity:.5}
+.pill{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--grey);white-space:nowrap}
+.pill.y{color:#7fe0a8;border-color:rgba(31,157,85,.5)}.pill.n{color:#f0a3a8;border-color:rgba(217,43,54,.45)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:var(--white);color:#000;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 18px;border-radius:999px;transition:all .35s;pointer-events:none;white-space:nowrap;z-index:9}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 details summary{cursor:pointer;color:var(--white);font-size:14px;font-weight:400}
@@ -62,8 +72,38 @@ code{font-family:ui-monospace,monospace;color:var(--gold-hi);font-size:12px}
 <div class="wrap">
   <p class="eyebrow">Khusus mempelai</p>
   <h1>Kirim Undangan</h1>
-  <p class="lead">Buat link undangan bernama untuk setiap tamu, lalu kirim lewat WhatsApp. Nama tamu akan tampil di sampul undangan (“Kepada Yth.”). Daftar tamu tersimpan di perangkat ini.</p>
+  <p class="lead">Buat link undangan bernama untuk setiap tamu, lalu kirim lewat WhatsApp. Nama tamu tampil di sampul undangan (“Kepada Yth.”). Daftar tamu, RSVP, dan ucapan tersimpan di server sehingga bisa dibuka dari HP mana saja.</p>
 
+  <div class="card" id="loginCard">
+    <h2>Masuk</h2>
+    <p class="s">Masukkan kunci mempelai untuk membuka daftar tamu, rekap RSVP, dan ucapan yang tersimpan di server.</p>
+    <input id="keyIn" type="password" placeholder="Kunci mempelai" autocomplete="current-password">
+    <div class="row"><button class="pri" id="loginBtn">Masuk</button></div>
+  </div>
+
+  <div id="app" hidden>
+  <div class="tabs"><button class="on" data-tab="tamu">Tamu</button><button data-tab="rsvp">RSVP</button><button data-tab="wish">Wishes</button></div>
+  <p class="sync" id="sync">Tersimpan di server</p>
+
+  <div data-panel="rsvp" hidden>
+    <div class="card">
+      <h2>Rekap RSVP</h2>
+      <div class="stats"><div><b id="rHadir">0</b><span>Hadir</span></div><div><b id="rOrang">0</b><span>Total orang</span></div><div><b id="rRagu">0</b><span>Ragu</span></div><div><b id="rTidak">0</b><span>Berhalangan</span></div></div>
+      <div class="list" id="rsvpList"></div>
+      <div class="row" style="margin-top:16px"><button class="ghost" id="rsvpCsv">Unduh CSV</button><button class="ghost" data-reload>Muat ulang</button></div>
+    </div>
+  </div>
+
+  <div data-panel="wish" hidden>
+    <div class="card">
+      <h2>Wishes</h2>
+      <p class="s">Semua ucapan tampil untuk seluruh tamu. Ucapan yang tidak pantas bisa disembunyikan.</p>
+      <div class="list" id="wishList"></div>
+      <div class="row" style="margin-top:16px"><button class="ghost" data-reload>Muat ulang</button></div>
+    </div>
+  </div>
+
+  <div data-panel="tamu">
   <div class="card">
     <h2>Tambah Tamu</h2>
     <p class="s">Satu tamu per baris. Nomor WhatsApp boleh ditambahkan setelah tanda koma.</p>
@@ -87,8 +127,10 @@ code{font-family:ui-monospace,monospace;color:var(--gold-hi);font-size:12px}
       <label for="tpl">Pesan WhatsApp</label>
       <textarea id="tpl" style="min-height:260px"></textarea>
       <p class="hint">Gunakan <code>{nama}</code> untuk nama tamu dan <code>{link}</code> untuk link undangan. Teks di antara <code>*</code> tampil tebal di WhatsApp.</p>
-      <div class="row"><button class="ghost" id="resetTpl">Kembalikan pesan awal</button></div>
+      <div class="row"><button class="ghost" id="resetTpl">Kembalikan pesan awal</button><button class="danger" id="logoutBtn">Keluar</button></div>
     </details>
+  </div>
+  </div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -118,6 +160,10 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY='tamu_undangan_v1', CFG='tamu_undangan_cfg_v1';
 let guests = []; try{ guests = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){}
+const API = { url:'https://tpkxekmcrzavcyazkuzn.supabase.co/rest/v1', key:'sb_publishable_Xmz3qWjXVacxU6gXiWc8uw_ZktJ4A2P' };
+const rpc = (fn, body) => fetch(`${API.url}/rpc/${fn}`, { method:'POST', headers:{ apikey:API.key, 'Content-Type':'application/json' }, body:JSON.stringify(body) })
+  .then(async r => { if (!r.ok){ const t = await r.text(); throw new Error(/kunci salah/.test(t) ? 'key' : 'net'); } return r.status===204 ? null : r.json(); });
+let adminKey = localStorage.getItem('wedding_admin_key') || '', rsvp = [], wishes = [];
 let cfg = {}; try{ cfg = JSON.parse(localStorage.getItem(CFG)||'{}'); }catch(e){}
 const defBase = location.origin + location.pathname.replace(/kirim(\.html)?$/,'');
 $('#base').value = cfg.base || defBase;
@@ -125,7 +171,10 @@ $('#tpl').value = cfg.tpl || DEFAULT_TPL;
 const saveCfg = () => { cfg = { base: $('#base').value.trim(), tpl: $('#tpl').value }; localStorage.setItem(CFG, JSON.stringify(cfg)); };
 ['#base','#tpl'].forEach(s=>$(s).addEventListener('input', ()=>{ saveCfg(); render(); }));
 $('#resetTpl').addEventListener('click', ()=>{ $('#tpl').value = DEFAULT_TPL; saveCfg(); toast('Pesan dikembalikan'); });
-const save = () => localStorage.setItem(KEY, JSON.stringify(guests));
+let saveT = 0;
+const setSync = (t, err) => { const el=document.querySelector('#sync'); el.textContent=t; el.classList.toggle('err', !!err); };
+const save = () => { localStorage.setItem(KEY, JSON.stringify(guests)); if (!adminKey) return; setSync('Menyimpan…'); clearTimeout(saveT);
+  saveT = setTimeout(()=> rpc('wedding_guests_save', { p_key:adminKey, p_guests:guests }).then(()=>setSync('Tersimpan di server')).catch(()=>setSync('Belum tersimpan — periksa koneksi', true)), 600); };
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),2000); }
 
 const phone = p => { let d = String(p||'').replace(/\D/g,''); if (d.startsWith('0')) d = '62'+d.slice(1); else if (d.startsWith('8')) d = '62'+d; return d; };
@@ -174,7 +223,49 @@ $('#csvBtn').addEventListener('click', ()=>{
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = 'daftar-tamu-undangan.csv'; a.click();
 });
 $('#clearBtn').addEventListener('click', ()=>{ if (guests.length && confirm('Hapus semua tamu dari daftar?')){ guests = []; save(); render(); } });
-render();
+/* ---------- masuk, sinkron server, rekap RSVP & Wishes ---------- */
+const att = a => /tidak/i.test(a||'') ? 'n' : /hadir/i.test(a||'') && !/belum/i.test(a||'') ? 'y' : '';
+const when = iso => { const d=new Date(iso); return isNaN(d)?'':d.toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); };
+async function load(){
+  setSync('Memuat…');
+  try{ const d = await rpc('wedding_admin_data', { p_key:adminKey });
+    localStorage.setItem('wedding_admin_key', adminKey); $('#loginCard').hidden = true; $('#app').hidden = false;
+    rsvp = d.rsvp || []; wishes = d.wishes || [];
+    const srv = (d.guests || []).map(g=>({ id:g.id, name:g.name, phone:g.phone||'', sent:!!g.sent }));
+    if (!srv.length && guests.length){ save(); } else { guests = srv; localStorage.setItem(KEY, JSON.stringify(guests)); }
+    render(); renderRsvp(); renderWishes(); setSync('Tersimpan di server');
+  }catch(e){
+    if (e.message==='key'){ adminKey=''; localStorage.removeItem('wedding_admin_key'); $('#loginCard').hidden=false; $('#app').hidden=true; toast('Kunci salah'); }
+    else if (adminKey && adminKey === localStorage.getItem('wedding_admin_key')){ $('#loginCard').hidden=true; $('#app').hidden=false; render(); setSync('Tidak tersambung ke server — perubahan disimpan di HP ini', true); }
+    else toast('Tidak tersambung ke server');
+  }
+}
+function renderRsvp(){
+  const H = rsvp.filter(r=>r.attendance==='Hadir');
+  $('#rHadir').textContent = H.length; $('#rOrang').textContent = H.reduce((t,r)=>t+(r.guests||0),0);
+  $('#rRagu').textContent = rsvp.filter(r=>r.attendance==='Belum Pasti').length; $('#rTidak').textContent = rsvp.filter(r=>r.attendance==='Tidak Hadir').length;
+  $('#rsvpList').innerHTML = rsvp.length ? rsvp.map(r=>`<div class="g" data-rid="${r.id}"><div class="top"><div><p class="nm">${esc(r.name)}</p><p class="when">${when(r.created_at)}</p></div><span class="pill ${att(r.attendance)}">${esc(r.attendance)}${r.attendance!=='Tidak Hadir'?` · ${r.guests} org`:''}</span></div>
+    <div class="row"><button class="danger" data-rdel>Hapus</button></div></div>`).join('') : '<p class="empty">Belum ada konfirmasi kehadiran.</p>';
+}
+function renderWishes(){
+  $('#wishList').innerHTML = wishes.length ? wishes.map(w=>`<div class="g${w.hidden?' hid':''}" data-wid="${w.id}"><div class="top"><div><p class="nm">${esc(w.name)}</p><p class="when">${when(w.created_at)}</p></div>${w.attendance?`<span class="pill ${att(w.attendance)}">${esc(w.attendance)}</span>`:''}</div>
+    <p class="msg">${esc(w.message)}</p><div class="row"><button class="ghost" data-whide>${w.hidden?'Tampilkan':'Sembunyikan'}</button></div></div>`).join('') : '<p class="empty">Belum ada ucapan.</p>';
+}
+$('#rsvpList').addEventListener('click', async e=>{ if (!e.target.closest('[data-rdel]')) return; const id=+e.target.closest('[data-rid]').dataset.rid; const r=rsvp.find(x=>x.id===id);
+  if (!confirm(`Hapus konfirmasi ${r.name}?`)) return; try{ await rpc('wedding_rsvp_delete',{p_key:adminKey,p_id:id}); rsvp=rsvp.filter(x=>x.id!==id); renderRsvp(); }catch(err){ toast('Gagal menghapus'); } });
+$('#wishList').addEventListener('click', async e=>{ if (!e.target.closest('[data-whide]')) return; const id=+e.target.closest('[data-wid]').dataset.wid; const w=wishes.find(x=>x.id===id);
+  try{ await rpc('wedding_wish_hide',{p_key:adminKey,p_id:id,p_hidden:!w.hidden}); w.hidden=!w.hidden; renderWishes(); }catch(err){ toast('Gagal menyimpan'); } });
+$('#rsvpCsv').addEventListener('click', ()=>{ const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const csv='Nama,Kehadiran,Jumlah,Waktu\n'+rsvp.map(r=>[r.name,r.attendance,r.guests,when(r.created_at)].map(q).join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download='rsvp-undangan.csv'; a.click(); });
+document.querySelectorAll('[data-reload]').forEach(b=>b.addEventListener('click', load));
+document.querySelector('.tabs').addEventListener('click', e=>{ const b=e.target.closest('[data-tab]'); if(!b) return;
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on', x===b));
+  document.querySelectorAll('[data-panel]').forEach(p=>p.hidden = p.dataset.panel!==b.dataset.tab); if (b.dataset.tab!=='tamu') load(); });
+$('#loginBtn').addEventListener('click', ()=>{ adminKey=$('#keyIn').value.trim(); if (adminKey) load(); });
+$('#keyIn').addEventListener('keydown', e=>{ if (e.key==='Enter') $('#loginBtn').click(); });
+$('#logoutBtn').addEventListener('click', ()=>{ adminKey=''; localStorage.removeItem('wedding_admin_key'); localStorage.removeItem(KEY); guests=[]; $('#app').hidden=true; $('#loginCard').hidden=false; });
+render(); if (adminKey) load();
 </script>
 </body>
 </html>

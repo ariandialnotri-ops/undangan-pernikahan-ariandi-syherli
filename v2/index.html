@@ -207,6 +207,7 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .gb td b{display:block;font-family:var(--display);font-weight:400;font-size:16px;color:var(--white);line-height:1.25}
 .gb .pill{display:inline-block;margin-top:6px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.22);color:var(--silver)}
 .gb .pill.y{border-color:rgba(236,217,164,.5);color:var(--gold-hi)}.gb .pill.n{border-color:rgba(217,43,54,.5);color:#f0a3a8}
+.gb .when{display:block;margin-top:6px;font-size:10px;letter-spacing:.06em;color:var(--grey)}
 .gb .you{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-left:6px}
 .gb .empty td{text-align:center;color:var(--grey);padding:28px 18px}
 .gb tbody tr{animation:fadeUp .7s ease both}
@@ -376,7 +377,7 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
         <label><input type="radio" name="att" value="Belum Pasti"><span>Ragu</span></label>
         <label><input type="radio" name="att" value="Tidak Hadir"><span>Berhalangan</span></label></div></div>
       <div class="field"><label class="l" for="fCount">Jumlah Tamu</label><select id="fCount"><option>1 orang</option><option>2 orang</option><option>3 orang</option><option>4 orang</option></select></div>
-      <button class="btn red" type="submit" style="width:100%"><svg viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg>Konfirmasi via WhatsApp</button>
+      <button class="btn red" type="submit" style="width:100%"><svg viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg>Kirim Konfirmasi</button>
 
     </form>
   </section>
@@ -514,29 +515,49 @@ const target = new Date(WEDDING.date).getTime();
 function tick(){ const t=Math.max(0,target-Date.now())/1000, v={d:Math.floor(t/86400),h:Math.floor(t%86400/3600),m:Math.floor(t%3600/60),s:Math.floor(t%60)};
   for (const k in v) $('#cd-'+k).textContent = p2(v[k]); }
 tick(); setInterval(tick,1000);
-/* buku tamu: ucapan terkurasi (WEDDING.wishes) + ucapan yang dikirim dari perangkat ini */
-let mine = []; try{ mine = JSON.parse(localStorage.getItem('wedding_wish')||'[]'); }catch(e){}
+/* ---------- RSVP & Wishes: tersimpan di server (Supabase), ucapan tampil untuk semua tamu ---------- */
+const API = { url:'https://tpkxekmcrzavcyazkuzn.supabase.co/rest/v1', key:'sb_publishable_Xmz3qWjXVacxU6gXiWc8uw_ZktJ4A2P' };
+const api = (path, opt={}) => fetch(`${API.url}/${path}`, { ...opt, headers:{ apikey:API.key, 'Content-Type':'application/json', ...(opt.headers||{}) } })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.status === 204 || r.status === 201 ? null : r.json(); });
+let serverWishes = [], pending = [];
+try{ pending = JSON.parse(localStorage.getItem('wedding_wish_pending')||'[]'); }catch(e){}
+const fmtTime = iso => { const d=new Date(iso); return isNaN(d) ? '' : `${d.getDate()} ${BULAN[d.getMonth()].slice(0,3)} ${d.getFullYear()}, ${p2(d.getHours())}.${p2(d.getMinutes())}`; };
 function renderBook(){
-  const rows = [...mine.slice().reverse().map(w=>({name:w.n,status:w.a,message:w.m,you:true})), ...WEDDING.wishes];
+  const rows = [...pending.map(w=>({...w, wait:true})), ...serverWishes, ...WEDDING.wishes];
   $('#gbCount').textContent = rows.length;
-  const cls = st => /tidak/i.test(st) ? 'n' : /hadir/i.test(st) && !/belum/i.test(st) ? 'y' : '';
-  $('#gbBody').innerHTML = rows.length ? rows.map(r=>`<tr><td><b>${esc(r.name)}</b>${r.status?`<span class="pill ${cls(r.status)}">${esc(r.status)}</span>`:''}${r.you?'<span class="you">Anda</span>':''}</td><td>${esc(r.message||'—')}</td></tr>`).join('')
+  const cls = st => /tidak/i.test(st||'') ? 'n' : /hadir/i.test(st||'') && !/belum/i.test(st||'') ? 'y' : '';
+  $('#gbBody').innerHTML = rows.length ? rows.map(r=>`<tr><td><b>${esc(r.name)}</b>${r.attendance?`<span class="pill ${cls(r.attendance)}">${esc(r.attendance)}</span>`:''}${r.wait?'<span class="you">Mengirim…</span>':''}</td><td>${esc(r.message||'—')}${r.created_at?`<span class="when">${fmtTime(r.created_at)}</span>`:''}</td></tr>`).join('')
     : '<tr class="empty"><td colspan="2">Belum ada ucapan. Jadilah yang pertama mengirimkan doa terbaik.</td></tr>';
 }
-renderBook();
-const openWA = text => { const link=document.createElement('a'); link.href=`https://wa.me/${WEDDING.whatsapp}?text=${encodeURIComponent(text)}`; link.target='_blank'; link.rel='noopener'; document.body.appendChild(link); link.click(); link.remove(); toast('Membuka WhatsApp'); };
+async function loadWishes(){ try{ serverWishes = await api('wedding_wishes?select=name,message,attendance,created_at&order=created_at.desc&limit=300'); renderBook(); }catch(e){} }
+async function flushPending(){ for (const w of [...pending]){ try{ await api('wedding_wishes', { method:'POST', headers:{ Prefer:'return=minimal' }, body:JSON.stringify({ name:w.name, message:w.message, attendance:w.attendance||null }) });
+    pending = pending.filter(x=>x!==w); try{ localStorage.setItem('wedding_wish_pending', JSON.stringify(pending)); }catch(e){} }catch(e){ break; } } }
+renderBook(); flushPending().then(loadWishes);
+// perbarui riwayat ucapan selama bagian Wishes terlihat
+let wishTimer = 0;
+new IntersectionObserver(es=>{ clearInterval(wishTimer); if (es[0].isIntersecting){ loadWishes(); wishTimer = setInterval(loadWishes, 20000); } }).observe($('#wishesSec'));
+
 let lastAtt = '';
-$('#rsvpForm').addEventListener('submit', e=>{ e.preventDefault();
-  const n=$('#fName').value.trim(), a=document.querySelector('input[name=att]:checked').value, c=$('#fCount').value;
+const busy = (form, on) => { const b=form.querySelector('button[type=submit]'); b.disabled=on; b.style.opacity = on ? .6 : ''; };
+$('#rsvpForm').addEventListener('submit', async e=>{ e.preventDefault(); const form=e.currentTarget;
+  const n=$('#fName').value.trim(), a=document.querySelector('input[name=att]:checked').value, c=parseInt($('#fCount').value)||1;
   if(!n){ $('#fName').focus(); toast('Mohon isi nama Anda'); return; }
   lastAtt = a; if (!$('#wName').value) $('#wName').value = n;
-  openWA(`Assalamu'alaikum ${G.nick} & ${B.nick},\n\nKonfirmasi kehadiran\nNama: ${n}\nKehadiran: ${a}${a!=='Tidak Hadir'?`\nJumlah tamu: ${c}`:''}`); });
-$('#wishForm').addEventListener('submit', e=>{ e.preventDefault();
+  busy(form,true);
+  try{ await api('wedding_rsvp', { method:'POST', headers:{ Prefer:'return=minimal' }, body:JSON.stringify({ name:n.slice(0,80), attendance:a, guests: a==='Tidak Hadir' ? 0 : c }) });
+    toast('Terima kasih, konfirmasi tersimpan'); form.querySelector('.done')?.remove();
+    form.insertAdjacentHTML('beforeend', `<p class="hint done">Konfirmasi atas nama <b>${esc(n)}</b> (${esc(a)}) sudah kami terima.</p>`);
+  }catch(err){ toast('Gagal mengirim, periksa koneksi'); }
+  busy(form,false); });
+$('#wishForm').addEventListener('submit', async e=>{ e.preventDefault(); const form=e.currentTarget;
   const n=$('#wName').value.trim(), m=$('#fMsg').value.trim();
   if(!n){ $('#wName').focus(); toast('Mohon isi nama Anda'); return; }
   if(!m){ $('#fMsg').focus(); toast('Mohon tulis ucapan Anda'); return; }
-  mine.push({n,a:lastAtt,m}); mine = mine.slice(-5); try{ localStorage.setItem('wedding_wish',JSON.stringify(mine)); }catch(e){} renderBook(); $('#fMsg').value='';
-  openWA(`Assalamu'alaikum ${G.nick} & ${B.nick},\n\nUcapan dari ${n}:\n${m}`); });
+  const w = { name:n.slice(0,80), message:m.slice(0,600), attendance:lastAtt||null };
+  pending.unshift(w); try{ localStorage.setItem('wedding_wish_pending', JSON.stringify(pending)); }catch(e){}
+  renderBook(); $('#fMsg').value=''; busy(form,true);
+  await flushPending(); await loadWishes(); busy(form,false);
+  toast(pending.includes(w) ? 'Ucapan akan dikirim saat koneksi tersedia' : 'Terima kasih atas ucapannya'); });
 
 /* ---------- tulisan tangan: tiap baris satu SVG, disapu kiri→kanan dengan topeng lembut ---------- */
 const NS='http://www.w3.org/2000/svg';
