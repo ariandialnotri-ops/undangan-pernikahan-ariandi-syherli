@@ -79,9 +79,9 @@ main{position:relative;z-index:2;max-width:var(--col);margin:0 auto}
 .cover .to{font-family:var(--display);font-style:normal;font-size:23px;color:var(--white);margin-bottom:6px}
 .cover .to small{display:block;font-family:var(--sans);font-style:normal;font-weight:600;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-hi);text-shadow:0 1px 10px rgba(0,0,0,.6);margin-bottom:4px}
 .cover .note{font-size:12.5px;color:var(--grey);line-height:1.55;max-width:300px;margin:0 auto 18px}
-.glass{background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(255,255,255,.05),0 10px 28px -14px rgba(0,0,0,.8);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%)}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05)),rgba(16,16,18,.42);border:1px solid rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(255,255,255,.05),0 10px 28px -14px rgba(0,0,0,.8)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;color:var(--white);border-radius:999px;padding:13px 24px 13px 18px;cursor:pointer;text-decoration:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);transition:background .4s,transform .3s}
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05)),rgba(16,16,18,.42);border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 26px -14px rgba(0,0,0,.85);transition:background .4s,transform .3s}
 .btn:active{transform:scale(.97);background:rgba(255,255,255,.22)}
 .btn svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
 .btn.goldb{border-color:rgba(236,217,164,.5);color:var(--gold-hi)}
@@ -192,7 +192,7 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .chips{display:flex;gap:8px;margin-top:6px}
 .chips label{flex:1;cursor:pointer}
 .chips input{position:absolute;opacity:0;pointer-events:none}
-.chips span{display:block;text-align:center;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:12px 2px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:var(--silver);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:all .35s}
+.chips span{display:block;text-align:center;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:12px 2px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:var(--silver);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04)),rgba(16,16,18,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:all .35s}
 .chips input:checked+span{background:rgba(255,255,255,.88);color:#000;border-color:#fff}
 .hint{font-size:12px;color:var(--grey);margin-top:12px;text-align:center}
 /* buku tamu (glass) */
@@ -201,7 +201,7 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .gb .meta b{font-family:var(--display);font-weight:400;font-size:18px;letter-spacing:0;color:var(--white);margin-right:6px}
 .gb .scroll{max-height:min(56vh,460px);overflow:auto;overscroll-behavior:contain}
 .gb table{width:100%;border-collapse:collapse;text-align:left}
-.gb th{position:sticky;top:0;z-index:1;font-weight:400;font-size:8.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi);padding:12px 18px;background:rgba(20,20,22,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.gb th{position:sticky;top:0;z-index:1;font-weight:400;font-size:8.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi);padding:12px 18px;background:rgba(20,20,22,.72)}
 .gb td{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);vertical-align:top;font-size:13.5px;color:var(--silver);line-height:1.55}
 .gb td:first-child{width:38%}
 .gb td b{display:block;font-family:var(--display);font-weight:400;font-size:16px;color:var(--white);line-height:1.25}
@@ -216,7 +216,7 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .bank .bn{font-size:9px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
 .bank .num{font-family:var(--display);font-size:clamp(16px,5.2vw,21px);color:var(--white);letter-spacing:.04em;white-space:nowrap;line-height:1.3;font-variant-numeric:tabular-nums}
 .bank .an{font-size:12.5px;color:var(--silver)}
-.bank button{flex:none;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);border:1px solid rgba(236,217,164,.4);border-radius:999px;color:var(--gold-hi);font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
+.bank button{flex:none;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04)),rgba(16,16,18,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);border:1px solid rgba(236,217,164,.4);border-radius:999px;color:var(--gold-hi);font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
 #gifts{display:none;margin-top:22px}#gifts.open{display:block;animation:fadeUp .8s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
 
@@ -225,7 +225,6 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .closing p.body{font-size:13.5px;margin-top:14px;max-width:330px}
 .cnames{font-size:clamp(46px,14vw,60px);color:var(--white);margin:16px auto 0;width:78%}
 .cphoto{margin:14px -30px 0;position:relative;flex:1 1 auto;min-height:0;overflow:hidden}
-.cphoto::before{content:"";position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(#000,rgba(0,0,0,0));z-index:1}
 .cphoto img{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
 @media (max-height:720px){.closing{padding-top:calc(40px + env(safe-area-inset-top))}.closing h2{font-size:34px}.closing p.body{font-size:12.5px;margin-top:8px}.cnames{font-size:42px;margin-top:8px;width:64%}.cphoto{margin-top:6px}}
 footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background:#000;padding:20px 20px calc(24px + env(safe-area-inset-bottom));text-align:center;font-size:9px;letter-spacing:.38em;color:#66666b;text-transform:uppercase}
@@ -233,8 +232,10 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
 /* ============ KONTROL ============ */
 .progress{position:fixed;top:0;left:50%;width:min(100%,var(--col));transform:translateX(-50%);height:2px;z-index:50;pointer-events:none}
 .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--gold));transform-origin:0 50%;transform:scaleX(0)}
-.ui{position:fixed;left:50%;width:min(100%,var(--col));transform:translateX(-50%);z-index:50;pointer-events:none;opacity:0;transition:opacity .8s}
-.opened .ui{opacity:1}
+.ui{position:fixed;left:50%;width:min(100%,var(--col));transform:translateX(-50%);z-index:50;pointer-events:none}
+/* tombol kaca memudar sendiri-sendiri (bukan induknya) agar blur iOS tidak muncul tiba-tiba */
+.ui>*{opacity:0;transition:opacity .9s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.opened .ui>*{opacity:1}
 .ui.t{top:0}.ui.b{bottom:0}
 .burger{position:absolute;top:calc(16px + env(safe-area-inset-top));right:18px;width:44px;height:44px;border-radius:50%;display:grid;place-content:center;gap:5px;cursor:pointer;pointer-events:auto;background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%)}
 .burger i{display:block;width:16px;height:1px;background:var(--white);transition:transform .4s}
@@ -248,9 +249,9 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
 .menu a{display:flex;align-items:baseline;gap:16px;text-decoration:none;font-family:var(--display);font-size:clamp(20px,6vw,25px);color:var(--white);padding:7px 0;line-height:1.2;opacity:0;transform:translateX(-18px);transition:opacity .6s ease var(--d,0s),transform .7s cubic-bezier(.16,1,.3,1) var(--d,0s)}
 .menu.open a{opacity:1;transform:none}
 .menu a small{font-family:var(--sans);font-size:9.5px;letter-spacing:.2em;color:var(--red-hi);width:20px}
-.menu .x{position:absolute;top:calc(20px + env(safe-area-inset-top));right:20px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:9px 16px!important;font-size:10px;letter-spacing:.34em;color:var(--silver);cursor:pointer;padding:8px}
+.menu .x{position:absolute;top:calc(20px + env(safe-area-inset-top));right:20px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);padding:9px 16px!important;font-size:10px;letter-spacing:.34em;color:var(--silver);cursor:pointer;padding:8px}
 .scrollhint{position:absolute;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;pointer-events:auto;color:var(--white);
-  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%)}
 .scrollhint svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;animation:nudge 2.2s ease-in-out infinite}
 .scrollhint:active{transform:scale(.92)}
 .scrollhint.up svg{transform:rotate(180deg);animation:none}
