@@ -225,6 +225,7 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .closing p.body{font-size:13.5px;margin-top:14px;max-width:330px}
 .cnames{font-size:clamp(46px,14vw,60px);color:var(--white);margin:16px auto 0;width:78%}
 .cphoto{margin:14px -30px 0;position:relative;flex:1 1 auto;min-height:0;overflow:hidden}
+.cphoto::before{content:"";position:absolute;left:0;right:0;top:0;height:13%;background:linear-gradient(#000,rgba(0,0,0,.55) 35%,rgba(0,0,0,0));z-index:1;pointer-events:none}
 .cphoto img{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
 @media (max-height:720px){.closing{padding-top:calc(40px + env(safe-area-inset-top))}.closing h2{font-size:34px}.closing p.body{font-size:12.5px;margin-top:8px}.cnames{font-size:42px;margin-top:8px;width:64%}.cphoto{margin-top:6px}}
 footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background:#000;padding:20px 20px calc(24px + env(safe-area-inset-bottom));text-align:center;font-size:9px;letter-spacing:.38em;color:#66666b;text-transform:uppercase}
@@ -566,12 +567,16 @@ fontsReady.then(()=>{ HW.forEach(el=>{ try{ buildHW(el); }catch(e){ console.warn
 const Music = { el: $('#bgm'), on:false, raf:0,
   fade(to, ms, done){ const a=this.el, from=a.volume, t0=performance.now(); cancelAnimationFrame(this.raf);
     const step = now => { const k=Math.min(1,(now-t0)/ms); a.volume = from+(to-from)*k; if (k<1) this.raf=requestAnimationFrame(step); else done && done(); }; this.raf=requestAnimationFrame(step); },
-  start(){ const a=this.el; a.volume=.05; const p=a.play(), ok=()=>{ this.on=true; this.fade(.85,1800); $('#musicBtn').classList.add('on'); };
-    // bila browser menolak, coba lagi pada sentuhan berikutnya
-    const retry=()=>{ document.removeEventListener('pointerdown',retry,true); if(!this.on) this.start(); };
-    if (p&&p.then) p.then(ok).catch(()=>document.addEventListener('pointerdown',retry,true)); else ok(); },
+  start(){ if (this.on) return; const a=this.el; a.volume=.05; const p=a.play(), ok=()=>{ this.on=true; this.fade(.85,1800); $('#musicBtn').classList.add('on'); };
+    if (p&&p.then) p.then(ok).catch(()=>Music.arm()); else ok(); },
+  // browser HP baru mengizinkan suara setelah sentuhan pertama: sentuhan apa pun (juga di sampul) langsung memutar musik
+  arm(){ if (this.armed) return; this.armed=true; const evs=['touchend','click','pointerup','keydown'];
+    const go=()=>{ if (this.paused) return; evs.forEach(e=>document.removeEventListener(e,go,true)); this.armed=false; this.start(); };
+    evs.forEach(e=>document.addEventListener(e,go,true)); },
   stop(){ this.on=false; this.fade(0,800,()=>this.el.pause()); $('#musicBtn').classList.remove('on'); } };
-$('#musicBtn').addEventListener('click', ()=> Music.on ? Music.stop() : Music.start());
+$('#musicBtn').addEventListener('click', e=>{ e.stopPropagation(); if (Music.on){ Music.paused=true; Music.stop(); } else { Music.paused=false; Music.start(); } });
+/* musik dicoba diputar sejak sampul tampil (sebelum Buka Undangan) */
+Music.start();
 document.addEventListener('visibilitychange', ()=>{ if (!Music.on) return; document.hidden ? Music.el.pause() : Music.el.play().catch(()=>{}); });
 
 /* ---------- menu & lightbox ---------- */
