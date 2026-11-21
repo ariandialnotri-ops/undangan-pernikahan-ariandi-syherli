@@ -15,7 +15,7 @@
 <link rel="preload" as="image" href="assets/cover.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/fonts/orange-avenue.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/amsterdam.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -150,14 +150,6 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .in .sfig img,.sfig.in img{transform:none}
 .stitle{position:absolute;left:calc(26% - 6px);bottom:0;z-index:2;width:83%;color:var(--white);transform-origin:0 100%;transform:rotate(-90deg)}
 .stext p{font-size:14px;color:var(--silver);line-height:1.75;margin-bottom:14px;text-align:justify;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto}
-.chap{margin:34px 0 6px}
-.chap .yr{font-family:'Bodoni Moda','Didot',serif;font-weight:700;font-size:clamp(84px,28vw,124px);line-height:.8;letter-spacing:-.035em;color:var(--white);display:flex;align-items:flex-end;gap:14px}
-.chap .yr span{background:linear-gradient(180deg,#fff7e2 0%,var(--gold-hi) 45%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.chap .yr i{flex:1;height:1px;background:rgba(255,255,255,.28);margin-bottom:.16em}
-.chap .kick{font-size:9.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--white);font-weight:500;margin:14px 0 10px;display:flex;align-items:center;gap:10px}
-.chap .kick::before{content:"";width:22px;height:2px;background:var(--red-hi)}
-.chap p.txt{margin-bottom:0}
-.stext p.drop::first-letter{float:left;font-family:'Bodoni Moda','Didot',serif;font-weight:700;font-size:4.1em;line-height:.78;margin:.08em .1em 0 0;color:var(--gold-hi)}
 .stext p.lead{font-family:var(--display);font-style:normal;font-size:clamp(16px,4.6vw,19px);line-height:1.5;color:var(--white)}
 .sclose{margin-top:24px;padding-top:24px;border-top:1px solid var(--hair);text-align:center}
 .sclose p{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.75;letter-spacing:.02em;color:var(--white)}
@@ -440,7 +432,7 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
   <button class="scrollhint" id="nextBtn" aria-label="Bagian berikutnya"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>
 <nav class="menu" id="menu"><button class="x" data-close>TUTUP</button><div id="menuList"></div></nav>
 <div class="light" id="light"><button data-close>TUTUP</button><img id="lightImg" alt=""></div>
-<audio id="bgm" src="assets/music.mp3#t=125" preload="auto" playsinline></audio>
+<audio id="bgm" src="assets/music.mp3" loop preload="auto" playsinline></audio>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -460,10 +452,11 @@ const WEDDING = {
   ],
   story: {
     lead:'Siapa sangka, sebuah kisah cinta telah menyimpan jejaknya jauh sebelum benar-benar dimulai.',
-    intro:'Berawal dari pertemuan di bangku SMP di Kota Padang, berlanjut di masa SMA, hingga kembali dipertemukan di sebuah kampus di Kota Bogor. Berkali-kali berada dalam ruang dan waktu yang sama, namun belum pernah benar-benar saling mengenal.',
-    chapters:[   // gaya majalah: tahun ditulis besar
-      { year:'2024', title:'Memulai Cerita', text:'Waktu seolah memberikan kesempatan untuk memulai cerita yang berbeda. Percakapan sederhana tumbuh menjadi sebuah hubungan, perjalanan bersama, dan keyakinan untuk saling menetap.' },
-      { year:'2026', title:'Satu Kesatuan', text:'Babak baru ketika kami memutuskan untuk melangkah lebih jauh melalui sebuah pertunangan. Dan kini, kami akan mengawali perjalanan baru sebagai satu kesatuan.' }
+    paragraphs:[
+      'Berawal dari pertemuan di bangku SMP di Kota Padang, berlanjut di masa SMA, hingga kembali dipertemukan di sebuah kampus di Kota Bogor. Berkali-kali berada dalam ruang dan waktu yang sama, namun belum pernah benar-benar saling mengenal.',
+      'Hingga Desember 2024, waktu seolah memberikan kesempatan untuk memulai cerita yang berbeda. Percakapan sederhana tumbuh menjadi sebuah hubungan, perjalanan bersama, dan keyakinan untuk saling menetap.',
+      'Tahun 2026 menjadi babak baru ketika kami memutuskan untuk melangkah lebih jauh melalui sebuah pertunangan.',
+      'Dan kini, pada 12 Desember 2026, kami akan mengawali perjalanan baru sebagai satu kesatuan.'
     ],
     closing:'Sebab terkadang, cinta bukan tentang siapa yang datang lebih dahulu, melainkan siapa yang akhirnya memilih untuk tetap tinggal.'
   },
@@ -517,8 +510,7 @@ $('#calBtn').href = 'https://calendar.google.com/calendar/render?' + new URLSear
 const PIN = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 $('#events').innerHTML = WEDDING.events.map((e,i)=>`<div class="ev rv" style="--d:${(.5+i*.15).toFixed(2)}s"><h3>${esc(e.name)}</h3><p class="time">${esc(e.time)}</p>
   <p class="place">${esc(e.place)}</p>${e.addr?`<p class="addr">${esc(e.addr)}</p>`:'<div style="height:14px"></div>'}<a class="btn sm" href="${esc(e.maps)}" target="_blank" rel="noopener">${PIN}Lihat Lokasi</a></div>`).join('');
-$('#storyText').innerHTML = `<p class="lead rv" style="--d:.3s">${esc(WEDDING.story.lead)}</p><p class="drop rv" style="--d:.4s">${esc(WEDDING.story.intro)}</p>`
-  + WEDDING.story.chapters.map(c=>`<div class="chap"><div class="yr rv" style="--d:.3s"><span>${esc(c.year)}</span><i></i></div><p class="kick rv" style="--d:.45s">${esc(c.title)}</p><p class="txt rv" style="--d:.55s">${esc(c.text)}</p></div>`).join('');
+$('#storyText').innerHTML = `<p class="lead rv" style="--d:.3s">${esc(WEDDING.story.lead)}</p>` + WEDDING.story.paragraphs.map((t,i)=>`<p class="rv" style="--d:${(.35+i*.06).toFixed(2)}s">${esc(t)}</p>`).join('');
 $('#storyClose').innerHTML = `<p>“${esc(WEDDING.story.closing)}”</p><span class="by">— ${esc(G.nick)} &amp; ${esc(B.nick)}</span>`;
 /* galeri: dua baris foto, digeser manual ke kanan-kiri */
 const half = Math.ceil(WEDDING.gallery/2);
@@ -607,14 +599,6 @@ fontsReady.then(()=>{ HW.forEach(el=>{ try{ buildHW(el); }catch(e){ console.warn
   Promise.all([img, fontsReady, document.fonts.ready]).then(()=>setTimeout(done, 300)); setTimeout(done, 6000); })();
 
 /* ---------- musik ---------- */
-/* lagu dimulai dari menit 2:05; setelah selesai diulang dari detik 0:01 */
-(()=>{ const a=$('#bgm'), START=125; let want=true;   // tetap mencoba lompat ke 2:05 sampai berhasil
-  const seek=()=>{ if (!want) return; if (a.currentTime >= START-1){ want=false; return; }
-    if (a.seekable.length && a.seekable.end(a.seekable.length-1) > START){ try{ a.currentTime = START; }catch(e){} } };
-  ['loadedmetadata','canplay','play','progress','timeupdate'].forEach(ev=>a.addEventListener(ev, seek));
-  a.addEventListener('ended', ()=>{ want=false; a.currentTime = 1; a.play().catch(()=>{}); }); })();
-/* musik: masuk perlahan dari sangat pelan ke normal (naik per desibel, bukan linear).
-   iPhone mengabaikan audio.volume, jadi bila ada sentuhan dipakai Web Audio (GainNode). */
 const Music = { el: $('#bgm'), on:false, raf:0, ctx:null, gain:null, FULL:.85, FLOOR:.0015,
   graph(){ if (this.gain) return true; const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
     try{ this.ctx = new AC(); const src = this.ctx.createMediaElementSource(this.el); this.gain = this.ctx.createGain();
