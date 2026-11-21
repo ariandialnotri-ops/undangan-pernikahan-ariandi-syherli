@@ -74,6 +74,13 @@ main{position:relative;z-index:2;max-width:var(--col);margin:0 auto}
 .cover h1 span{display:block}
 .cover h1 em{position:absolute;right:-.12em;top:.04em;font-style:normal;font-size:2.1em;line-height:1;color:rgba(255,255,255,.22);font-family:var(--display);pointer-events:none}
 .cover .date{font-size:10px;letter-spacing:.4em;color:var(--white);margin-top:14px;text-transform:uppercase}
+.tapmusic{margin:22px auto 0;display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 7px;border-radius:999px;cursor:pointer;color:var(--white);font:inherit;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%)}
+.tapmusic .ic{position:relative;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#000}
+.tapmusic .ic::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid rgba(255,255,255,.75);animation:tapPulse 2s ease-out infinite}
+.tapmusic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@keyframes tapPulse{from{transform:scale(1);opacity:.9}to{transform:scale(1.9);opacity:0}}
+.music-on .tapmusic{opacity:0!important;transform:translateY(-6px) scale(.96)!important;pointer-events:none;transition:opacity .9s ease,transform .9s ease!important}
 .cover .bot{position:absolute;left:0;right:0;bottom:calc(clamp(30px,6vh,54px) + env(safe-area-inset-bottom));text-align:center;padding:0 34px}
 .cover .to{font-family:var(--display);font-style:normal;font-size:23px;color:var(--white);margin-bottom:6px}
 .cover .to small{display:block;font-family:var(--sans);font-style:normal;font-weight:600;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-hi);text-shadow:0 1px 10px rgba(0,0,0,.6);margin-bottom:4px}
@@ -318,6 +325,7 @@ footer{position:relative;z-index:2;max-width:var(--col);margin:0 auto;background
     <p class="eyebrow a" style="--d:1.1s;color:var(--gold-hi)">The Wedding Of</p>
     <h1 class="display a" style="--d:1.4s"><span data-k="g">Rian</span><span data-k="b">Syherli</span><em>&amp;</em></h1>
     <p class="date a" style="--d:1.8s" id="coverDate">Sabtu, 12 / 12 / 2026</p>
+    <button class="tapmusic a" id="tapMusic" style="--d:2.3s" aria-label="Ketuk untuk memutar lagu"><span class="ic"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span>Ketuk untuk memutar lagu</span></button>
   </div>
   <div class="bot">
     <p class="to a" style="--d:2.1s"><small>Kepada Yth.</small><span id="guestName">Tamu Undangan</span></p>
@@ -604,17 +612,32 @@ fontsReady.then(()=>{ HW.forEach(el=>{ try{ buildHW(el); }catch(e){ console.warn
     if (a.seekable.length && a.seekable.end(a.seekable.length-1) > START){ try{ a.currentTime = START; }catch(e){} } };
   ['loadedmetadata','canplay','play','progress','timeupdate'].forEach(ev=>a.addEventListener(ev, seek));
   a.addEventListener('ended', ()=>{ want=false; a.currentTime = 1; a.play().catch(()=>{}); }); })();
-const Music = { el: $('#bgm'), on:false, raf:0,
-  fade(to, ms, done){ const a=this.el, from=a.volume, t0=performance.now(); cancelAnimationFrame(this.raf);
-    const step = now => { const k=Math.min(1,(now-t0)/ms); a.volume = from+(to-from)*k; if (k<1) this.raf=requestAnimationFrame(step); else done && done(); }; this.raf=requestAnimationFrame(step); },
-  start(){ if (this.on) return; const a=this.el; a.volume=.05; const p=a.play(), ok=()=>{ this.on=true; this.fade(.85,1800); $('#musicBtn').classList.add('on'); };
+/* musik: masuk perlahan dari sangat pelan ke normal (naik per desibel, bukan linear).
+   iPhone mengabaikan audio.volume, jadi bila ada sentuhan dipakai Web Audio (GainNode). */
+const Music = { el: $('#bgm'), on:false, raf:0, ctx:null, gain:null, FULL:.85, FLOOR:.0015,
+  graph(){ if (this.gain) return true; const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+    try{ this.ctx = new AC(); const src = this.ctx.createMediaElementSource(this.el); this.gain = this.ctx.createGain();
+      this.gain.gain.value = this.FLOOR; src.connect(this.gain).connect(this.ctx.destination); this.el.volume = 1; return true; }catch(e){ return false; } },
+  ramp(to, ms, done){ cancelAnimationFrame(this.raf);
+    if (this.gain){ const g=this.gain.gain, t=this.ctx.currentTime; g.cancelScheduledValues(t); g.setValueAtTime(Math.max(g.value,this.FLOOR), t);
+      g.exponentialRampToValueAtTime(Math.max(to,this.FLOOR), t+ms/1000); if (done) setTimeout(done, ms); return; }
+    const a=this.el, from=Math.max(a.volume,this.FLOOR), t0=performance.now();      // cadangan: volume elemen, kurva eksponensial
+    const step=now=>{ const k=Math.min(1,(now-t0)/ms); a.volume = Math.min(1, from*Math.pow(Math.max(to,this.FLOOR)/from, k)); if (k<1) this.raf=requestAnimationFrame(step); else done && done(); };
+    this.raf=requestAnimationFrame(step); },
+  start(gesture){ if (this.on) return; const a=this.el;
+    if (gesture && !this.gain && !this.autoplayed) this.graph();
+    if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume().catch(()=>{});
+    if (this.gain) this.gain.gain.value = this.FLOOR; else a.volume = this.FLOOR;
+    const p=a.play(), ok=()=>{ this.on=true; if (!gesture && !this.gain) this.autoplayed=true; this.ramp(this.FULL, 5200);
+      $('#musicBtn').classList.add('on'); document.body.classList.add('music-on'); };
     if (p&&p.then) p.then(ok).catch(()=>Music.arm()); else ok(); },
   // browser HP baru mengizinkan suara setelah sentuhan pertama: sentuhan apa pun (juga di sampul) langsung memutar musik
   arm(){ if (this.armed) return; this.armed=true; const evs=['touchend','click','pointerup','keydown'];
-    const go=()=>{ if (this.paused) return; evs.forEach(e=>document.removeEventListener(e,go,true)); this.armed=false; this.start(); };
+    const go=()=>{ if (this.paused) return; evs.forEach(e=>document.removeEventListener(e,go,true)); this.armed=false; this.start(true); };
     evs.forEach(e=>document.addEventListener(e,go,true)); },
-  stop(){ this.on=false; this.fade(0,800,()=>this.el.pause()); $('#musicBtn').classList.remove('on'); } };
-$('#musicBtn').addEventListener('click', e=>{ e.stopPropagation(); if (Music.on){ Music.paused=true; Music.stop(); } else { Music.paused=false; Music.start(); } });
+  stop(){ this.on=false; this.ramp(this.FLOOR, 900, ()=>{ if (!this.on) this.el.pause(); }); $('#musicBtn').classList.remove('on'); } };
+$('#musicBtn').addEventListener('click', e=>{ e.stopPropagation(); if (Music.on){ Music.paused=true; Music.stop(); } else { Music.paused=false; Music.start(true); } });
+$('#tapMusic').addEventListener('click', ()=>{ Music.paused=false; Music.start(true); });
 /* musik dicoba diputar sejak sampul tampil (sebelum Buka Undangan) */
 Music.start();
 document.addEventListener('visibilitychange', ()=>{ if (!Music.on) return; document.hidden ? Music.el.pause() : Music.el.play().catch(()=>{}); });
@@ -685,7 +708,7 @@ addEventListener('scroll', ()=>{ if (!tk){ tk = true; requestAnimationFrame(onSc
 let opened=false;
 $('#openBtn').addEventListener('click', ()=>{ if (opened) return; opened=true;
   history.replaceState(null,'',location.pathname+location.search); scrollTo(0,0);
-  Music.start(); const c=$('#cover'); c.classList.add('out');
+  Music.start(true); const c=$('#cover'); c.classList.add('out');
   setTimeout(()=>{ document.body.classList.remove('locked'); document.body.classList.add('opened'); onScroll(); RV.forEach(el=>io.observe(el)); fontsReady.then(()=>HW.forEach(el=>hwIO.observe(el))); }, reduce?0:700);
   setTimeout(()=>c.remove(), reduce?100:2600);
 });
