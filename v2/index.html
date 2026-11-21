@@ -135,10 +135,11 @@ p.body{font-size:14.5px;color:var(--silver);max-width:380px}
 .portrait .ortu small{display:block;font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
 .portrait .ortu b{display:block;font-family:var(--display);font-weight:400;color:var(--white);font-size:16px;line-height:1.45}
 .portrait .btn{margin-top:16px}
-.igbtn{margin-top:16px;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:9px 16px 9px 10px;border-radius:999px;text-decoration:none;color:var(--white);font-size:12px;letter-spacing:.06em;
-  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%)}
-.igbtn svg{width:28px;height:28px;padding:6px;border-radius:50%;fill:none;stroke:#fff;stroke-width:1.7;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
-.igbtn:active{transform:scale(.97)}
+.fullrow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.igbtn{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:10px;color:var(--white);text-decoration:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.32);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px -14px rgba(0,0,0,.85);backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%)}
+.igbtn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6}
+.igbtn:active{transform:scale(.94)}
 
 
 /* kisah */
@@ -506,9 +507,9 @@ document.title = `${G.nick} & ${B.nick} — ${p2(D0.d)}.${p2(D0.m+1)}.${D0.y}`;
   $('#guestName').textContent = n; $('#fName').value = n; $('#wName').value = n; })();
 const person = (p, putra) => `<div class="vtag rv" style="--d:.6s"><span>${putra?'The Groom':'The Bride'}</span><i></i></div>
   <h2 class="display rv" style="--d:.9s"><span class="mask"><span style="--d:1s">${esc(p.nick)}</span></span></h2>
-  <p class="full rv" style="--d:1.05s">${esc(p.full)}</p>${p.gala?`<p class="gala rv" style="--d:1.1s">${esc(p.gala)}</p>`:''}
+  <div class="fullrow"><p class="full rv" style="--d:1.05s">${esc(p.full)}</p>${p.ig?`<a class="igbtn rv" style="--d:1.15s" href="https://www.instagram.com/${esc(p.ig)}" target="_blank" rel="noopener" aria-label="Instagram ${esc(p.nick)} @${esc(p.ig)}"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>`:''}</div>${p.gala?`<p class="gala rv" style="--d:1.1s">${esc(p.gala)}</p>`:''}
   <p class="ortu rv" style="--d:1.2s"><small>Anak kandung dari</small><b>${esc(p.father)}</b><b>&amp; ${esc(p.mother)}</b></p>
-  ${p.ig?`<a class="igbtn rv" style="--d:1.3s" href="https://www.instagram.com/${esc(p.ig)}" target="_blank" rel="noopener" aria-label="Instagram ${esc(p.nick)}"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg><span>@${esc(p.ig)}</span></a>`:''}`;
+`;
 $('#groom').innerHTML = person(G,true); $('#bride').innerHTML = person(B,false);
 const f = s => new Date(s).toISOString().replace(/[-:]|\.\d{3}/g,'');
 $('#calBtn').href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({ action:'TEMPLATE', text:`Pernikahan ${G.nick} & ${B.nick}`,
